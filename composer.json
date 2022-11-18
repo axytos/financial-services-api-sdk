@@ -11,7 +11,9 @@
         "psr-4": {
             "Axytos\\FinancialServices\\": "src/"
         },
-        "files": [ "src/openapi_client_include.php" ]
+        "files": [
+            "src/openapi_client_include.php"
+        ]
     },
     "require": {
         "php": ">=7.4.0"
