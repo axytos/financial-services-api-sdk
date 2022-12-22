@@ -23,7 +23,10 @@ class PrepareBodyMiddleware
     {
         $this->nextHandler = $nextHandler;
     }
-    public function __invoke(RequestInterface $request, array $options) : PromiseInterface
+    /**
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
+     */
+    public function __invoke(RequestInterface $request, array $options)
     {
         $fn = $this->nextHandler;
         // Don't do anything if the request has no body.
@@ -54,14 +57,15 @@ class PrepareBodyMiddleware
     }
     /**
      * Add expect header
+     * @return void
      */
-    private function addExpectHeader(RequestInterface $request, array $options, array &$modify) : void
+    private function addExpectHeader(RequestInterface $request, array $options, array &$modify)
     {
         // Determine if the Expect header should be used
         if ($request->hasHeader('Expect')) {
             return;
         }
-        $expect = $options['expect'] ?? null;
+        $expect = isset($options['expect']) ? $options['expect'] : null;
         // Return if disabled or if you're not using HTTP/1.1 or HTTP/2.0
         if ($expect === \false || $request->getProtocolVersion() < 1.1) {
             return;

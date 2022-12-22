@@ -18,7 +18,7 @@ final class Utils
      * @return string Returns a string containing the type of the variable and
      *                if a class is provided, the class name.
      */
-    public static function describeType($input) : string
+    public static function describeType($input)
     {
         switch (\gettype($input)) {
             case 'object':
@@ -39,8 +39,9 @@ final class Utils
      *
      * @param iterable $lines Header lines array of strings in the following
      *                        format: "Name: Value"
+     * @return mixed[]
      */
-    public static function headersFromLines(iterable $lines) : array
+    public static function headersFromLines($lines)
     {
         $headers = [];
         foreach ($lines as $line) {
@@ -75,7 +76,7 @@ final class Utils
      *
      * @return callable(\Psr\Http\Message\RequestInterface, array): \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface Returns the best handler for the given system.
      */
-    public static function chooseHandler() : callable
+    public static function chooseHandler()
     {
         $handler = null;
         if (\defined('CURLOPT_CUSTOMREQUEST')) {
@@ -96,8 +97,9 @@ final class Utils
     }
     /**
      * Get the default User-Agent string to use with Guzzle.
+     * @return string
      */
-    public static function defaultUserAgent() : string
+    public static function defaultUserAgent()
     {
         return \sprintf('GuzzleHttp/%d', ClientInterface::MAJOR_VERSION);
     }
@@ -115,8 +117,9 @@ final class Utils
      * @throws \RuntimeException if no bundle can be found.
      *
      * @deprecated Utils::defaultCaBundle will be removed in guzzlehttp/guzzle:8.0. This method is not needed in PHP 5.6+.
+     * @return string
      */
-    public static function defaultCaBundle() : string
+    public static function defaultCaBundle()
     {
         static $cached = null;
         static $cafiles = [
@@ -169,8 +172,9 @@ EOT
     /**
      * Creates an associative array of lowercase header names to the actual
      * header casing.
+     * @return mixed[]
      */
-    public static function normalizeHeaderKeys(array $headers) : array
+    public static function normalizeHeaderKeys(array $headers)
     {
         $result = [];
         foreach (\array_keys($headers) as $key) {
@@ -196,14 +200,16 @@ EOT
      * @param string[] $noProxyArray An array of host patterns.
      *
      * @throws InvalidArgumentException
+     * @return bool
      */
-    public static function isHostInNoProxy(string $host, array $noProxyArray) : bool
+    public static function isHostInNoProxy($host, array $noProxyArray)
     {
+        $host = (string) $host;
         if (\strlen($host) === 0) {
             throw new InvalidArgumentException('Empty host provided');
         }
         // Strip port if present.
-        [$host] = \explode(':', $host, 2);
+        list($host) = \explode(':', $host, 2);
         foreach ($noProxyArray as $area) {
             // Always match on wildcards.
             if ($area === '*') {
@@ -241,8 +247,12 @@ EOT
      *
      * @link https://www.php.net/manual/en/function.json-decode.php
      */
-    public static function jsonDecode(string $json, bool $assoc = \false, int $depth = 512, int $options = 0)
+    public static function jsonDecode($json, $assoc = \false, $depth = 512, $options = 0)
     {
+        $json = (string) $json;
+        $assoc = (bool) $assoc;
+        $depth = (int) $depth;
+        $options = (int) $options;
         $data = \json_decode($json, $assoc, $depth, $options);
         if (\JSON_ERROR_NONE !== \json_last_error()) {
             throw new InvalidArgumentException('json_decode error: ' . \json_last_error_msg());
@@ -259,9 +269,12 @@ EOT
      * @throws InvalidArgumentException if the JSON cannot be encoded.
      *
      * @link https://www.php.net/manual/en/function.json-encode.php
+     * @return string
      */
-    public static function jsonEncode($value, int $options = 0, int $depth = 512) : string
+    public static function jsonEncode($value, $options = 0, $depth = 512)
     {
+        $options = (int) $options;
+        $depth = (int) $depth;
         $json = \json_encode($value, $options, $depth);
         if (\JSON_ERROR_NONE !== \json_last_error()) {
             throw new InvalidArgumentException('json_encode error: ' . \json_last_error_msg());
@@ -277,7 +290,7 @@ EOT
      *
      * @internal
      */
-    public static function currentTime() : float
+    public static function currentTime()
     {
         return (float) \function_exists('hrtime') ? \hrtime(\true) / 1000000000.0 : \microtime(\true);
     }
@@ -285,14 +298,18 @@ EOT
      * @throws InvalidArgumentException
      *
      * @internal
+     * @param int $options
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
-    public static function idnUriConvert(UriInterface $uri, int $options = 0) : UriInterface
+    public static function idnUriConvert(UriInterface $uri, $options = 0)
     {
+        $options = (int) $options;
         if ($uri->getHost()) {
             $asciiHost = self::idnToAsci($uri->getHost(), $options, $info);
             if ($asciiHost === \false) {
-                $errorBitSet = $info['errors'] ?? 0;
-                $errorConstants = \array_filter(\array_keys(\get_defined_constants()), static function (string $name) : bool {
+                $errorBitSet = isset($info['errors']) ? $info['errors'] : 0;
+                $errorConstants = \array_filter(\array_keys(\get_defined_constants()), static function ($name) {
+                    $name = (string) $name;
                     return \substr($name, 0, 11) === 'IDNA_ERROR_';
                 });
                 $errors = [];
@@ -316,9 +333,12 @@ EOT
     }
     /**
      * @internal
+     * @return string|null
+     * @param string $name
      */
-    public static function getenv(string $name) : ?string
+    public static function getenv($name)
     {
+        $name = (string) $name;
         if (isset($_SERVER[$name])) {
             return (string) $_SERVER[$name];
         }
@@ -329,9 +349,14 @@ EOT
     }
     /**
      * @return string|false
+     * @param mixed[]|null $info
+     * @param string $domain
+     * @param int $options
      */
-    private static function idnToAsci(string $domain, int $options, ?array &$info = [])
+    private static function idnToAsci($domain, $options, &$info = [])
     {
+        $domain = (string) $domain;
+        $options = (int) $options;
         if (\function_exists('idn_to_ascii') && \defined('INTL_IDNA_VARIANT_UTS46')) {
             return \idn_to_ascii($domain, $options, \INTL_IDNA_VARIANT_UTS46, $info);
         }

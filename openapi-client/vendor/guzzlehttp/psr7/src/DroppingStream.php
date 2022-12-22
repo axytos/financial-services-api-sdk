@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
@@ -19,12 +18,16 @@ final class DroppingStream implements StreamInterface
      * @param StreamInterface $stream    Underlying stream to decorate.
      * @param int             $maxLength Maximum size before dropping data.
      */
-    public function __construct(StreamInterface $stream, int $maxLength)
+    public function __construct(StreamInterface $stream, $maxLength)
     {
+        $maxLength = (int) $maxLength;
         $this->stream = $stream;
         $this->maxLength = $maxLength;
     }
-    public function write($string) : int
+    /**
+     * @return int
+     */
+    public function write($string)
     {
         $diff = $this->maxLength - $this->stream->getSize();
         // Begin returning 0 when the underlying stream is too large.

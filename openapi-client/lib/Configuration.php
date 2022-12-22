@@ -38,8 +38,8 @@ namespace Axytos\FinancialServices\OpenAPI\Client;
  */
 class Configuration
 {
-    public const BOOLEAN_FORMAT_INT = 'int';
-    public const BOOLEAN_FORMAT_STRING = 'string';
+    const BOOLEAN_FORMAT_INT = 'int';
+    const BOOLEAN_FORMAT_STRING = 'string';
     /**
      * @var Configuration
      */
@@ -192,8 +192,9 @@ class Configuration
      * @param string $booleanFormatForQueryString Boolean format for query string
      *
      * @return $this
+     * @param string $booleanFormat
      */
-    public function setBooleanFormatForQueryString(string $booleanFormat)
+    public function setBooleanFormatForQueryString($booleanFormat)
     {
         $this->booleanFormatForQueryString = $booleanFormat;
         return $this;
@@ -203,7 +204,7 @@ class Configuration
      *
      * @return string Boolean format for query string
      */
-    public function getBooleanFormatForQueryString(): string
+    public function getBooleanFormatForQueryString()
     {
         return $this->booleanFormatForQueryString;
     }
@@ -377,7 +378,7 @@ class Configuration
      *
      * @return void
      */
-    public static function setDefaultConfiguration(Configuration $config)
+    public static function setDefaultConfiguration($config)
     {
         self::$defaultConfiguration = $config;
     }
@@ -445,7 +446,7 @@ class Configuration
         $host = $hosts[$index];
         $url = $host["url"];
         // go through variable and assign a value
-        foreach ($host["variables"] ?? [] as $name => $variable) {
+        foreach (isset($host["variables"]) ? $host["variables"] : [] as $name => $variable) {
             if (\array_key_exists($name, $variables)) {
                 // check to see if it's in the variables provided by the user
                 if (\in_array($variables[$name], $variable["enum_values"], \true)) {

@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      */
     public function __construct(array $data = null)
     {
-        $this->container['transaction_id'] = $data['transaction_id'] ?? null;
-        $this->container['transaction_info_signature'] = $data['transaction_info_signature'] ?? null;
-        $this->container['transaction_timestamp'] = $data['transaction_timestamp'] ?? null;
-        $this->container['transaction_expiration_timestamp'] = $data['transaction_expiration_timestamp'] ?? null;
+        $this->container['transaction_id'] = isset($data['transaction_id']) ? $data['transaction_id'] : null;
+        $this->container['transaction_info_signature'] = isset($data['transaction_info_signature']) ? $data['transaction_info_signature'] : null;
+        $this->container['transaction_timestamp'] = isset($data['transaction_timestamp']) ? $data['transaction_timestamp'] : null;
+        $this->container['transaction_expiration_timestamp'] = isset($data['transaction_expiration_timestamp']) ? $data['transaction_expiration_timestamp'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -278,7 +278,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -292,7 +292,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -302,7 +302,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -317,7 +317,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

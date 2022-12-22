@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Axytos\FinancialServices\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -10,15 +8,20 @@ class GuzzleHttpInstantiationTest extends TestCase
 {
     /**
      * @dataProvider guzzleHttpClassNameProvider
+     * @param string $className
+     * @return void
      */
-    public function testGuzzleHttpClassesCanBeConstructed(string $className): void
+    public function testGuzzleHttpClassesCanBeConstructed($className)
     {
         $instance = new $className();
 
         $this->assertNotNull($instance);
     }
 
-    public function guzzleHttpClassNameProvider(): array
+    /**
+     * @return mixed[]
+     */
+    public function guzzleHttpClassNameProvider()
     {
         return [
             ['Axytos\FinancialServices\GuzzleHttp\Client'],
@@ -26,7 +29,10 @@ class GuzzleHttpInstantiationTest extends TestCase
         ];
     }
 
-    public function test_GuzzleHttpClient_implements_scoped_interface(): void
+    /**
+     * @return void
+     */
+    public function test_GuzzleHttpClient_implements_scoped_interface()
     {
         $this->assertInstanceOf(
             \Axytos\FinancialServices\GuzzleHttp\ClientInterface::class,

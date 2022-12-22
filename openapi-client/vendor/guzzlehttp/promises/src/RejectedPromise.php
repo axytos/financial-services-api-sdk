@@ -18,7 +18,11 @@ class RejectedPromise implements PromiseInterface
         }
         $this->reason = $reason;
     }
-    public function then(callable $onFulfilled = null, callable $onRejected = null)
+    /**
+     * @param callable|null $onFulfilled
+     * @param callable|null $onRejected
+     */
+    public function then($onFulfilled = null, $onRejected = null)
     {
         // If there's no onRejected callback then just return self.
         if (!$onRejected) {
@@ -43,7 +47,10 @@ class RejectedPromise implements PromiseInterface
         });
         return $p;
     }
-    public function otherwise(callable $onRejected)
+    /**
+     * @param callable $onRejected
+     */
+    public function otherwise($onRejected)
     {
         return $this->then(null, $onRejected);
     }

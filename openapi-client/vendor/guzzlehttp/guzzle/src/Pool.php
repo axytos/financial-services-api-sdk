@@ -63,8 +63,9 @@ class Pool implements PromisorInterface
     }
     /**
      * Get promise
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function promise() : PromiseInterface
+    public function promise()
     {
         return $this->each->promise();
     }
@@ -86,7 +87,7 @@ class Pool implements PromisorInterface
      *
      * @throws \InvalidArgumentException if the event format is incorrect.
      */
-    public static function batch(ClientInterface $client, $requests, array $options = []) : array
+    public static function batch($client, $requests, $options = [])
     {
         $res = [];
         self::cmpCallback($options, 'fulfilled', $res);
@@ -98,9 +99,12 @@ class Pool implements PromisorInterface
     }
     /**
      * Execute callback(s)
+     * @return void
+     * @param string $name
      */
-    private static function cmpCallback(array &$options, string $name, array &$results) : void
+    private static function cmpCallback(array &$options, $name, array &$results)
     {
+        $name = (string) $name;
         if (!isset($options[$name])) {
             $options[$name] = static function ($v, $k) use(&$results) {
                 $results[$k] = $v;

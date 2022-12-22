@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,13 +150,13 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      */
     public function __construct(array $data = null)
     {
-        $this->container['product_id'] = $data['product_id'] ?? null;
-        $this->container['quantity'] = $data['quantity'] ?? null;
-        $this->container['tax_percent'] = $data['tax_percent'] ?? null;
-        $this->container['net_price_per_unit'] = $data['net_price_per_unit'] ?? null;
-        $this->container['gross_price_per_unit'] = $data['gross_price_per_unit'] ?? null;
-        $this->container['net_position_total'] = $data['net_position_total'] ?? null;
-        $this->container['gross_position_total'] = $data['gross_position_total'] ?? null;
+        $this->container['product_id'] = isset($data['product_id']) ? $data['product_id'] : null;
+        $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->container['tax_percent'] = isset($data['tax_percent']) ? $data['tax_percent'] : null;
+        $this->container['net_price_per_unit'] = isset($data['net_price_per_unit']) ? $data['net_price_per_unit'] : null;
+        $this->container['gross_price_per_unit'] = isset($data['gross_price_per_unit']) ? $data['gross_price_per_unit'] : null;
+        $this->container['net_position_total'] = isset($data['net_position_total']) ? $data['net_position_total'] : null;
+        $this->container['gross_position_total'] = isset($data['gross_position_total']) ? $data['gross_position_total'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -353,7 +353,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -367,7 +367,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -377,7 +377,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -392,7 +392,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

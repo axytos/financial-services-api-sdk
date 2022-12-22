@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
@@ -13,8 +12,9 @@ final class Utils
      * Remove the items given by the keys, case insensitively from the data.
      *
      * @param string[] $keys
+     * @return mixed[]
      */
-    public static function caselessRemove(array $keys, array $data) : array
+    public static function caselessRemove(array $keys, array $data)
     {
         $result = [];
         foreach ($keys as &$key) {
@@ -37,9 +37,11 @@ final class Utils
      *                                to read the entire stream.
      *
      * @throws \RuntimeException on error.
+     * @return void
      */
-    public static function copyToStream(StreamInterface $source, StreamInterface $dest, int $maxLen = -1) : void
+    public static function copyToStream(StreamInterface $source, StreamInterface $dest, $maxLen = -1)
     {
+        $maxLen = (int) $maxLen;
         $bufferSize = 8192;
         if ($maxLen === -1) {
             while (!$source->eof()) {
@@ -69,9 +71,11 @@ final class Utils
      *                                to read the entire stream.
      *
      * @throws \RuntimeException on error.
+     * @return string
      */
-    public static function copyToString(StreamInterface $stream, int $maxLen = -1) : string
+    public static function copyToString(StreamInterface $stream, $maxLen = -1)
     {
+        $maxLen = (int) $maxLen;
         $buffer = '';
         if ($maxLen === -1) {
             while (!$stream->eof()) {
@@ -105,9 +109,12 @@ final class Utils
      * @param bool            $rawOutput Whether or not to use raw output
      *
      * @throws \RuntimeException on error.
+     * @return string
      */
-    public static function hash(StreamInterface $stream, string $algo, bool $rawOutput = \false) : string
+    public static function hash(StreamInterface $stream, $algo, $rawOutput = \false)
     {
+        $algo = (string) $algo;
+        $rawOutput = (bool) $rawOutput;
         $pos = $stream->tell();
         if ($pos > 0) {
             $stream->rewind();
@@ -137,8 +144,9 @@ final class Utils
      *
      * @param RequestInterface $request Request to clone and modify.
      * @param array            $changes Changes to apply.
+     * @return \Axytos\FinancialServices\Psr\Http\Message\RequestInterface
      */
-    public static function modifyRequest(RequestInterface $request, array $changes) : RequestInterface
+    public static function modifyRequest(RequestInterface $request, array $changes)
     {
         if (!$changes) {
             return $request;
@@ -171,21 +179,22 @@ final class Utils
             $uri = $uri->withQuery($changes['query']);
         }
         if ($request instanceof ServerRequestInterface) {
-            $new = (new ServerRequest($changes['method'] ?? $request->getMethod(), $uri, $headers, $changes['body'] ?? $request->getBody(), $changes['version'] ?? $request->getProtocolVersion(), $request->getServerParams()))->withParsedBody($request->getParsedBody())->withQueryParams($request->getQueryParams())->withCookieParams($request->getCookieParams())->withUploadedFiles($request->getUploadedFiles());
+            $new = (new ServerRequest(isset($changes['method']) ? $changes['method'] : $request->getMethod(), $uri, $headers, isset($changes['body']) ? $changes['body'] : $request->getBody(), isset($changes['version']) ? $changes['version'] : $request->getProtocolVersion(), $request->getServerParams()))->withParsedBody($request->getParsedBody())->withQueryParams($request->getQueryParams())->withCookieParams($request->getCookieParams())->withUploadedFiles($request->getUploadedFiles());
             foreach ($request->getAttributes() as $key => $value) {
                 $new = $new->withAttribute($key, $value);
             }
             return $new;
         }
-        return new Request($changes['method'] ?? $request->getMethod(), $uri, $headers, $changes['body'] ?? $request->getBody(), $changes['version'] ?? $request->getProtocolVersion());
+        return new Request(isset($changes['method']) ? $changes['method'] : $request->getMethod(), $uri, $headers, isset($changes['body']) ? $changes['body'] : $request->getBody(), isset($changes['version']) ? $changes['version'] : $request->getProtocolVersion());
     }
     /**
      * Read a line from the stream up to the maximum allowed buffer length.
      *
      * @param StreamInterface $stream    Stream to read from
      * @param int|null        $maxLength Maximum buffer length
+     * @return string
      */
-    public static function readLine(StreamInterface $stream, ?int $maxLength = null) : string
+    public static function readLine(StreamInterface $stream, $maxLength = null)
     {
         $buffer = '';
         $size = 0;
@@ -234,8 +243,9 @@ final class Utils
      * @param array{size?: int, metadata?: array}                                    $options  Additional options
      *
      * @throws \InvalidArgumentException if the $resource arg is not valid.
+     * @return \Axytos\FinancialServices\Psr\Http\Message\StreamInterface
      */
-    public static function streamFor($resource = '', array $options = []) : StreamInterface
+    public static function streamFor($resource = '', array $options = [])
     {
         if (\is_scalar($resource)) {
             $stream = self::tryFopen('php://temp', 'r+');
@@ -252,7 +262,7 @@ final class Utils
                  * We avoid using that stream by reading it into php://temp
                  */
                 /** @var resource $resource */
-                if ((\stream_get_meta_data($resource)['uri'] ?? '') === 'php://input') {
+                if ((isset(\stream_get_meta_data($resource)['uri']) ? \stream_get_meta_data($resource)['uri'] : '') === 'php://input') {
                     $stream = self::tryFopen('php://temp', 'w+');
                     \stream_copy_to_stream($resource, $stream);
                     \fseek($stream, 0);
@@ -297,10 +307,14 @@ final class Utils
      *
      * @throws \RuntimeException if the file cannot be opened
      */
-    public static function tryFopen(string $filename, string $mode)
+    public static function tryFopen($filename, $mode)
     {
+        $filename = (string) $filename;
+        $mode = (string) $mode;
         $ex = null;
-        \set_error_handler(static function (int $errno, string $errstr) use($filename, $mode, &$ex) : bool {
+        \set_error_handler(static function ($errno, $errstr) use($filename, $mode, &$ex) {
+            $errno = (int) $errno;
+            $errstr = (string) $errstr;
             $ex = new \RuntimeException(\sprintf('Unable to open "%s" using mode "%s": %s', $filename, $mode, $errstr));
             return \true;
         });
@@ -308,6 +322,8 @@ final class Utils
             /** @var resource $handle */
             $handle = \fopen($filename, $mode);
         } catch (\Throwable $e) {
+            $ex = new \RuntimeException(\sprintf('Unable to open "%s" using mode "%s": %s', $filename, $mode, $e->getMessage()), 0, $e);
+        } catch (\Exception $e) {
             $ex = new \RuntimeException(\sprintf('Unable to open "%s" using mode "%s": %s', $filename, $mode, $e->getMessage()), 0, $e);
         }
         \restore_error_handler();
@@ -327,11 +343,14 @@ final class Utils
      * @param resource $stream
      *
      * @throws \RuntimeException if the stream cannot be read
+     * @return string
      */
-    public static function tryGetContents($stream) : string
+    public static function tryGetContents($stream)
     {
         $ex = null;
-        \set_error_handler(static function (int $errno, string $errstr) use(&$ex) : bool {
+        \set_error_handler(static function ($errno, $errstr) use(&$ex) {
+            $errno = (int) $errno;
+            $errstr = (string) $errstr;
             $ex = new \RuntimeException(\sprintf('Unable to read stream contents: %s', $errstr));
             return \true;
         });
@@ -342,6 +361,8 @@ final class Utils
                 $ex = new \RuntimeException('Unable to read stream contents');
             }
         } catch (\Throwable $e) {
+            $ex = new \RuntimeException(\sprintf('Unable to read stream contents: %s', $e->getMessage()), 0, $e);
+        } catch (\Exception $e) {
             $ex = new \RuntimeException(\sprintf('Unable to read stream contents: %s', $e->getMessage()), 0, $e);
         }
         \restore_error_handler();
@@ -361,8 +382,9 @@ final class Utils
      * @param string|UriInterface $uri
      *
      * @throws \InvalidArgumentException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
-    public static function uriFor($uri) : UriInterface
+    public static function uriFor($uri)
     {
         if ($uri instanceof UriInterface) {
             return $uri;

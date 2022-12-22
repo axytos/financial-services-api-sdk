@@ -23,8 +23,10 @@ class SessionCookieJar extends CookieJar
      * @param bool   $storeSessionCookies Set to true to store session cookies
      *                                    in the cookie jar.
      */
-    public function __construct(string $sessionKey, bool $storeSessionCookies = \false)
+    public function __construct($sessionKey, $storeSessionCookies = \false)
     {
+        $sessionKey = (string) $sessionKey;
+        $storeSessionCookies = (bool) $storeSessionCookies;
         parent::__construct();
         $this->sessionKey = $sessionKey;
         $this->storeSessionCookies = $storeSessionCookies;
@@ -39,8 +41,9 @@ class SessionCookieJar extends CookieJar
     }
     /**
      * Save cookies to the client session
+     * @return void
      */
-    public function save() : void
+    public function save()
     {
         $json = [];
         /** @var SetCookie $cookie */
@@ -53,8 +56,9 @@ class SessionCookieJar extends CookieJar
     }
     /**
      * Load the contents of the client session into the data array
+     * @return void
      */
-    protected function load() : void
+    protected function load()
     {
         if (!isset($_SESSION[$this->sessionKey])) {
             return;

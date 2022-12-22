@@ -33,7 +33,10 @@ class TaskQueue implements TaskQueueInterface
     {
         return !$this->queue;
     }
-    public function add(callable $task)
+    /**
+     * @param callable $task
+     */
+    public function add($task)
     {
         $this->queue[] = $task;
     }

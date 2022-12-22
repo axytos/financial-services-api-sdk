@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class MicrosoftAspNetCoreMvcProblemDetails implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,11 +150,11 @@ class MicrosoftAspNetCoreMvcProblemDetails implements ModelInterface, ArrayAcces
      */
     public function __construct(array $data = null)
     {
-        $this->container['type'] = $data['type'] ?? null;
-        $this->container['title'] = $data['title'] ?? null;
-        $this->container['status'] = $data['status'] ?? null;
-        $this->container['detail'] = $data['detail'] ?? null;
-        $this->container['instance'] = $data['instance'] ?? null;
+        $this->container['type'] = isset($data['type']) ? $data['type'] : null;
+        $this->container['title'] = isset($data['title']) ? $data['title'] : null;
+        $this->container['status'] = isset($data['status']) ? $data['status'] : null;
+        $this->container['detail'] = isset($data['detail']) ? $data['detail'] : null;
+        $this->container['instance'] = isset($data['instance']) ? $data['instance'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -288,7 +288,7 @@ class MicrosoftAspNetCoreMvcProblemDetails implements ModelInterface, ArrayAcces
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -302,7 +302,7 @@ class MicrosoftAspNetCoreMvcProblemDetails implements ModelInterface, ArrayAcces
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -312,7 +312,7 @@ class MicrosoftAspNetCoreMvcProblemDetails implements ModelInterface, ArrayAcces
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -327,7 +327,7 @@ class MicrosoftAspNetCoreMvcProblemDetails implements ModelInterface, ArrayAcces
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

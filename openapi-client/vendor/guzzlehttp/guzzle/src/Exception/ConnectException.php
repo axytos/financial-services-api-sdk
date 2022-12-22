@@ -19,16 +19,22 @@ class ConnectException extends TransferException implements NetworkExceptionInte
      * @var array
      */
     private $handlerContext;
-    public function __construct(string $message, RequestInterface $request, \Throwable $previous = null, array $handlerContext = [])
+    /**
+     * @param string $message
+     * @param \Throwable $previous
+     */
+    public function __construct($message, RequestInterface $request, $previous = null, array $handlerContext = [])
     {
+        $message = (string) $message;
         parent::__construct($message, 0, $previous);
         $this->request = $request;
         $this->handlerContext = $handlerContext;
     }
     /**
      * Get the request that caused the exception
+     * @return \Axytos\FinancialServices\Psr\Http\Message\RequestInterface
      */
-    public function getRequest() : RequestInterface
+    public function getRequest()
     {
         return $this->request;
     }
@@ -39,8 +45,9 @@ class ConnectException extends TransferException implements NetworkExceptionInte
      * using. It may also be just an empty array. Relying on this data will
      * couple you to a specific handler, but can give more debug information
      * when needed.
+     * @return mixed[]
      */
-    public function getHandlerContext() : array
+    public function getHandlerContext()
     {
         return $this->handlerContext;
     }

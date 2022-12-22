@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,13 +150,13 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition impl
      */
     public function __construct(array $data = null)
     {
-        $this->container['product_id'] = $data['product_id'] ?? null;
-        $this->container['product_name'] = $data['product_name'] ?? null;
-        $this->container['product_category'] = $data['product_category'] ?? null;
-        $this->container['quantity'] = $data['quantity'] ?? null;
-        $this->container['tax_percent'] = $data['tax_percent'] ?? null;
-        $this->container['net_position_total'] = $data['net_position_total'] ?? null;
-        $this->container['gross_position_total'] = $data['gross_position_total'] ?? null;
+        $this->container['product_id'] = isset($data['product_id']) ? $data['product_id'] : null;
+        $this->container['product_name'] = isset($data['product_name']) ? $data['product_name'] : null;
+        $this->container['product_category'] = isset($data['product_category']) ? $data['product_category'] : null;
+        $this->container['quantity'] = isset($data['quantity']) ? $data['quantity'] : null;
+        $this->container['tax_percent'] = isset($data['tax_percent']) ? $data['tax_percent'] : null;
+        $this->container['net_position_total'] = isset($data['net_position_total']) ? $data['net_position_total'] : null;
+        $this->container['gross_position_total'] = isset($data['gross_position_total']) ? $data['gross_position_total'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -332,7 +332,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition impl
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -346,7 +346,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition impl
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -356,7 +356,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition impl
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -371,7 +371,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition impl
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsReportShippingModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosApiModelsReportShippingModel implements ModelInterface, ArrayAccess,
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['external_sub_order_id'] = $data['external_sub_order_id'] ?? null;
-        $this->container['basket_positions'] = $data['basket_positions'] ?? null;
-        $this->container['shipping_date'] = $data['shipping_date'] ?? null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['external_sub_order_id'] = isset($data['external_sub_order_id']) ? $data['external_sub_order_id'] : null;
+        $this->container['basket_positions'] = isset($data['basket_positions']) ? $data['basket_positions'] : null;
+        $this->container['shipping_date'] = isset($data['shipping_date']) ? $data['shipping_date'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -272,7 +272,7 @@ class AxytosApiModelsReportShippingModel implements ModelInterface, ArrayAccess,
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -286,7 +286,7 @@ class AxytosApiModelsReportShippingModel implements ModelInterface, ArrayAccess,
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -296,7 +296,7 @@ class AxytosApiModelsReportShippingModel implements ModelInterface, ArrayAccess,
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -311,7 +311,7 @@ class AxytosApiModelsReportShippingModel implements ModelInterface, ArrayAccess,
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

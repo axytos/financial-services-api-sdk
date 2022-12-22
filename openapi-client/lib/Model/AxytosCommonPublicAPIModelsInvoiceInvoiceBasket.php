@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsInvoiceInvoiceBasket implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasket implements ModelInterface,
      */
     public function __construct(array $data = null)
     {
-        $this->container['gross_total'] = $data['gross_total'] ?? null;
-        $this->container['net_total'] = $data['net_total'] ?? null;
-        $this->container['positions'] = $data['positions'] ?? null;
-        $this->container['tax_groups'] = $data['tax_groups'] ?? null;
+        $this->container['gross_total'] = isset($data['gross_total']) ? $data['gross_total'] : null;
+        $this->container['net_total'] = isset($data['net_total']) ? $data['net_total'] : null;
+        $this->container['positions'] = isset($data['positions']) ? $data['positions'] : null;
+        $this->container['tax_groups'] = isset($data['tax_groups']) ? $data['tax_groups'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -275,7 +275,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasket implements ModelInterface,
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -289,7 +289,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasket implements ModelInterface,
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -299,7 +299,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasket implements ModelInterface,
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -314,7 +314,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasket implements ModelInterface,
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

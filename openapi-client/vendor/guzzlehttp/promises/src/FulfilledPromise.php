@@ -18,7 +18,11 @@ class FulfilledPromise implements PromiseInterface
         }
         $this->value = $value;
     }
-    public function then(callable $onFulfilled = null, callable $onRejected = null)
+    /**
+     * @param callable|null $onFulfilled
+     * @param callable|null $onRejected
+     */
+    public function then($onFulfilled = null, $onRejected = null)
     {
         // Return itself if there is no onFulfilled function.
         if (!$onFulfilled) {
@@ -40,7 +44,10 @@ class FulfilledPromise implements PromiseInterface
         });
         return $p;
     }
-    public function otherwise(callable $onRejected)
+    /**
+     * @param callable $onRejected
+     */
+    public function otherwise($onRejected)
     {
         return $this->then(null, $onRejected);
     }

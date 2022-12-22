@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsInvoiceCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,12 +150,12 @@ class AxytosApiModelsInvoiceCreationModel implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['external_invoice_number'] = $data['external_invoice_number'] ?? null;
-        $this->container['external_invoice_display_name'] = $data['external_invoice_display_name'] ?? null;
-        $this->container['external_sub_order_id'] = $data['external_sub_order_id'] ?? null;
-        $this->container['due_date_offset_days'] = $data['due_date_offset_days'] ?? null;
-        $this->container['basket'] = $data['basket'] ?? null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['external_invoice_number'] = isset($data['external_invoice_number']) ? $data['external_invoice_number'] : null;
+        $this->container['external_invoice_display_name'] = isset($data['external_invoice_display_name']) ? $data['external_invoice_display_name'] : null;
+        $this->container['external_sub_order_id'] = isset($data['external_sub_order_id']) ? $data['external_sub_order_id'] : null;
+        $this->container['due_date_offset_days'] = isset($data['due_date_offset_days']) ? $data['due_date_offset_days'] : null;
+        $this->container['basket'] = isset($data['basket']) ? $data['basket'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -316,7 +316,7 @@ class AxytosApiModelsInvoiceCreationModel implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -330,7 +330,7 @@ class AxytosApiModelsInvoiceCreationModel implements ModelInterface, ArrayAccess
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -340,7 +340,7 @@ class AxytosApiModelsInvoiceCreationModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -355,7 +355,7 @@ class AxytosApiModelsInvoiceCreationModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

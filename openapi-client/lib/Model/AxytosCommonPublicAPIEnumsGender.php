@@ -42,9 +42,9 @@ class AxytosCommonPublicAPIEnumsGender
     /**
      * Possible values of this enum
      */
-    public const M = 'M';
-    public const F = 'F';
-    public const D = 'D';
+    const M = 'M';
+    const F = 'F';
+    const D = 'D';
     /**
      * Gets allowable values of the enum
      * @return string[]

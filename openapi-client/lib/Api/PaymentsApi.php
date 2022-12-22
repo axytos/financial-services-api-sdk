@@ -81,8 +81,9 @@ class PaymentsApi
      * Set the host index
      *
      * @param int $hostIndex Host index (required)
+     * @return void
      */
-    public function setHostIndex($hostIndex): void
+    public function setHostIndex($hostIndex)
     {
         $this->hostIndex = $hostIndex;
     }
@@ -1745,7 +1746,7 @@ class PaymentsApi
     /**
      * Operation apiV1PaymentsInvoiceOrderUpdatePost
      *
-     * Update an existing order.  Only possible, when no invoice is created yet.
+     * Update an existing order. &lt;br /&gt;  Only items that are not shipped yet can be removed.
      *
      * @param  \Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsUpdateOrderModel $axytos_api_models_update_order_model axytos_api_models_update_order_model (optional)
      *
@@ -1760,7 +1761,7 @@ class PaymentsApi
     /**
      * Operation apiV1PaymentsInvoiceOrderUpdatePostWithHttpInfo
      *
-     * Update an existing order.  Only possible, when no invoice is created yet.
+     * Update an existing order. &lt;br /&gt;  Only items that are not shipped yet can be removed.
      *
      * @param  \Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsUpdateOrderModel $axytos_api_models_update_order_model (optional)
      *
@@ -1806,7 +1807,7 @@ class PaymentsApi
     /**
      * Operation apiV1PaymentsInvoiceOrderUpdatePostAsync
      *
-     * Update an existing order.  Only possible, when no invoice is created yet.
+     * Update an existing order. &lt;br /&gt;  Only items that are not shipped yet can be removed.
      *
      * @param  \Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsUpdateOrderModel $axytos_api_models_update_order_model (optional)
      *
@@ -1822,7 +1823,7 @@ class PaymentsApi
     /**
      * Operation apiV1PaymentsInvoiceOrderUpdatePostAsyncWithHttpInfo
      *
-     * Update an existing order.  Only possible, when no invoice is created yet.
+     * Update an existing order. &lt;br /&gt;  Only items that are not shipped yet can be removed.
      *
      * @param  \Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsUpdateOrderModel $axytos_api_models_update_order_model (optional)
      *

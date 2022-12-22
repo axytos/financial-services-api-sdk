@@ -18,8 +18,8 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  */
 class RedirectMiddleware
 {
-    public const HISTORY_HEADER = 'X-Guzzle-Redirect-History';
-    public const STATUS_HISTORY_HEADER = 'X-Guzzle-Redirect-Status-History';
+    const HISTORY_HEADER = 'X-Guzzle-Redirect-History';
+    const STATUS_HISTORY_HEADER = 'X-Guzzle-Redirect-Status-History';
     /**
      * @var array
      */
@@ -35,7 +35,10 @@ class RedirectMiddleware
     {
         $this->nextHandler = $nextHandler;
     }
-    public function __invoke(RequestInterface $request, array $options) : PromiseInterface
+    /**
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
+     */
+    public function __invoke(RequestInterface $request, array $options)
     {
         $fn = $this->nextHandler;
         if (empty($options['allow_redirects'])) {
@@ -82,9 +85,14 @@ class RedirectMiddleware
     }
     /**
      * Enable tracking on promise.
+     * @param string $uri
+     * @param int $statusCode
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    private function withTracking(PromiseInterface $promise, string $uri, int $statusCode) : PromiseInterface
+    private function withTracking(PromiseInterface $promise, $uri, $statusCode)
     {
+        $uri = (string) $uri;
+        $statusCode = (int) $statusCode;
         return $promise->then(static function (ResponseInterface $response) use($uri, $statusCode) {
             // Note that we are pushing to the front of the list as this
             // would be an earlier response than what is currently present
@@ -100,17 +108,21 @@ class RedirectMiddleware
      * Check for too many redirects.
      *
      * @throws TooManyRedirectsException Too many redirects.
+     * @return void
      */
-    private function guardMax(RequestInterface $request, ResponseInterface $response, array &$options) : void
+    private function guardMax(RequestInterface $request, ResponseInterface $response, array &$options)
     {
-        $current = $options['__redirect_count'] ?? 0;
+        $current = isset($options['__redirect_count']) ? $options['__redirect_count'] : 0;
         $options['__redirect_count'] = $current + 1;
         $max = $options['allow_redirects']['max'];
         if ($options['__redirect_count'] > $max) {
             throw new TooManyRedirectsException("Will not follow more than {$max} redirects", $request, $response);
         }
     }
-    public function modifyRequest(RequestInterface $request, array $options, ResponseInterface $response) : RequestInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\RequestInterface
+     */
+    public function modifyRequest(RequestInterface $request, array $options, ResponseInterface $response)
     {
         // Request modifications to apply.
         $modify = [];
@@ -149,8 +161,9 @@ class RedirectMiddleware
     }
     /**
      * Set the appropriate URL on the request based on the location header.
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
-    private static function redirectUri(RequestInterface $request, ResponseInterface $response, array $protocols) : UriInterface
+    private static function redirectUri(RequestInterface $request, ResponseInterface $response, array $protocols)
     {
         $location = Psr7\UriResolver::resolve($request->getUri(), new Psr7\Uri($response->getHeaderLine('Location')));
         // Ensure that the redirect URI is allowed based on the protocols.

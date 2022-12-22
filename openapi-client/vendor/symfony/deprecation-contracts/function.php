@@ -20,9 +20,13 @@ if (!\function_exists('Axytos\\FinancialServices\\trigger_deprecation')) {
      * @param mixed  ...$args Values to insert in the message using printf() formatting
      *
      * @author Nicolas Grekas <p@tchwork.com>
+     * @return void
      */
-    function trigger_deprecation(string $package, string $version, string $message, ...$args) : void
+    function trigger_deprecation($package, $version, $message, ...$args)
     {
+        $package = (string) $package;
+        $version = (string) $version;
+        $message = (string) $message;
         @\trigger_error(($package || $version ? "Since {$package} {$version}: " : '') . ($args ? \vsprintf($message, $args) : $message), \E_USER_DEPRECATED);
     }
 }

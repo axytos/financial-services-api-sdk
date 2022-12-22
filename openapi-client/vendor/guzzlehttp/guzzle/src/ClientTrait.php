@@ -23,8 +23,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public abstract function request(string $method, $uri, array $options = []) : ResponseInterface;
+    public abstract function request($method, $uri, $options = []);
     /**
      * Create and send an HTTP GET request.
      *
@@ -36,8 +37,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function get($uri, array $options = []) : ResponseInterface
+    public function get($uri, $options = [])
     {
         return $this->request('GET', $uri, $options);
     }
@@ -52,8 +54,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function head($uri, array $options = []) : ResponseInterface
+    public function head($uri, $options = [])
     {
         return $this->request('HEAD', $uri, $options);
     }
@@ -68,8 +71,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function put($uri, array $options = []) : ResponseInterface
+    public function put($uri, $options = [])
     {
         return $this->request('PUT', $uri, $options);
     }
@@ -84,8 +88,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function post($uri, array $options = []) : ResponseInterface
+    public function post($uri, $options = [])
     {
         return $this->request('POST', $uri, $options);
     }
@@ -100,8 +105,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function patch($uri, array $options = []) : ResponseInterface
+    public function patch($uri, $options = [])
     {
         return $this->request('PATCH', $uri, $options);
     }
@@ -116,8 +122,9 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function delete($uri, array $options = []) : ResponseInterface
+    public function delete($uri, $options = [])
     {
         return $this->request('DELETE', $uri, $options);
     }
@@ -132,8 +139,9 @@ trait ClientTrait
      * @param string              $method  HTTP method
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public abstract function requestAsync(string $method, $uri, array $options = []) : PromiseInterface;
+    public abstract function requestAsync($method, $uri, $options = []);
     /**
      * Create and send an asynchronous HTTP GET request.
      *
@@ -144,8 +152,9 @@ trait ClientTrait
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function getAsync($uri, array $options = []) : PromiseInterface
+    public function getAsync($uri, $options = [])
     {
         return $this->requestAsync('GET', $uri, $options);
     }
@@ -159,8 +168,9 @@ trait ClientTrait
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function headAsync($uri, array $options = []) : PromiseInterface
+    public function headAsync($uri, $options = [])
     {
         return $this->requestAsync('HEAD', $uri, $options);
     }
@@ -174,8 +184,9 @@ trait ClientTrait
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function putAsync($uri, array $options = []) : PromiseInterface
+    public function putAsync($uri, $options = [])
     {
         return $this->requestAsync('PUT', $uri, $options);
     }
@@ -189,8 +200,9 @@ trait ClientTrait
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function postAsync($uri, array $options = []) : PromiseInterface
+    public function postAsync($uri, $options = [])
     {
         return $this->requestAsync('POST', $uri, $options);
     }
@@ -204,8 +216,9 @@ trait ClientTrait
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function patchAsync($uri, array $options = []) : PromiseInterface
+    public function patchAsync($uri, $options = [])
     {
         return $this->requestAsync('PATCH', $uri, $options);
     }
@@ -219,8 +232,9 @@ trait ClientTrait
      *
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function deleteAsync($uri, array $options = []) : PromiseInterface
+    public function deleteAsync($uri, $options = [])
     {
         return $this->requestAsync('DELETE', $uri, $options);
     }

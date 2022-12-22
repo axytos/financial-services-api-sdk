@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,11 +150,11 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['refund_date'] = $data['refund_date'] ?? null;
-        $this->container['original_invoice_number'] = $data['original_invoice_number'] ?? null;
-        $this->container['external_sub_order_id'] = $data['external_sub_order_id'] ?? null;
-        $this->container['basket'] = $data['basket'] ?? null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['refund_date'] = isset($data['refund_date']) ? $data['refund_date'] : null;
+        $this->container['original_invoice_number'] = isset($data['original_invoice_number']) ? $data['original_invoice_number'] : null;
+        $this->container['external_sub_order_id'] = isset($data['external_sub_order_id']) ? $data['external_sub_order_id'] : null;
+        $this->container['basket'] = isset($data['basket']) ? $data['basket'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -297,7 +297,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -311,7 +311,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -321,7 +321,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -336,7 +336,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

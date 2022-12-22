@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsSubscriptionCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosApiModelsSubscriptionCreationModel implements ModelInterface, ArrayA
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_customer_id'] = $data['external_customer_id'] ?? null;
-        $this->container['tariff_id'] = $data['tariff_id'] ?? null;
-        $this->container['subscription_start'] = $data['subscription_start'] ?? null;
-        $this->container['subscription_end'] = $data['subscription_end'] ?? null;
+        $this->container['external_customer_id'] = isset($data['external_customer_id']) ? $data['external_customer_id'] : null;
+        $this->container['tariff_id'] = isset($data['tariff_id']) ? $data['tariff_id'] : null;
+        $this->container['subscription_start'] = isset($data['subscription_start']) ? $data['subscription_start'] : null;
+        $this->container['subscription_end'] = isset($data['subscription_end']) ? $data['subscription_end'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -278,7 +278,7 @@ class AxytosApiModelsSubscriptionCreationModel implements ModelInterface, ArrayA
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -292,7 +292,7 @@ class AxytosApiModelsSubscriptionCreationModel implements ModelInterface, ArrayA
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -302,7 +302,7 @@ class AxytosApiModelsSubscriptionCreationModel implements ModelInterface, ArrayA
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -317,7 +317,7 @@ class AxytosApiModelsSubscriptionCreationModel implements ModelInterface, ArrayA
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

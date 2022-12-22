@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;

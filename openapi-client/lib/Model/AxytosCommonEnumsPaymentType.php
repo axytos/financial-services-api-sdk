@@ -42,8 +42,8 @@ class AxytosCommonEnumsPaymentType
     /**
      * Possible values of this enum
      */
-    public const INVOICE = 'Invoice';
-    public const DIRECT_DEBIT = 'DirectDebit';
+    const INVOICE = 'Invoice';
+    const DIRECT_DEBIT = 'DirectDebit';
     /**
      * Gets allowable values of the enum
      * @return string[]

@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\MessageInterface;
@@ -18,11 +17,17 @@ trait MessageTrait
     private $protocol = '1.1';
     /** @var StreamInterface|null */
     private $stream;
-    public function getProtocolVersion() : string
+    /**
+     * @return string
+     */
+    public function getProtocolVersion()
     {
         return $this->protocol;
     }
-    public function withProtocolVersion($version) : MessageInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\MessageInterface
+     */
+    public function withProtocolVersion($version)
     {
         if ($this->protocol === $version) {
             return $this;
@@ -31,15 +36,24 @@ trait MessageTrait
         $new->protocol = $version;
         return $new;
     }
-    public function getHeaders() : array
+    /**
+     * @return mixed[]
+     */
+    public function getHeaders()
     {
         return $this->headers;
     }
-    public function hasHeader($header) : bool
+    /**
+     * @return bool
+     */
+    public function hasHeader($header)
     {
         return isset($this->headerNames[\strtolower($header)]);
     }
-    public function getHeader($header) : array
+    /**
+     * @return mixed[]
+     */
+    public function getHeader($header)
     {
         $header = \strtolower($header);
         if (!isset($this->headerNames[$header])) {
@@ -48,11 +62,17 @@ trait MessageTrait
         $header = $this->headerNames[$header];
         return $this->headers[$header];
     }
-    public function getHeaderLine($header) : string
+    /**
+     * @return string
+     */
+    public function getHeaderLine($header)
     {
         return \implode(', ', $this->getHeader($header));
     }
-    public function withHeader($header, $value) : MessageInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\MessageInterface
+     */
+    public function withHeader($header, $value)
     {
         $this->assertHeader($header);
         $value = $this->normalizeHeaderValue($value);
@@ -65,7 +85,10 @@ trait MessageTrait
         $new->headers[$header] = $value;
         return $new;
     }
-    public function withAddedHeader($header, $value) : MessageInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\MessageInterface
+     */
+    public function withAddedHeader($header, $value)
     {
         $this->assertHeader($header);
         $value = $this->normalizeHeaderValue($value);
@@ -80,7 +103,10 @@ trait MessageTrait
         }
         return $new;
     }
-    public function withoutHeader($header) : MessageInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\MessageInterface
+     */
+    public function withoutHeader($header)
     {
         $normalized = \strtolower($header);
         if (!isset($this->headerNames[$normalized])) {
@@ -91,14 +117,21 @@ trait MessageTrait
         unset($new->headers[$header], $new->headerNames[$normalized]);
         return $new;
     }
-    public function getBody() : StreamInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\StreamInterface
+     */
+    public function getBody()
     {
         if (!$this->stream) {
             $this->stream = Utils::streamFor('');
         }
         return $this->stream;
     }
-    public function withBody(StreamInterface $body) : MessageInterface
+    /**
+     * @param \Axytos\FinancialServices\Psr\Http\Message\StreamInterface $body
+     * @return \Axytos\FinancialServices\Psr\Http\Message\MessageInterface
+     */
+    public function withBody($body)
     {
         if ($body === $this->stream) {
             return $this;
@@ -109,8 +142,9 @@ trait MessageTrait
     }
     /**
      * @param array<string|int, string|string[]> $headers
+     * @return void
      */
-    private function setHeaders(array $headers) : void
+    private function setHeaders(array $headers)
     {
         $this->headerNames = $this->headers = [];
         foreach ($headers as $header => $value) {
@@ -133,7 +167,7 @@ trait MessageTrait
      *
      * @return string[]
      */
-    private function normalizeHeaderValue($value) : array
+    private function normalizeHeaderValue($value)
     {
         if (!\is_array($value)) {
             return $this->trimAndValidateHeaderValues([$value]);
@@ -157,7 +191,7 @@ trait MessageTrait
      *
      * @see https://tools.ietf.org/html/rfc7230#section-3.2.4
      */
-    private function trimAndValidateHeaderValues(array $values) : array
+    private function trimAndValidateHeaderValues(array $values)
     {
         return \array_map(function ($value) {
             if (!\is_scalar($value) && null !== $value) {
@@ -172,8 +206,9 @@ trait MessageTrait
      * @see https://tools.ietf.org/html/rfc7230#section-3.2
      *
      * @param mixed $header
+     * @return void
      */
-    private function assertHeader($header) : void
+    private function assertHeader($header)
     {
         if (!\is_string($header)) {
             throw new \InvalidArgumentException(\sprintf('Header name must be a string but %s provided.', \is_object($header) ? \get_class($header) : \gettype($header)));
@@ -191,9 +226,12 @@ trait MessageTrait
      * VCHAR          = %x21-7E
      * obs-text       = %x80-FF
      * obs-fold       = CRLF 1*( SP / HTAB )
+     * @return void
+     * @param string $value
      */
-    private function assertValue(string $value) : void
+    private function assertValue($value)
     {
+        $value = (string) $value;
         // The regular expression intentionally does not support the obs-fold production, because as
         // per RFC 7230#3.2.4:
         //

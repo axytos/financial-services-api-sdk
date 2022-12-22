@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,11 +150,11 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      */
     public function __construct(array $data = null)
     {
-        $this->container['approved_payment_type_securities'] = $data['approved_payment_type_securities'] ?? null;
-        $this->container['process_id'] = $data['process_id'] ?? null;
-        $this->container['decision'] = $data['decision'] ?? null;
-        $this->container['transaction_metadata'] = $data['transaction_metadata'] ?? null;
-        $this->container['step'] = $data['step'] ?? null;
+        $this->container['approved_payment_type_securities'] = isset($data['approved_payment_type_securities']) ? $data['approved_payment_type_securities'] : null;
+        $this->container['process_id'] = isset($data['process_id']) ? $data['process_id'] : null;
+        $this->container['decision'] = isset($data['decision']) ? $data['decision'] : null;
+        $this->container['transaction_metadata'] = isset($data['transaction_metadata']) ? $data['transaction_metadata'] : null;
+        $this->container['step'] = isset($data['step']) ? $data['step'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -300,7 +300,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -314,7 +314,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -324,7 +324,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -339,7 +339,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

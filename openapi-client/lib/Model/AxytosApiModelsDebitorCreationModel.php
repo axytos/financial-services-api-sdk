@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,15 +150,15 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = $data['name'] ?? null;
-        $this->container['external_customer_id'] = $data['external_customer_id'] ?? null;
-        $this->container['language'] = $data['language'] ?? null;
-        $this->container['customer_type'] = $data['customer_type'] ?? null;
-        $this->container['payment_type'] = $data['payment_type'] ?? null;
-        $this->container['invoice_address'] = $data['invoice_address'] ?? null;
-        $this->container['direct_debit_bank_account'] = $data['direct_debit_bank_account'] ?? null;
-        $this->container['due_date_offset_days'] = $data['due_date_offset_days'] ?? null;
-        $this->container['direct_debit_mandate_reference'] = $data['direct_debit_mandate_reference'] ?? null;
+        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
+        $this->container['external_customer_id'] = isset($data['external_customer_id']) ? $data['external_customer_id'] : null;
+        $this->container['language'] = isset($data['language']) ? $data['language'] : null;
+        $this->container['customer_type'] = isset($data['customer_type']) ? $data['customer_type'] : null;
+        $this->container['payment_type'] = isset($data['payment_type']) ? $data['payment_type'] : null;
+        $this->container['invoice_address'] = isset($data['invoice_address']) ? $data['invoice_address'] : null;
+        $this->container['direct_debit_bank_account'] = isset($data['direct_debit_bank_account']) ? $data['direct_debit_bank_account'] : null;
+        $this->container['due_date_offset_days'] = isset($data['due_date_offset_days']) ? $data['due_date_offset_days'] : null;
+        $this->container['direct_debit_mandate_reference'] = isset($data['direct_debit_mandate_reference']) ? $data['direct_debit_mandate_reference'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -388,7 +388,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -402,7 +402,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -412,7 +412,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -427,7 +427,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

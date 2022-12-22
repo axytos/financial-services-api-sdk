@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_customer_id'] = $data['external_customer_id'] ?? null;
-        $this->container['product'] = $data['product'] ?? null;
-        $this->container['amount'] = $data['amount'] ?? null;
-        $this->container['custom_reference'] = $data['custom_reference'] ?? null;
+        $this->container['external_customer_id'] = isset($data['external_customer_id']) ? $data['external_customer_id'] : null;
+        $this->container['product'] = isset($data['product']) ? $data['product'] : null;
+        $this->container['amount'] = isset($data['amount']) ? $data['amount'] : null;
+        $this->container['custom_reference'] = isset($data['custom_reference']) ? $data['custom_reference'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -275,7 +275,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -289,7 +289,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -299,7 +299,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -314,7 +314,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 final class Query
@@ -15,9 +14,11 @@ final class Query
      *
      * @param string   $str         Query string to parse
      * @param int|bool $urlEncoding How the query string is encoded
+     * @return mixed[]
      */
-    public static function parse(string $str, $urlEncoding = \true) : array
+    public static function parse($str, $urlEncoding = \true)
     {
+        $str = (string) $str;
         $result = [];
         if ($str === '') {
             return $result;
@@ -61,14 +62,16 @@ final class Query
      * @param int|false $encoding Set to false to not encode, PHP_QUERY_RFC3986
      *                            to encode using RFC3986, or PHP_QUERY_RFC1738
      *                            to encode using RFC1738.
+     * @return string
      */
-    public static function build(array $params, $encoding = \PHP_QUERY_RFC3986) : string
+    public static function build(array $params, $encoding = \PHP_QUERY_RFC3986)
     {
         if (!$params) {
             return '';
         }
         if ($encoding === \false) {
-            $encoder = function (string $str) : string {
+            $encoder = function ($str) {
+                $str = (string) $str;
                 return $str;
             };
         } elseif ($encoding === \PHP_QUERY_RFC3986) {

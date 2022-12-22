@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,14 +150,14 @@ class AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel implements Model
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_customer_id'] = $data['external_customer_id'] ?? null;
-        $this->container['language'] = $data['language'] ?? null;
-        $this->container['date_of_birth'] = $data['date_of_birth'] ?? null;
-        $this->container['gender'] = $data['gender'] ?? null;
-        $this->container['email'] = $data['email'] ?? null;
-        $this->container['fix_net_phone_number'] = $data['fix_net_phone_number'] ?? null;
-        $this->container['mobile_phone_number'] = $data['mobile_phone_number'] ?? null;
-        $this->container['company'] = $data['company'] ?? null;
+        $this->container['external_customer_id'] = isset($data['external_customer_id']) ? $data['external_customer_id'] : null;
+        $this->container['language'] = isset($data['language']) ? $data['language'] : null;
+        $this->container['date_of_birth'] = isset($data['date_of_birth']) ? $data['date_of_birth'] : null;
+        $this->container['gender'] = isset($data['gender']) ? $data['gender'] : null;
+        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['fix_net_phone_number'] = isset($data['fix_net_phone_number']) ? $data['fix_net_phone_number'] : null;
+        $this->container['mobile_phone_number'] = isset($data['mobile_phone_number']) ? $data['mobile_phone_number'] : null;
+        $this->container['company'] = isset($data['company']) ? $data['company'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -357,7 +357,7 @@ class AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel implements Model
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -371,7 +371,7 @@ class AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel implements Model
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -381,7 +381,7 @@ class AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel implements Model
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -396,7 +396,7 @@ class AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel implements Model
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,14 +150,14 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      */
     public function __construct(array $data = null)
     {
-        $this->container['custom_reference'] = $data['custom_reference'] ?? null;
-        $this->container['personal_data'] = $data['personal_data'] ?? null;
-        $this->container['invoice_address'] = $data['invoice_address'] ?? null;
-        $this->container['delivery_address'] = $data['delivery_address'] ?? null;
-        $this->container['basket'] = $data['basket'] ?? null;
-        $this->container['payment_control_response'] = $data['payment_control_response'] ?? null;
-        $this->container['payment_type'] = $data['payment_type'] ?? null;
-        $this->container['payment_type_security'] = $data['payment_type_security'] ?? null;
+        $this->container['custom_reference'] = isset($data['custom_reference']) ? $data['custom_reference'] : null;
+        $this->container['personal_data'] = isset($data['personal_data']) ? $data['personal_data'] : null;
+        $this->container['invoice_address'] = isset($data['invoice_address']) ? $data['invoice_address'] : null;
+        $this->container['delivery_address'] = isset($data['delivery_address']) ? $data['delivery_address'] : null;
+        $this->container['basket'] = isset($data['basket']) ? $data['basket'] : null;
+        $this->container['payment_control_response'] = isset($data['payment_control_response']) ? $data['payment_control_response'] : null;
+        $this->container['payment_type'] = isset($data['payment_type']) ? $data['payment_type'] : null;
+        $this->container['payment_type_security'] = isset($data['payment_type_security']) ? $data['payment_type_security'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -366,7 +366,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -380,7 +380,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -390,7 +390,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -405,7 +405,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

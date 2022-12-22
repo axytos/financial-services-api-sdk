@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use InvalidArgumentException;
@@ -9,7 +8,7 @@ use Axytos\FinancialServices\Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
 class UploadedFile implements UploadedFileInterface
 {
-    private const ERRORS = [\UPLOAD_ERR_OK, \UPLOAD_ERR_INI_SIZE, \UPLOAD_ERR_FORM_SIZE, \UPLOAD_ERR_PARTIAL, \UPLOAD_ERR_NO_FILE, \UPLOAD_ERR_NO_TMP_DIR, \UPLOAD_ERR_CANT_WRITE, \UPLOAD_ERR_EXTENSION];
+    const ERRORS = [\UPLOAD_ERR_OK, \UPLOAD_ERR_INI_SIZE, \UPLOAD_ERR_FORM_SIZE, \UPLOAD_ERR_PARTIAL, \UPLOAD_ERR_NO_FILE, \UPLOAD_ERR_NO_TMP_DIR, \UPLOAD_ERR_CANT_WRITE, \UPLOAD_ERR_EXTENSION];
     /**
      * @var string|null
      */
@@ -40,9 +39,14 @@ class UploadedFile implements UploadedFileInterface
     private $stream;
     /**
      * @param StreamInterface|string|resource $streamOrFile
+     * @param int|null $size
+     * @param int $errorStatus
+     * @param string $clientFilename
+     * @param string $clientMediaType
      */
-    public function __construct($streamOrFile, ?int $size, int $errorStatus, string $clientFilename = null, string $clientMediaType = null)
+    public function __construct($streamOrFile, $size, $errorStatus, $clientFilename = null, $clientMediaType = null)
     {
+        $errorStatus = (int) $errorStatus;
         $this->setError($errorStatus);
         $this->size = $size;
         $this->clientFilename = $clientFilename;
@@ -57,8 +61,9 @@ class UploadedFile implements UploadedFileInterface
      * @param StreamInterface|string|resource $streamOrFile
      *
      * @throws InvalidArgumentException
+     * @return void
      */
-    private function setStreamOrFile($streamOrFile) : void
+    private function setStreamOrFile($streamOrFile)
     {
         if (\is_string($streamOrFile)) {
             $this->file = $streamOrFile;
@@ -72,33 +77,44 @@ class UploadedFile implements UploadedFileInterface
     }
     /**
      * @throws InvalidArgumentException
+     * @return void
+     * @param int $error
      */
-    private function setError(int $error) : void
+    private function setError($error)
     {
+        $error = (int) $error;
         if (\false === \in_array($error, UploadedFile::ERRORS, \true)) {
             throw new InvalidArgumentException('Invalid error status for UploadedFile');
         }
         $this->error = $error;
     }
-    private function isStringNotEmpty($param) : bool
+    /**
+     * @return bool
+     */
+    private function isStringNotEmpty($param)
     {
         return \is_string($param) && \false === empty($param);
     }
     /**
      * Return true if there is no upload error
+     * @return bool
      */
-    private function isOk() : bool
+    private function isOk()
     {
         return $this->error === \UPLOAD_ERR_OK;
     }
-    public function isMoved() : bool
+    /**
+     * @return bool
+     */
+    public function isMoved()
     {
         return $this->moved;
     }
     /**
      * @throws RuntimeException if is moved or not ok
+     * @return void
      */
-    private function validateActive() : void
+    private function validateActive()
     {
         if (\false === $this->isOk()) {
             throw new RuntimeException('Cannot retrieve stream due to upload error');
@@ -107,7 +123,10 @@ class UploadedFile implements UploadedFileInterface
             throw new RuntimeException('Cannot retrieve stream after it has already been moved');
         }
     }
-    public function getStream() : StreamInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\StreamInterface
+     */
+    public function getStream()
     {
         $this->validateActive();
         if ($this->stream instanceof StreamInterface) {
@@ -117,7 +136,10 @@ class UploadedFile implements UploadedFileInterface
         $file = $this->file;
         return new LazyOpenStream($file, 'r+');
     }
-    public function moveTo($targetPath) : void
+    /**
+     * @return void
+     */
+    public function moveTo($targetPath)
     {
         $this->validateActive();
         if (\false === $this->isStringNotEmpty($targetPath)) {
@@ -133,19 +155,31 @@ class UploadedFile implements UploadedFileInterface
             throw new RuntimeException(\sprintf('Uploaded file could not be moved to %s', $targetPath));
         }
     }
-    public function getSize() : ?int
+    /**
+     * @return int|null
+     */
+    public function getSize()
     {
         return $this->size;
     }
-    public function getError() : int
+    /**
+     * @return int
+     */
+    public function getError()
     {
         return $this->error;
     }
-    public function getClientFilename() : ?string
+    /**
+     * @return string|null
+     */
+    public function getClientFilename()
     {
         return $this->clientFilename;
     }
-    public function getClientMediaType() : ?string
+    /**
+     * @return string|null
+     */
+    public function getClientMediaType()
     {
         return $this->clientMediaType;
     }

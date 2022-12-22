@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketTaxGroup implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,9 +150,9 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketTaxGroup implements ModelIn
      */
     public function __construct(array $data = null)
     {
-        $this->container['tax_percent'] = $data['tax_percent'] ?? null;
-        $this->container['value_to_tax'] = $data['value_to_tax'] ?? null;
-        $this->container['total'] = $data['total'] ?? null;
+        $this->container['tax_percent'] = isset($data['tax_percent']) ? $data['tax_percent'] : null;
+        $this->container['value_to_tax'] = isset($data['value_to_tax']) ? $data['value_to_tax'] : null;
+        $this->container['total'] = isset($data['total']) ? $data['total'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -253,7 +253,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketTaxGroup implements ModelIn
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -267,7 +267,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketTaxGroup implements ModelIn
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -277,7 +277,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketTaxGroup implements ModelIn
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -292,7 +292,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketTaxGroup implements ModelIn
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,14 +150,14 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      */
     public function __construct(array $data = null)
     {
-        $this->container['custom_reference'] = $data['custom_reference'] ?? null;
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['date'] = $data['date'] ?? null;
-        $this->container['personal_data'] = $data['personal_data'] ?? null;
-        $this->container['invoice_address'] = $data['invoice_address'] ?? null;
-        $this->container['delivery_address'] = $data['delivery_address'] ?? null;
-        $this->container['basket'] = $data['basket'] ?? null;
-        $this->container['order_precheck_response'] = $data['order_precheck_response'] ?? null;
+        $this->container['custom_reference'] = isset($data['custom_reference']) ? $data['custom_reference'] : null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['date'] = isset($data['date']) ? $data['date'] : null;
+        $this->container['personal_data'] = isset($data['personal_data']) ? $data['personal_data'] : null;
+        $this->container['invoice_address'] = isset($data['invoice_address']) ? $data['invoice_address'] : null;
+        $this->container['delivery_address'] = isset($data['delivery_address']) ? $data['delivery_address'] : null;
+        $this->container['basket'] = isset($data['basket']) ? $data['basket'] : null;
+        $this->container['order_precheck_response'] = isset($data['order_precheck_response']) ? $data['order_precheck_response'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -369,7 +369,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -383,7 +383,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -393,7 +393,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -408,7 +408,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

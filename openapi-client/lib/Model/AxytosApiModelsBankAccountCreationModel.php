@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsBankAccountCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,9 +150,9 @@ class AxytosApiModelsBankAccountCreationModel implements ModelInterface, ArrayAc
      */
     public function __construct(array $data = null)
     {
-        $this->container['owner'] = $data['owner'] ?? null;
-        $this->container['iban'] = $data['iban'] ?? null;
-        $this->container['bic'] = $data['bic'] ?? null;
+        $this->container['owner'] = isset($data['owner']) ? $data['owner'] : null;
+        $this->container['iban'] = isset($data['iban']) ? $data['iban'] : null;
+        $this->container['bic'] = isset($data['bic']) ? $data['bic'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -244,7 +244,7 @@ class AxytosApiModelsBankAccountCreationModel implements ModelInterface, ArrayAc
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -258,7 +258,7 @@ class AxytosApiModelsBankAccountCreationModel implements ModelInterface, ArrayAc
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -268,7 +268,7 @@ class AxytosApiModelsBankAccountCreationModel implements ModelInterface, ArrayAc
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -283,7 +283,7 @@ class AxytosApiModelsBankAccountCreationModel implements ModelInterface, ArrayAc
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

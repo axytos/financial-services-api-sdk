@@ -161,7 +161,7 @@ class ObjectSerializer
      *
      * @return array
      */
-    public static function toQueryValue($value, string $paramName, string $openApiType = 'string', string $style = 'form', bool $explode = \true, bool $required = \true): array
+    public static function toQueryValue($value, $paramName, $openApiType = 'string', $style = 'form', $explode = \true, $required = \true)
     {
         if (empty($value) && ($value !== \false || $openApiType !== 'boolean')) {
             if ($required) {
@@ -210,7 +210,7 @@ class ObjectSerializer
      *
      * @return int|string Boolean value in format
      */
-    public static function convertBoolToQueryStringFormat(bool $value)
+    public static function convertBoolToQueryStringFormat($value)
     {
         if (Configuration::BOOLEAN_FORMAT_STRING == Configuration::getDefaultConfiguration()->getBooleanFormatForQueryString()) {
             return $value ? 'true' : 'false';
@@ -282,7 +282,7 @@ class ObjectSerializer
      *
      * @return string
      */
-    public static function serializeCollection(array $collection, $style, $allowCollectionFormatMulti = \false)
+    public static function serializeCollection($collection, $style, $allowCollectionFormatMulti = \false)
     {
         if ($allowCollectionFormatMulti && 'multi' === $style) {
             // http_build_query() almost does the job for us. We just
@@ -437,7 +437,7 @@ class ObjectSerializer
      *
      * @return string
      */
-    public static function buildQuery($data, string $numeric_prefix = '', ?string $arg_separator = null, int $encoding_type = \PHP_QUERY_RFC3986): string
+    public static function buildQuery($data, $numeric_prefix = '', $arg_separator = null, $encoding_type = \PHP_QUERY_RFC3986)
     {
         return \Axytos\FinancialServices\GuzzleHttp\Psr7\Query::build($data, $encoding_type);
     }

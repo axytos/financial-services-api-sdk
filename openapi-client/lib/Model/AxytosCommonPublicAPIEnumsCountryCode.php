@@ -42,13 +42,13 @@ class AxytosCommonPublicAPIEnumsCountryCode
     /**
      * Possible values of this enum
      */
-    public const AT = 'AT';
-    public const BE = 'BE';
-    public const CH = 'CH';
-    public const DE = 'DE';
-    public const FR = 'FR';
-    public const IT = 'IT';
-    public const NL = 'NL';
+    const AT = 'AT';
+    const BE = 'BE';
+    const CH = 'CH';
+    const DE = 'DE';
+    const FR = 'FR';
+    const IT = 'IT';
+    const NL = 'NL';
     /**
      * Gets allowable values of the enum
      * @return string[]

@@ -42,8 +42,8 @@ class AxytosCommonPublicAPIEnumsPaymentTypeSecurity
     /**
      * Possible values of this enum
      */
-    public const S = 'S';
-    public const U = 'U';
+    const S = 'S';
+    const U = 'U';
     /**
      * Gets allowable values of the enum
      * @return string[]

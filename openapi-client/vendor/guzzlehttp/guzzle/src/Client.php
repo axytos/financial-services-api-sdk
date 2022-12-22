@@ -78,7 +78,7 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
             throw new InvalidArgumentException('Magic request methods require a URI and optional options array');
         }
         $uri = $args[0];
-        $opts = $args[1] ?? [];
+        $opts = isset($args[1]) ? $args[1] : [];
         return \substr($method, -5) === 'Async' ? $this->requestAsync(\substr($method, 0, -5), $uri, $opts) : $this->request($method, $uri, $opts);
     }
     /**
@@ -86,8 +86,10 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      *
      * @param array $options Request options to apply to the given
      *                       request and to the transfer. See \Axytos\FinancialServices\GuzzleHttp\RequestOptions.
+     * @param \Axytos\FinancialServices\Psr\Http\Message\RequestInterface $request
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function sendAsync(RequestInterface $request, array $options = []) : PromiseInterface
+    public function sendAsync($request, $options = [])
     {
         // Merge the base URI into the request URI if needed.
         $options = $this->prepareDefaults($options);
@@ -100,8 +102,10 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      *                       request and to the transfer. See \Axytos\FinancialServices\GuzzleHttp\RequestOptions.
      *
      * @throws GuzzleException
+     * @param \Axytos\FinancialServices\Psr\Http\Message\RequestInterface $request
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function send(RequestInterface $request, array $options = []) : ResponseInterface
+    public function send($request, $options = [])
     {
         $options[RequestOptions::SYNCHRONOUS] = \true;
         return $this->sendAsync($request, $options)->wait();
@@ -110,8 +114,10 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      * The HttpClient PSR (PSR-18) specify this method.
      *
      * @inheritDoc
+     * @param \Axytos\FinancialServices\Psr\Http\Message\RequestInterface $request
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function sendRequest(RequestInterface $request) : ResponseInterface
+    public function sendRequest($request)
     {
         $options[RequestOptions::SYNCHRONOUS] = \true;
         $options[RequestOptions::ALLOW_REDIRECTS] = \false;
@@ -129,14 +135,15 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      * @param string              $method  HTTP method
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply. See \Axytos\FinancialServices\GuzzleHttp\RequestOptions.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function requestAsync(string $method, $uri = '', array $options = []) : PromiseInterface
+    public function requestAsync($method, $uri = '', $options = [])
     {
         $options = $this->prepareDefaults($options);
         // Remove request modifying parameter because it can be done up-front.
-        $headers = $options['headers'] ?? [];
-        $body = $options['body'] ?? null;
-        $version = $options['version'] ?? '1.1';
+        $headers = isset($options['headers']) ? $options['headers'] : [];
+        $body = isset($options['body']) ? $options['body'] : null;
+        $version = isset($options['version']) ? $options['version'] : '1.1';
         // Merge the URI into the base URI.
         $uri = $this->buildUri(Psr7\Utils::uriFor($uri), $options);
         if (\is_array($body)) {
@@ -159,8 +166,9 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      * @param array               $options Request options to apply. See \Axytos\FinancialServices\GuzzleHttp\RequestOptions.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function request(string $method, $uri = '', array $options = []) : ResponseInterface
+    public function request($method, $uri = '', $options = [])
     {
         $options[RequestOptions::SYNCHRONOUS] = \true;
         return $this->requestAsync($method, $uri, $options)->wait();
@@ -178,11 +186,14 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      *
      * @deprecated Client::getConfig will be removed in guzzlehttp/guzzle:8.0.
      */
-    public function getConfig(?string $option = null)
+    public function getConfig($option = null)
     {
-        return $option === null ? $this->config : $this->config[$option] ?? null;
+        return $option === null ? $this->config : (isset($this->config[$option]) ? $this->config[$option] : null);
     }
-    private function buildUri(UriInterface $uri, array $config) : UriInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
+     */
+    private function buildUri(UriInterface $uri, array $config)
     {
         if (isset($config['base_uri'])) {
             $uri = Psr7\UriResolver::resolve(Psr7\Utils::uriFor($config['base_uri']), $uri);
@@ -195,8 +206,9 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
     }
     /**
      * Configures the default options for a client.
+     * @return void
      */
-    private function configureDefaults(array $config) : void
+    private function configureDefaults(array $config)
     {
         $defaults = ['allow_redirects' => RedirectMiddleware::$defaultSettings, 'http_errors' => \true, 'decode_content' => \true, 'verify' => \true, 'cookies' => \false, 'idn_conversion' => \false];
         // Use the standard Linux HTTP_PROXY and HTTPS_PROXY if set.
@@ -234,8 +246,9 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      * Merges default options into the array.
      *
      * @param array $options Options to modify by reference
+     * @return mixed[]
      */
-    private function prepareDefaults(array $options) : array
+    private function prepareDefaults(array $options)
     {
         $defaults = $this->config;
         if (!empty($defaults['headers'])) {
@@ -271,8 +284,9 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
      * as-is without merging in default options.
      *
      * @param array $options See \Axytos\FinancialServices\GuzzleHttp\RequestOptions.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    private function transfer(RequestInterface $request, array $options) : PromiseInterface
+    private function transfer(RequestInterface $request, array $options)
     {
         $request = $this->applyOptions($request, $options);
         /** @var HandlerStack $handler */
@@ -285,8 +299,9 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
     }
     /**
      * Applies the array of request options to a request.
+     * @return \Axytos\FinancialServices\Psr\Http\Message\RequestInterface
      */
-    private function applyOptions(RequestInterface $request, array &$options) : RequestInterface
+    private function applyOptions(RequestInterface $request, array &$options)
     {
         $modify = ['set_headers' => []];
         if (isset($options['headers'])) {
@@ -391,8 +406,9 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
     }
     /**
      * Return an InvalidArgumentException with pre-set message.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Exception\InvalidArgumentException
      */
-    private function invalidBody() : InvalidArgumentException
+    private function invalidBody()
     {
         return new InvalidArgumentException('Passing in the "body" request ' . 'option as an array to send a request is not supported. ' . 'Please use the "form_params" request option to send a ' . 'application/x-www-form-urlencoded request, or the "multipart" ' . 'request option to send a multipart/form-data request.');
     }

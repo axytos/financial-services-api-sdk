@@ -42,8 +42,8 @@ class AxytosCommonPublicAPIEnumsPaymentControlRequestMode
     /**
      * Possible values of this enum
      */
-    public const SINGLE_STEP = 'SingleStep';
-    public const TWO_STEPS = 'TwoSteps';
+    const SINGLE_STEP = 'SingleStep';
+    const TWO_STEPS = 'TwoSteps';
     /**
      * Gets allowable values of the enum
      * @return string[]

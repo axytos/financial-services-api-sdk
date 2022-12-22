@@ -1,0 +1,10 @@
+{
+    "require": {
+        "symfony/polyfill-php54": "^1.19",
+        "symfony/polyfill-php55": "^1.19",
+        "symfony/polyfill-php56": "^1.19",
+        "symfony/polyfill-php70": "^1.19",
+        "symfony/polyfill-php71": "^1.19",
+        "symfony/polyfill-php72": "^1.19"
+    }
+}

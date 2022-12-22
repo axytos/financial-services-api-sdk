@@ -69,22 +69,32 @@ final class Coroutine implements PromiseInterface
             $this->result->reject($exception);
         } catch (Throwable $throwable) {
             $this->result->reject($throwable);
+        } catch (\Exception $throwable) {
+            $this->result->reject($throwable);
         }
     }
     /**
      * Create a new coroutine.
      *
      * @return self
+     * @param callable $generatorFn
      */
-    public static function of(callable $generatorFn)
+    public static function of($generatorFn)
     {
         return new self($generatorFn);
     }
-    public function then(callable $onFulfilled = null, callable $onRejected = null)
+    /**
+     * @param callable|null $onFulfilled
+     * @param callable|null $onRejected
+     */
+    public function then($onFulfilled = null, $onRejected = null)
     {
         return $this->result->then($onFulfilled, $onRejected);
     }
-    public function otherwise(callable $onRejected)
+    /**
+     * @param callable $onRejected
+     */
+    public function otherwise($onRejected)
     {
         return $this->result->otherwise($onRejected);
     }
@@ -130,6 +140,8 @@ final class Coroutine implements PromiseInterface
             $this->result->reject($exception);
         } catch (Throwable $throwable) {
             $this->result->reject($throwable);
+        } catch (\Exception $throwable) {
+            $this->result->reject($throwable);
         }
     }
     /**
@@ -145,6 +157,8 @@ final class Coroutine implements PromiseInterface
         } catch (Exception $exception) {
             $this->result->reject($exception);
         } catch (Throwable $throwable) {
+            $this->result->reject($throwable);
+        } catch (\Exception $throwable) {
             $this->result->reject($throwable);
         }
     }

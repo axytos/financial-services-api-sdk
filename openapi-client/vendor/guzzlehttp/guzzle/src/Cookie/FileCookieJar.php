@@ -25,8 +25,10 @@ class FileCookieJar extends CookieJar
      *
      * @throws \RuntimeException if the file cannot be found or created
      */
-    public function __construct(string $cookieFile, bool $storeSessionCookies = \false)
+    public function __construct($cookieFile, $storeSessionCookies = \false)
     {
+        $cookieFile = (string) $cookieFile;
+        $storeSessionCookies = (bool) $storeSessionCookies;
         parent::__construct();
         $this->filename = $cookieFile;
         $this->storeSessionCookies = $storeSessionCookies;
@@ -47,8 +49,9 @@ class FileCookieJar extends CookieJar
      * @param string $filename File to save
      *
      * @throws \RuntimeException if the file cannot be found or created
+     * @return void
      */
-    public function save(string $filename) : void
+    public function save($filename)
     {
         $json = [];
         /** @var SetCookie $cookie */
@@ -70,8 +73,9 @@ class FileCookieJar extends CookieJar
      * @param string $filename Cookie file to load.
      *
      * @throws \RuntimeException if the file cannot be loaded.
+     * @return void
      */
-    public function load(string $filename) : void
+    public function load($filename)
     {
         $json = \file_get_contents($filename);
         if (\false === $json) {

@@ -42,10 +42,10 @@ class AxytosCommonEnumsCustomerType
     /**
      * Possible values of this enum
      */
-    public const B2_B = 'B2B';
-    public const B2_C = 'B2C';
-    public const AFFILIATED = 'AFFILIATED';
-    public const OTHER = 'OTHER';
+    const B2_B = 'B2B';
+    const B2_C = 'B2C';
+    const AFFILIATED = 'AFFILIATED';
+    const OTHER = 'OTHER';
     /**
      * Gets allowable values of the enum
      * @return string[]

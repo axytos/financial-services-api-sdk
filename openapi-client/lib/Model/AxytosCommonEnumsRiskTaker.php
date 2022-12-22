@@ -42,9 +42,9 @@ class AxytosCommonEnumsRiskTaker
     /**
      * Possible values of this enum
      */
-    public const NONE = 'None';
-    public const SHOP = 'Shop';
-    public const COVERAGE_PARTNER = 'CoveragePartner';
+    const NONE = 'None';
+    const SHOP = 'Shop';
+    const COVERAGE_PARTNER = 'CoveragePartner';
     /**
      * Gets allowable values of the enum
      * @return string[]

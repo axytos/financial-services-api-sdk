@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,18 +150,18 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      */
     public function __construct(array $data = null)
     {
-        $this->container['company'] = $data['company'] ?? null;
-        $this->container['firstname'] = $data['firstname'] ?? null;
-        $this->container['lastname'] = $data['lastname'] ?? null;
-        $this->container['email'] = $data['email'] ?? null;
-        $this->container['zip'] = $data['zip'] ?? null;
-        $this->container['city'] = $data['city'] ?? null;
-        $this->container['country'] = $data['country'] ?? null;
-        $this->container['vat_id'] = $data['vat_id'] ?? null;
-        $this->container['address_line1'] = $data['address_line1'] ?? null;
-        $this->container['address_line2'] = $data['address_line2'] ?? null;
-        $this->container['address_line3'] = $data['address_line3'] ?? null;
-        $this->container['address_line4'] = $data['address_line4'] ?? null;
+        $this->container['company'] = isset($data['company']) ? $data['company'] : null;
+        $this->container['firstname'] = isset($data['firstname']) ? $data['firstname'] : null;
+        $this->container['lastname'] = isset($data['lastname']) ? $data['lastname'] : null;
+        $this->container['email'] = isset($data['email']) ? $data['email'] : null;
+        $this->container['zip'] = isset($data['zip']) ? $data['zip'] : null;
+        $this->container['city'] = isset($data['city']) ? $data['city'] : null;
+        $this->container['country'] = isset($data['country']) ? $data['country'] : null;
+        $this->container['vat_id'] = isset($data['vat_id']) ? $data['vat_id'] : null;
+        $this->container['address_line1'] = isset($data['address_line1']) ? $data['address_line1'] : null;
+        $this->container['address_line2'] = isset($data['address_line2']) ? $data['address_line2'] : null;
+        $this->container['address_line3'] = isset($data['address_line3']) ? $data['address_line3'] : null;
+        $this->container['address_line4'] = isset($data['address_line4']) ? $data['address_line4'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -442,7 +442,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -456,7 +456,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -466,7 +466,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -481,7 +481,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

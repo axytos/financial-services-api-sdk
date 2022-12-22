@@ -60,7 +60,7 @@ class CurlMultiHandler
      */
     public function __construct(array $options = [])
     {
-        $this->factory = $options['handle_factory'] ?? new CurlFactory(50);
+        $this->factory = isset($options['handle_factory']) ? $options['handle_factory'] : new CurlFactory(50);
         if (isset($options['select_timeout'])) {
             $this->selectTimeout = $options['select_timeout'];
         } elseif ($selectTimeout = Utils::getenv('GUZZLE_CURL_SELECT_TIMEOUT')) {
@@ -69,7 +69,7 @@ class CurlMultiHandler
         } else {
             $this->selectTimeout = 1;
         }
-        $this->options = $options['options'] ?? [];
+        $this->options = isset($options['options']) ? $options['options'] : [];
     }
     /**
      * @param string $name
@@ -102,7 +102,10 @@ class CurlMultiHandler
             unset($this->_mh);
         }
     }
-    public function __invoke(RequestInterface $request, array $options) : PromiseInterface
+    /**
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
+     */
+    public function __invoke(RequestInterface $request, array $options)
     {
         $easy = $this->factory->create($request, $options);
         $id = (int) $easy->handle;
@@ -114,8 +117,9 @@ class CurlMultiHandler
     }
     /**
      * Ticks the curl event loop.
+     * @return void
      */
-    public function tick() : void
+    public function tick()
     {
         // Add any delayed handles if needed.
         if ($this->delays) {
@@ -140,8 +144,9 @@ class CurlMultiHandler
     }
     /**
      * Runs until all outstanding connections have completed.
+     * @return void
      */
-    public function execute() : void
+    public function execute()
     {
         $queue = P\Utils::queue();
         while ($this->handles || !$queue->isEmpty()) {
@@ -152,7 +157,10 @@ class CurlMultiHandler
             $this->tick();
         }
     }
-    private function addRequest(array $entry) : void
+    /**
+     * @return void
+     */
+    private function addRequest(array $entry)
     {
         $easy = $entry['easy'];
         $id = (int) $easy->handle;
@@ -170,7 +178,7 @@ class CurlMultiHandler
      *
      * @return bool True on success, false on failure.
      */
-    private function cancel($id) : bool
+    private function cancel($id)
     {
         if (!\is_int($id)) {
             trigger_deprecation('guzzlehttp/guzzle', '7.4', 'Not passing an integer to %s::%s() is deprecated and will cause an error in 8.0.', __CLASS__, __FUNCTION__);
@@ -185,7 +193,10 @@ class CurlMultiHandler
         \curl_close($handle);
         return \true;
     }
-    private function processMessages() : void
+    /**
+     * @return void
+     */
+    private function processMessages()
     {
         while ($done = \curl_multi_info_read($this->_mh)) {
             if ($done['msg'] !== \CURLMSG_DONE) {
@@ -204,7 +215,10 @@ class CurlMultiHandler
             $entry['deferred']->resolve(CurlFactory::finish($this, $entry['easy'], $this->factory));
         }
     }
-    private function timeToNext() : int
+    /**
+     * @return int
+     */
+    private function timeToNext()
     {
         $currentTime = Utils::currentTime();
         $nextTime = \PHP_INT_MAX;

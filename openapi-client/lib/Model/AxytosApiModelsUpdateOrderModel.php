@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,8 +150,8 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['basket'] = $data['basket'] ?? null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['basket'] = isset($data['basket']) ? $data['basket'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -228,7 +228,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -242,7 +242,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -252,7 +252,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -267,7 +267,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

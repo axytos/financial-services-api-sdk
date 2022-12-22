@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\RequestFactoryInterface;
@@ -23,18 +22,35 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  */
 final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UploadedFileFactoryInterface, UriFactoryInterface
 {
-    public function createUploadedFile(StreamInterface $stream, int $size = null, int $error = \UPLOAD_ERR_OK, string $clientFilename = null, string $clientMediaType = null) : UploadedFileInterface
+    /**
+     * @param \Axytos\FinancialServices\Psr\Http\Message\StreamInterface $stream
+     * @param int|null $size
+     * @param int $error
+     * @param string|null $clientFilename
+     * @param string|null $clientMediaType
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UploadedFileInterface
+     */
+    public function createUploadedFile($stream, $size = null, $error = \UPLOAD_ERR_OK, $clientFilename = null, $clientMediaType = null)
     {
         if ($size === null) {
             $size = $stream->getSize();
         }
         return new UploadedFile($stream, $size, $error, $clientFilename, $clientMediaType);
     }
-    public function createStream(string $content = '') : StreamInterface
+    /**
+     * @param string $content
+     * @return \Axytos\FinancialServices\Psr\Http\Message\StreamInterface
+     */
+    public function createStream($content = '')
     {
         return Utils::streamFor($content);
     }
-    public function createStreamFromFile(string $file, string $mode = 'r') : StreamInterface
+    /**
+     * @param string $file
+     * @param string $mode
+     * @return \Axytos\FinancialServices\Psr\Http\Message\StreamInterface
+     */
+    public function createStreamFromFile($file, $mode = 'r')
     {
         try {
             $resource = Utils::tryFopen($file, $mode);
@@ -46,11 +62,19 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
         }
         return Utils::streamFor($resource);
     }
-    public function createStreamFromResource($resource) : StreamInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\StreamInterface
+     */
+    public function createStreamFromResource($resource)
     {
         return Utils::streamFor($resource);
     }
-    public function createServerRequest(string $method, $uri, array $serverParams = []) : ServerRequestInterface
+    /**
+     * @param string $method
+     * @param mixed[] $serverParams
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function createServerRequest($method, $uri, $serverParams = [])
     {
         if (empty($method)) {
             if (!empty($serverParams['REQUEST_METHOD'])) {
@@ -61,15 +85,28 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
         }
         return new ServerRequest($method, $uri, [], null, '1.1', $serverParams);
     }
-    public function createResponse(int $code = 200, string $reasonPhrase = '') : ResponseInterface
+    /**
+     * @param int $code
+     * @param string $reasonPhrase
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
+     */
+    public function createResponse($code = 200, $reasonPhrase = '')
     {
         return new Response($code, [], null, '1.1', $reasonPhrase);
     }
-    public function createRequest(string $method, $uri) : RequestInterface
+    /**
+     * @param string $method
+     * @return \Axytos\FinancialServices\Psr\Http\Message\RequestInterface
+     */
+    public function createRequest($method, $uri)
     {
         return new Request($method, $uri);
     }
-    public function createUri(string $uri = '') : UriInterface
+    /**
+     * @param string $uri
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
+     */
+    public function createUri($uri = '')
     {
         return new Uri($uri);
     }

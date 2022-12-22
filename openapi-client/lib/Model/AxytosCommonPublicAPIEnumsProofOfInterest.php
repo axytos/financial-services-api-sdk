@@ -42,28 +42,28 @@ class AxytosCommonPublicAPIEnumsProofOfInterest
     /**
      * Possible values of this enum
      */
-    public const AAA = 'AAA';
-    public const AAB = 'AAB';
-    public const BAB = 'BAB';
-    public const BAC = 'BAC';
-    public const AAE = 'AAE';
-    public const AAF = 'AAF';
-    public const AAG = 'AAG';
-    public const AAH = 'AAH';
-    public const AAI = 'AAI';
-    public const BAA = 'BAA';
-    public const AAJ = 'AAJ';
-    public const AAK = 'AAK';
-    public const DAA = 'DAA';
-    public const DAB = 'DAB';
-    public const DAD = 'DAD';
-    public const DAC = 'DAC';
-    public const AAL = 'AAL';
-    public const EAA = 'EAA';
-    public const AAM = 'AAM';
-    public const EAB = 'EAB';
-    public const FAA = 'FAA';
-    public const FAB = 'FAB';
+    const AAA = 'AAA';
+    const AAB = 'AAB';
+    const BAB = 'BAB';
+    const BAC = 'BAC';
+    const AAE = 'AAE';
+    const AAF = 'AAF';
+    const AAG = 'AAG';
+    const AAH = 'AAH';
+    const AAI = 'AAI';
+    const BAA = 'BAA';
+    const AAJ = 'AAJ';
+    const AAK = 'AAK';
+    const DAA = 'DAA';
+    const DAB = 'DAB';
+    const DAD = 'DAD';
+    const DAC = 'DAC';
+    const AAL = 'AAL';
+    const EAA = 'EAA';
+    const AAM = 'AAM';
+    const EAB = 'EAB';
+    const FAA = 'FAA';
+    const FAB = 'FAB';
     /**
      * Gets allowable values of the enum
      * @return string[]

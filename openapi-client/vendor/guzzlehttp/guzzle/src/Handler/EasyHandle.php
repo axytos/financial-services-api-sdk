@@ -55,10 +55,11 @@ final class EasyHandle
      *
      * @throws \RuntimeException if no headers have been received or the first
      *                           header line is invalid.
+     * @return void
      */
-    public function createResponse() : void
+    public function createResponse()
     {
-        [$ver, $status, $reason, $headers] = HeaderProcessor::parseHeaders($this->headers);
+        list($ver, $status, $reason, $headers) = HeaderProcessor::parseHeaders($this->headers);
         $normalizedKeys = Utils::normalizeHeaderKeys($headers);
         if (!empty($this->options['decode_content']) && isset($normalizedKeys['content-encoding'])) {
             $headers['x-encoded-content-encoding'] = $headers[$normalizedKeys['content-encoding']];

@@ -28,9 +28,12 @@ class CurlHandler
      */
     public function __construct(array $options = [])
     {
-        $this->factory = $options['handle_factory'] ?? new CurlFactory(3);
+        $this->factory = isset($options['handle_factory']) ? $options['handle_factory'] : new CurlFactory(3);
     }
-    public function __invoke(RequestInterface $request, array $options) : PromiseInterface
+    /**
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
+     */
+    public function __invoke(RequestInterface $request, array $options)
     {
         if (isset($options['delay'])) {
             \usleep($options['delay'] * 1000);

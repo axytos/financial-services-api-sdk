@@ -15,7 +15,7 @@ interface ClientInterface
     /**
      * The Guzzle major version.
      */
-    public const MAJOR_VERSION = 7;
+    const MAJOR_VERSION = 7;
     /**
      * Send an HTTP request.
      *
@@ -24,16 +24,18 @@ interface ClientInterface
      *                                  request and to the transfer.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function send(RequestInterface $request, array $options = []) : ResponseInterface;
+    public function send($request, $options = []);
     /**
      * Asynchronously send an HTTP request.
      *
      * @param RequestInterface $request Request to send
      * @param array            $options Request options to apply to the given
      *                                  request and to the transfer.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function sendAsync(RequestInterface $request, array $options = []) : PromiseInterface;
+    public function sendAsync($request, $options = []);
     /**
      * Create and send an HTTP request.
      *
@@ -46,8 +48,9 @@ interface ClientInterface
      * @param array               $options Request options to apply.
      *
      * @throws GuzzleException
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public function request(string $method, $uri, array $options = []) : ResponseInterface;
+    public function request($method, $uri, $options = []);
     /**
      * Create and send an asynchronous HTTP request.
      *
@@ -59,8 +62,9 @@ interface ClientInterface
      * @param string              $method  HTTP method
      * @param string|UriInterface $uri     URI object or string.
      * @param array               $options Request options to apply.
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public function requestAsync(string $method, $uri, array $options = []) : PromiseInterface;
+    public function requestAsync($method, $uri, $options = []);
     /**
      * Get a client configuration option.
      *
@@ -74,5 +78,5 @@ interface ClientInterface
      *
      * @deprecated ClientInterface::getConfig will be removed in guzzlehttp/guzzle:8.0.
      */
-    public function getConfig(?string $option = null);
+    public function getConfig($option = null);
 }

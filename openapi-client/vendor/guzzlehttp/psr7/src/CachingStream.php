@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
@@ -30,7 +29,10 @@ final class CachingStream implements StreamInterface
         $this->remoteStream = $stream;
         $this->stream = $target ?: new Stream(Utils::tryFopen('php://temp', 'r+'));
     }
-    public function getSize() : ?int
+    /**
+     * @return int|null
+     */
+    public function getSize()
     {
         $remoteSize = $this->remoteStream->getSize();
         if (null === $remoteSize) {
@@ -38,11 +40,17 @@ final class CachingStream implements StreamInterface
         }
         return \max($this->stream->getSize(), $remoteSize);
     }
-    public function rewind() : void
+    /**
+     * @return void
+     */
+    public function rewind()
     {
         $this->seek(0);
     }
-    public function seek($offset, $whence = \SEEK_SET) : void
+    /**
+     * @return void
+     */
+    public function seek($offset, $whence = \SEEK_SET)
     {
         if ($whence === \SEEK_SET) {
             $byte = $offset;
@@ -70,7 +78,10 @@ final class CachingStream implements StreamInterface
             $this->stream->seek($byte);
         }
     }
-    public function read($length) : string
+    /**
+     * @return string
+     */
+    public function read($length)
     {
         // Perform a regular read on any previously read data from the buffer
         $data = $this->stream->read($length);
@@ -92,7 +103,10 @@ final class CachingStream implements StreamInterface
         }
         return $data;
     }
-    public function write($string) : int
+    /**
+     * @return int
+     */
+    public function write($string)
     {
         // When appending to the end of the currently read stream, you'll want
         // to skip bytes from being read from the remote stream to emulate
@@ -104,19 +118,26 @@ final class CachingStream implements StreamInterface
         }
         return $this->stream->write($string);
     }
-    public function eof() : bool
+    /**
+     * @return bool
+     */
+    public function eof()
     {
         return $this->stream->eof() && $this->remoteStream->eof();
     }
     /**
      * Close both the remote stream and buffer stream
+     * @return void
      */
-    public function close() : void
+    public function close()
     {
         $this->remoteStream->close();
         $this->stream->close();
     }
-    private function cacheEntireStream() : int
+    /**
+     * @return int
+     */
+    private function cacheEntireStream()
     {
         $target = new FnStream(['write' => 'strlen']);
         Utils::copyToStream($this, $target);

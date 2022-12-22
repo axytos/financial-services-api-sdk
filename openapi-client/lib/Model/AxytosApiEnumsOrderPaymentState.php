@@ -42,10 +42,10 @@ class AxytosApiEnumsOrderPaymentState
     /**
      * Possible values of this enum
      */
-    public const UNPAID = 'Unpaid';
-    public const PARTIALLY_PAID = 'PartiallyPaid';
-    public const PAID = 'Paid';
-    public const OVERPAID = 'Overpaid';
+    const UNPAID = 'Unpaid';
+    const PARTIALLY_PAID = 'PartiallyPaid';
+    const PAID = 'Paid';
+    const OVERPAID = 'Overpaid';
     /**
      * Gets allowable values of the enum
      * @return string[]

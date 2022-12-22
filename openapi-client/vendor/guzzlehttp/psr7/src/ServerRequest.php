@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use InvalidArgumentException;
@@ -56,8 +55,10 @@ class ServerRequest extends Request implements ServerRequestInterface
      * @param string                               $version      Protocol version
      * @param array                                $serverParams Typically the $_SERVER superglobal
      */
-    public function __construct(string $method, $uri, array $headers = [], $body = null, string $version = '1.1', array $serverParams = [])
+    public function __construct($method, $uri, array $headers = [], $body = null, $version = '1.1', array $serverParams = [])
     {
+        $method = (string) $method;
+        $version = (string) $version;
         $this->serverParams = $serverParams;
         parent::__construct($method, $uri, $headers, $body, $version);
     }
@@ -67,8 +68,9 @@ class ServerRequest extends Request implements ServerRequestInterface
      * @param array $files An array which respect $_FILES structure
      *
      * @throws InvalidArgumentException for unrecognized values
+     * @return mixed[]
      */
-    public static function normalizeFiles(array $files) : array
+    public static function normalizeFiles($files)
     {
         $normalized = [];
         foreach ($files as $key => $value) {
@@ -110,7 +112,7 @@ class ServerRequest extends Request implements ServerRequestInterface
      *
      * @return UploadedFileInterface[]
      */
-    private static function normalizeNestedFileSpec(array $files = []) : array
+    private static function normalizeNestedFileSpec(array $files = [])
     {
         $normalizedFiles = [];
         foreach (\array_keys($files['tmp_name']) as $key) {
@@ -126,10 +128,11 @@ class ServerRequest extends Request implements ServerRequestInterface
      * $_COOKIE
      * $_FILES
      * $_SERVER
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
      */
-    public static function fromGlobals() : ServerRequestInterface
+    public static function fromGlobals()
     {
-        $method = $_SERVER['REQUEST_METHOD'] ?? 'GET';
+        $method = isset($_SERVER['REQUEST_METHOD']) ? $_SERVER['REQUEST_METHOD'] : 'GET';
         $headers = \Axytos\FinancialServices\getallheaders();
         $uri = self::getUriFromGlobals();
         $body = new CachingStream(new LazyOpenStream('php://input', 'r+'));
@@ -137,27 +140,33 @@ class ServerRequest extends Request implements ServerRequestInterface
         $serverRequest = new ServerRequest($method, $uri, $headers, $body, $protocol, $_SERVER);
         return $serverRequest->withCookieParams($_COOKIE)->withQueryParams($_GET)->withParsedBody($_POST)->withUploadedFiles(self::normalizeFiles($_FILES));
     }
-    private static function extractHostAndPortFromAuthority(string $authority) : array
+    /**
+     * @param string $authority
+     * @return mixed[]
+     */
+    private static function extractHostAndPortFromAuthority($authority)
     {
+        $authority = (string) $authority;
         $uri = 'http://' . $authority;
         $parts = \parse_url($uri);
         if (\false === $parts) {
             return [null, null];
         }
-        $host = $parts['host'] ?? null;
-        $port = $parts['port'] ?? null;
+        $host = isset($parts['host']) ? $parts['host'] : null;
+        $port = isset($parts['port']) ? $parts['port'] : null;
         return [$host, $port];
     }
     /**
      * Get a Uri populated with values from $_SERVER.
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
-    public static function getUriFromGlobals() : UriInterface
+    public static function getUriFromGlobals()
     {
         $uri = new Uri('');
         $uri = $uri->withScheme(!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off' ? 'https' : 'http');
         $hasPort = \false;
         if (isset($_SERVER['HTTP_HOST'])) {
-            [$host, $port] = self::extractHostAndPortFromAuthority($_SERVER['HTTP_HOST']);
+            list($host, $port) = self::extractHostAndPortFromAuthority($_SERVER['HTTP_HOST']);
             if ($host !== null) {
                 $uri = $uri->withHost($host);
             }
@@ -187,35 +196,59 @@ class ServerRequest extends Request implements ServerRequestInterface
         }
         return $uri;
     }
-    public function getServerParams() : array
+    /**
+     * @return mixed[]
+     */
+    public function getServerParams()
     {
         return $this->serverParams;
     }
-    public function getUploadedFiles() : array
+    /**
+     * @return mixed[]
+     */
+    public function getUploadedFiles()
     {
         return $this->uploadedFiles;
     }
-    public function withUploadedFiles(array $uploadedFiles) : ServerRequestInterface
+    /**
+     * @param mixed[] $uploadedFiles
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function withUploadedFiles($uploadedFiles)
     {
         $new = clone $this;
         $new->uploadedFiles = $uploadedFiles;
         return $new;
     }
-    public function getCookieParams() : array
+    /**
+     * @return mixed[]
+     */
+    public function getCookieParams()
     {
         return $this->cookieParams;
     }
-    public function withCookieParams(array $cookies) : ServerRequestInterface
+    /**
+     * @param mixed[] $cookies
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function withCookieParams($cookies)
     {
         $new = clone $this;
         $new->cookieParams = $cookies;
         return $new;
     }
-    public function getQueryParams() : array
+    /**
+     * @return mixed[]
+     */
+    public function getQueryParams()
     {
         return $this->queryParams;
     }
-    public function withQueryParams(array $query) : ServerRequestInterface
+    /**
+     * @param mixed[] $query
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function withQueryParams($query)
     {
         $new = clone $this;
         $new->queryParams = $query;
@@ -230,13 +263,19 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         return $this->parsedBody;
     }
-    public function withParsedBody($data) : ServerRequestInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function withParsedBody($data)
     {
         $new = clone $this;
         $new->parsedBody = $data;
         return $new;
     }
-    public function getAttributes() : array
+    /**
+     * @return mixed[]
+     */
+    public function getAttributes()
     {
         return $this->attributes;
     }
@@ -252,13 +291,19 @@ class ServerRequest extends Request implements ServerRequestInterface
         }
         return $this->attributes[$attribute];
     }
-    public function withAttribute($attribute, $value) : ServerRequestInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function withAttribute($attribute, $value)
     {
         $new = clone $this;
         $new->attributes[$attribute] = $value;
         return $new;
     }
-    public function withoutAttribute($attribute) : ServerRequestInterface
+    /**
+     * @return \Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface
+     */
+    public function withoutAttribute($attribute)
     {
         if (\false === \array_key_exists($attribute, $this->attributes)) {
             return $this;

@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,12 +150,12 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['delivery_weight'] = $data['delivery_weight'] ?? null;
-        $this->container['tracking_id'] = $data['tracking_id'] ?? null;
-        $this->container['logistician'] = $data['logistician'] ?? null;
-        $this->container['delivery_information'] = $data['delivery_information'] ?? null;
-        $this->container['delivery_address'] = $data['delivery_address'] ?? null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['delivery_weight'] = isset($data['delivery_weight']) ? $data['delivery_weight'] : null;
+        $this->container['tracking_id'] = isset($data['tracking_id']) ? $data['tracking_id'] : null;
+        $this->container['logistician'] = isset($data['logistician']) ? $data['logistician'] : null;
+        $this->container['delivery_information'] = isset($data['delivery_information']) ? $data['delivery_information'] : null;
+        $this->container['delivery_address'] = isset($data['delivery_address']) ? $data['delivery_address'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -325,7 +325,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -339,7 +339,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -349,7 +349,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -364,7 +364,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

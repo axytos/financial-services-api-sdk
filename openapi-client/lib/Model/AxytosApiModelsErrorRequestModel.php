@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsErrorRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosApiModelsErrorRequestModel implements ModelInterface, ArrayAccess, \
      */
     public function __construct(array $data = null)
     {
-        $this->container['title'] = $data['title'] ?? null;
-        $this->container['description'] = $data['description'] ?? null;
-        $this->container['time_stamp'] = $data['time_stamp'] ?? null;
-        $this->container['request_id'] = $data['request_id'] ?? null;
+        $this->container['title'] = isset($data['title']) ? $data['title'] : null;
+        $this->container['description'] = isset($data['description']) ? $data['description'] : null;
+        $this->container['time_stamp'] = isset($data['time_stamp']) ? $data['time_stamp'] : null;
+        $this->container['request_id'] = isset($data['request_id']) ? $data['request_id'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -275,7 +275,7 @@ class AxytosApiModelsErrorRequestModel implements ModelInterface, ArrayAccess, \
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -289,7 +289,7 @@ class AxytosApiModelsErrorRequestModel implements ModelInterface, ArrayAccess, \
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -299,7 +299,7 @@ class AxytosApiModelsErrorRequestModel implements ModelInterface, ArrayAccess, \
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -314,7 +314,7 @@ class AxytosApiModelsErrorRequestModel implements ModelInterface, ArrayAccess, \
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

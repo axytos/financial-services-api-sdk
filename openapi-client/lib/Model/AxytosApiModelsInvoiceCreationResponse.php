@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsInvoiceCreationResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,7 +150,7 @@ class AxytosApiModelsInvoiceCreationResponse implements ModelInterface, ArrayAcc
      */
     public function __construct(array $data = null)
     {
-        $this->container['invoice_number'] = $data['invoice_number'] ?? null;
+        $this->container['invoice_number'] = isset($data['invoice_number']) ? $data['invoice_number'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -200,7 +200,7 @@ class AxytosApiModelsInvoiceCreationResponse implements ModelInterface, ArrayAcc
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -214,7 +214,7 @@ class AxytosApiModelsInvoiceCreationResponse implements ModelInterface, ArrayAcc
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -224,7 +224,7 @@ class AxytosApiModelsInvoiceCreationResponse implements ModelInterface, ArrayAcc
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -239,7 +239,7 @@ class AxytosApiModelsInvoiceCreationResponse implements ModelInterface, ArrayAcc
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

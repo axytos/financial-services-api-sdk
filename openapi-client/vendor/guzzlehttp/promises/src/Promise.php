@@ -24,7 +24,11 @@ class Promise implements PromiseInterface
         $this->waitFn = $waitFn;
         $this->cancelFn = $cancelFn;
     }
-    public function then(callable $onFulfilled = null, callable $onRejected = null)
+    /**
+     * @param callable|null $onFulfilled
+     * @param callable|null $onRejected
+     */
+    public function then($onFulfilled = null, $onRejected = null)
     {
         if ($this->state === self::PENDING) {
             $p = new Promise(null, [$this, 'cancel']);
@@ -43,7 +47,10 @@ class Promise implements PromiseInterface
         $rejection = Create::rejectionFor($this->result);
         return $onRejected ? $rejection->then(null, $onRejected) : $rejection;
     }
-    public function otherwise(callable $onRejected)
+    /**
+     * @param callable $onRejected
+     */
+    public function otherwise($onRejected)
     {
         return $this->then(null, $onRejected);
     }

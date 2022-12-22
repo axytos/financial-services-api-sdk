@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
@@ -17,9 +16,12 @@ final class UriResolver
      * Removes dot segments from a path and returns the new path.
      *
      * @link http://tools.ietf.org/html/rfc3986#section-5.2.4
+     * @param string $path
+     * @return string
      */
-    public static function removeDotSegments(string $path) : string
+    public static function removeDotSegments($path)
     {
+        $path = (string) $path;
         if ($path === '' || $path === '/') {
             return $path;
         }
@@ -47,8 +49,9 @@ final class UriResolver
      * Converts the relative URI into a new URI that is resolved against the base URI.
      *
      * @link http://tools.ietf.org/html/rfc3986#section-5.2
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
-    public static function resolve(UriInterface $base, UriInterface $rel) : UriInterface
+    public static function resolve(UriInterface $base, UriInterface $rel)
     {
         if ((string) $rel === '') {
             // we can simply return the same base URI instance for this same-document reference
@@ -107,8 +110,9 @@ final class UriResolver
      * relative-path reference will be returned as-is.
      *
      *    echo UriResolver::relativize($base, new Uri('/a/b/c'));  // prints 'c' as well
+     * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
-    public static function relativize(UriInterface $base, UriInterface $target) : UriInterface
+    public static function relativize(UriInterface $base, UriInterface $target)
     {
         if ($target->getScheme() !== '' && ($base->getScheme() !== $target->getScheme() || $target->getAuthority() === '' && $base->getAuthority() !== '')) {
             return $target;
@@ -143,7 +147,10 @@ final class UriResolver
         }
         return $emptyPathUri;
     }
-    private static function getRelativePath(UriInterface $base, UriInterface $target) : string
+    /**
+     * @return string
+     */
+    private static function getRelativePath(UriInterface $base, UriInterface $target)
     {
         $sourceSegments = \explode('/', $base->getPath());
         $targetSegments = \explode('/', $target->getPath());

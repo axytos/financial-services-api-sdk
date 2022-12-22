@@ -45,8 +45,9 @@ class MockHandler implements \Countable
      * @param array|null    $queue       Array of responses, callables, or exceptions.
      * @param callable|null $onFulfilled Callback to invoke when the return value is fulfilled.
      * @param callable|null $onRejected  Callback to invoke when the return value is rejected.
+     * @return \Axytos\FinancialServices\GuzzleHttp\HandlerStack
      */
-    public static function createWithMiddleware(array $queue = null, callable $onFulfilled = null, callable $onRejected = null) : HandlerStack
+    public static function createWithMiddleware($queue = null, $onFulfilled = null, $onRejected = null)
     {
         return HandlerStack::create(new self($queue, $onFulfilled, $onRejected));
     }
@@ -68,7 +69,10 @@ class MockHandler implements \Countable
             $this->append(...\array_values($queue));
         }
     }
-    public function __invoke(RequestInterface $request, array $options) : PromiseInterface
+    /**
+     * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
+     */
+    public function __invoke(RequestInterface $request, array $options)
     {
         if (!$this->queue) {
             throw new \OutOfBoundsException('Mock queue is empty');
@@ -93,11 +97,11 @@ class MockHandler implements \Countable
         if (\is_callable($response)) {
             $response = $response($request, $options);
         }
-        $response = $response instanceof \Throwable ? P\Create::rejectionFor($response) : P\Create::promiseFor($response);
-        return $response->then(function (?ResponseInterface $value) use($request, $options) {
+        $response = ($throwable = $response) instanceof \Throwable || $throwable instanceof \Exception ? P\Create::rejectionFor($response) : P\Create::promiseFor($response);
+        return $response->then(function ($value) use($request, $options) {
             $this->invokeStats($request, $options, $value);
             if ($this->onFulfilled) {
-                ($this->onFulfilled)($value);
+                call_user_func($this->onFulfilled, $value);
             }
             if ($value !== null && isset($options['sink'])) {
                 $contents = (string) $value->getBody();
@@ -114,7 +118,7 @@ class MockHandler implements \Countable
         }, function ($reason) use($request, $options) {
             $this->invokeStats($request, $options, null, $reason);
             if ($this->onRejected) {
-                ($this->onRejected)($reason);
+                call_user_func($this->onRejected, $reason);
             }
             return P\Create::rejectionFor($reason);
         });
@@ -124,11 +128,12 @@ class MockHandler implements \Countable
      * to the queue.
      *
      * @param mixed ...$values
+     * @return void
      */
-    public function append(...$values) : void
+    public function append(...$values)
     {
         foreach ($values as $value) {
-            if ($value instanceof ResponseInterface || $value instanceof \Throwable || $value instanceof PromiseInterface || \is_callable($value)) {
+            if ($value instanceof ResponseInterface || (($throwable = $value) instanceof \Throwable || $throwable instanceof \Exception) || $value instanceof PromiseInterface || \is_callable($value)) {
                 $this->queue[] = $value;
             } else {
                 throw new \TypeError('Expected a Response, Promise, Throwable or callable. Found ' . Utils::describeType($value));
@@ -137,36 +142,43 @@ class MockHandler implements \Countable
     }
     /**
      * Get the last received request.
+     * @return \Axytos\FinancialServices\Psr\Http\Message\RequestInterface|null
      */
-    public function getLastRequest() : ?RequestInterface
+    public function getLastRequest()
     {
         return $this->lastRequest;
     }
     /**
      * Get the last received request options.
+     * @return mixed[]
      */
-    public function getLastOptions() : array
+    public function getLastOptions()
     {
         return $this->lastOptions;
     }
     /**
      * Returns the number of remaining items in the queue.
+     * @return int
      */
-    public function count() : int
+    public function count()
     {
         return \count($this->queue);
     }
-    public function reset() : void
+    /**
+     * @return void
+     */
+    public function reset()
     {
         $this->queue = [];
     }
     /**
      * @param mixed $reason Promise or reason.
+     * @return void
      */
-    private function invokeStats(RequestInterface $request, array $options, ResponseInterface $response = null, $reason = null) : void
+    private function invokeStats(RequestInterface $request, array $options, ResponseInterface $response = null, $reason = null)
     {
         if (isset($options['on_stats'])) {
-            $transferTime = $options['transfer_time'] ?? 0;
+            $transferTime = isset($options['transfer_time']) ? $options['transfer_time'] : 0;
             $stats = new TransferStats($request, $response, $transferTime, $reason);
             $options['on_stats']($stats);
         }

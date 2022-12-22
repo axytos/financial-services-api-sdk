@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Axytos\FinancialServices\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -10,8 +8,10 @@ class ApiClassesInstantiationTest extends TestCase
 {
     /**
      * @dataProvider apiClassNameProvider
+     * @param string $className
+     * @return void
      */
-    public function testApiClassesCanBeConstructed(string $className): void
+    public function testApiClassesCanBeConstructed($className)
     {
         $instance = new $className();
 
@@ -20,8 +20,10 @@ class ApiClassesInstantiationTest extends TestCase
 
     /**
      * @dataProvider apiClassNameProvider
+     * @param string $className
+     * @return void
      */
-    public function test_scoped_GuzzleHttp_client_can_be_injected(string $className): void
+    public function test_scoped_GuzzleHttp_client_can_be_injected($className)
     {
         $client = new \Axytos\FinancialServices\GuzzleHttp\Client();
         $instance = new $className($client);
@@ -29,7 +31,10 @@ class ApiClassesInstantiationTest extends TestCase
         $this->assertNotNull($instance);
     }
 
-    public function apiClassNameProvider(): array
+    /**
+     * @return mixed[]
+     */
+    public function apiClassNameProvider()
     {
         return [
             ['Axytos\FinancialServices\OpenAPI\Client\Api\CheckApi'],

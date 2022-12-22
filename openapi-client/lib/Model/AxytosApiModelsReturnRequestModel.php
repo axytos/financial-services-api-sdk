@@ -41,7 +41,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  */
 class AxytosApiModelsReturnRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
-    public const DISCRIMINATOR = null;
+    const DISCRIMINATOR = null;
     /**
      * The original name of the model.
      *
@@ -150,10 +150,10 @@ class AxytosApiModelsReturnRequestModel implements ModelInterface, ArrayAccess, 
      */
     public function __construct(array $data = null)
     {
-        $this->container['external_order_id'] = $data['external_order_id'] ?? null;
-        $this->container['external_sub_order_id'] = $data['external_sub_order_id'] ?? null;
-        $this->container['return_date'] = $data['return_date'] ?? null;
-        $this->container['positions'] = $data['positions'] ?? null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
+        $this->container['external_sub_order_id'] = isset($data['external_sub_order_id']) ? $data['external_sub_order_id'] : null;
+        $this->container['return_date'] = isset($data['return_date']) ? $data['return_date'] : null;
+        $this->container['positions'] = isset($data['positions']) ? $data['positions'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -272,7 +272,7 @@ class AxytosApiModelsReturnRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @return boolean
      */
-    public function offsetExists($offset): bool
+    public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
     }
@@ -286,7 +286,7 @@ class AxytosApiModelsReturnRequestModel implements ModelInterface, ArrayAccess, 
     #[\ReturnTypeWillChange]
     public function offsetGet($offset)
     {
-        return $this->container[$offset] ?? null;
+        return isset($this->container[$offset]) ? $this->container[$offset] : null;
     }
     /**
      * Sets value based on offset.
@@ -296,7 +296,7 @@ class AxytosApiModelsReturnRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @return void
      */
-    public function offsetSet($offset, $value): void
+    public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
             $this->container[] = $value;
@@ -311,7 +311,7 @@ class AxytosApiModelsReturnRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @return void
      */
-    public function offsetUnset($offset): void
+    public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
     }

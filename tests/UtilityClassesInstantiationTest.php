@@ -1,7 +1,5 @@
 <?php
 
-declare(strict_types=1);
-
 namespace Axytos\FinancialServices\Tests;
 
 use PHPUnit\Framework\TestCase;
@@ -10,15 +8,20 @@ class UtilityClassesInstantiationTest extends TestCase
 {
     /**
      * @dataProvider utilityClassNameProvider
+     * @param string $className
+     * @return void
      */
-    public function testUtilityClassesCanBeConstructed(string $className): void
+    public function testUtilityClassesCanBeConstructed($className)
     {
         $instance = new $className();
 
         $this->assertNotNull($instance);
     }
 
-    public function utilityClassNameProvider(): array
+    /**
+     * @return mixed[]
+     */
+    public function utilityClassNameProvider()
     {
         return [
             ['Axytos\FinancialServices\OpenAPI\Client\ApiException'],

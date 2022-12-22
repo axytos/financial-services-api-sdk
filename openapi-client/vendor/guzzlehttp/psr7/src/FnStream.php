@@ -1,6 +1,5 @@
 <?php
 
-declare (strict_types=1);
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
@@ -13,7 +12,7 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 #[\AllowDynamicProperties]
 final class FnStream implements StreamInterface
 {
-    private const SLOTS = ['__toString', 'close', 'detach', 'rewind', 'getSize', 'tell', 'eof', 'isSeekable', 'seek', 'isWritable', 'write', 'isReadable', 'read', 'getContents', 'getMetadata'];
+    const SLOTS = ['__toString', 'close', 'detach', 'rewind', 'getSize', 'tell', 'eof', 'isSeekable', 'seek', 'isWritable', 'write', 'isReadable', 'read', 'getContents', 'getMetadata'];
     /** @var array<string, callable> */
     private $methods;
     /**
@@ -31,9 +30,12 @@ final class FnStream implements StreamInterface
      * Lazily determine which methods are not implemented.
      *
      * @throws \BadMethodCallException
+     * @return void
+     * @param string $name
      */
-    public function __get(string $name) : void
+    public function __get($name)
     {
+        $name = (string) $name;
         throw new \BadMethodCallException(\str_replace('_fn_', '', $name) . '() is not implemented in the FnStream');
     }
     /**
@@ -49,8 +51,9 @@ final class FnStream implements StreamInterface
      * An unserialize would allow the __destruct to run when the unserialized value goes out of scope.
      *
      * @throws \LogicException
+     * @return void
      */
-    public function __wakeup() : void
+    public function __wakeup()
     {
         throw new \LogicException('FnStream should never be unserialized');
     }
@@ -63,7 +66,7 @@ final class FnStream implements StreamInterface
      *
      * @return FnStream
      */
-    public static function decorate(StreamInterface $stream, array $methods)
+    public static function decorate($stream, $methods)
     {
         // If any of the required methods were not provided, then simply
         // proxy to the decorated stream.
@@ -74,7 +77,10 @@ final class FnStream implements StreamInterface
         }
         return new self($methods);
     }
-    public function __toString() : string
+    /**
+     * @return string
+     */
+    public function __toString()
     {
         try {
             return \call_user_func($this->_fn___toString);
@@ -84,9 +90,18 @@ final class FnStream implements StreamInterface
             }
             \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
+        } catch (\Exception $e) {
+            if (\PHP_VERSION_ID >= 70400) {
+                throw $e;
+            }
+            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            return '';
         }
     }
-    public function close() : void
+    /**
+     * @return void
+     */
+    public function close()
     {
         \call_user_func($this->_fn_close);
     }
@@ -94,47 +109,80 @@ final class FnStream implements StreamInterface
     {
         return \call_user_func($this->_fn_detach);
     }
-    public function getSize() : ?int
+    /**
+     * @return int|null
+     */
+    public function getSize()
     {
         return \call_user_func($this->_fn_getSize);
     }
-    public function tell() : int
+    /**
+     * @return int
+     */
+    public function tell()
     {
         return \call_user_func($this->_fn_tell);
     }
-    public function eof() : bool
+    /**
+     * @return bool
+     */
+    public function eof()
     {
         return \call_user_func($this->_fn_eof);
     }
-    public function isSeekable() : bool
+    /**
+     * @return bool
+     */
+    public function isSeekable()
     {
         return \call_user_func($this->_fn_isSeekable);
     }
-    public function rewind() : void
+    /**
+     * @return void
+     */
+    public function rewind()
     {
         \call_user_func($this->_fn_rewind);
     }
-    public function seek($offset, $whence = \SEEK_SET) : void
+    /**
+     * @return void
+     */
+    public function seek($offset, $whence = \SEEK_SET)
     {
         \call_user_func($this->_fn_seek, $offset, $whence);
     }
-    public function isWritable() : bool
+    /**
+     * @return bool
+     */
+    public function isWritable()
     {
         return \call_user_func($this->_fn_isWritable);
     }
-    public function write($string) : int
+    /**
+     * @return int
+     */
+    public function write($string)
     {
         return \call_user_func($this->_fn_write, $string);
     }
-    public function isReadable() : bool
+    /**
+     * @return bool
+     */
+    public function isReadable()
     {
         return \call_user_func($this->_fn_isReadable);
     }
-    public function read($length) : string
+    /**
+     * @return string
+     */
+    public function read($length)
     {
         return \call_user_func($this->_fn_read, $length);
     }
-    public function getContents() : string
+    /**
+     * @return string
+     */
+    public function getContents()
     {
         return \call_user_func($this->_fn_getContents);
     }
