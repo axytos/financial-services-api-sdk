@@ -27,6 +27,6 @@ final class MimeType
     public static function fromExtension($extension)
     {
         $extension = (string) $extension;
-        return isset(self::MIME_TYPES[\strtolower($extension)]) ? self::MIME_TYPES[\strtolower($extension)] : null;
+        $mimeTypes = self::MIME_TYPES; return isset($mimeTypes[\strtolower($extension)]) ? $mimeTypes[\strtolower($extension)] : null;
     }
 }
