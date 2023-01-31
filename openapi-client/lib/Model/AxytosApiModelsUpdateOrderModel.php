@@ -228,6 +228,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
@@ -252,6 +253,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
@@ -267,6 +269,7 @@ class AxytosApiModelsUpdateOrderModel implements ModelInterface, ArrayAccess, \J
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);

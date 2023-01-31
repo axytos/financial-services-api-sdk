@@ -278,6 +278,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      *
      * @return boolean
      */
+    #[\ReturnTypeWillChange]
     public function offsetExists($offset)
     {
         return isset($this->container[$offset]);
@@ -302,6 +303,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
         if (\is_null($offset)) {
@@ -317,6 +319,7 @@ class AxytosCommonPublicAPITransactionTransactionMetadata implements ModelInterf
      *
      * @return void
      */
+    #[\ReturnTypeWillChange]
     public function offsetUnset($offset)
     {
         unset($this->container[$offset]);
