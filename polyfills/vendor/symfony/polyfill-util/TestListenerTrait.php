@@ -118,7 +118,10 @@ EOPHP
         }
     }
 
-    public function addError($test, \Exception $e, $time)
+    /**
+     * @param \Exception $e
+     */
+    public function addError($test, $e, $time)
     {
         if (false !== self::$enabledPolyfills) {
             $r = new \ReflectionProperty('Exception', 'message');

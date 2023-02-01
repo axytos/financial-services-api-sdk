@@ -35,46 +35,82 @@ class TestListenerForV6 extends TestSuite implements TestListenerInterface
         $this->trait = new TestListenerTrait();
     }
 
-    public function startTestSuite(TestSuite $suite)
+    /**
+     * @param \PHPUnit\Framework\TestSuite $suite
+     */
+    public function startTestSuite($suite)
     {
         $this->trait->startTestSuite($suite);
     }
 
-    public function addError(Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Exception $e
+     */
+    public function addError($test, $e, $time)
     {
         $this->trait->addError($test, $e, $time);
     }
 
-    public function addWarning(Test $test, Warning $e, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \PHPUnit\Framework\Warning $e
+     */
+    public function addWarning($test, $e, $time)
     {
     }
 
-    public function addFailure(Test $test, AssertionFailedError $e, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \PHPUnit\Framework\AssertionFailedError $e
+     */
+    public function addFailure($test, $e, $time)
     {
         $this->trait->addError($test, $e, $time);
     }
 
-    public function addIncompleteTest(Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Exception $e
+     */
+    public function addIncompleteTest($test, $e, $time)
     {
     }
 
-    public function addRiskyTest(Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Exception $e
+     */
+    public function addRiskyTest($test, $e, $time)
     {
     }
 
-    public function addSkippedTest(Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Exception $e
+     */
+    public function addSkippedTest($test, $e, $time)
     {
     }
 
-    public function endTestSuite(TestSuite $suite)
+    /**
+     * @param \PHPUnit\Framework\TestSuite $suite
+     */
+    public function endTestSuite($suite)
     {
     }
 
-    public function startTest(Test $test)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     */
+    public function startTest($test)
     {
     }
 
-    public function endTest(Test $test, $time)
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     */
+    public function endTest($test, $time)
     {
     }
 
@@ -83,7 +119,10 @@ class TestListenerForV6 extends TestSuite implements TestListenerInterface
         return parent::warning($message);
     }
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function beforeEach()
     {
         TestListenerTrait::$enabledPolyfills = $this->suite->getName();
     }

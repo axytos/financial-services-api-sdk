@@ -75,7 +75,10 @@ class ComposerStaticInite3c7bcca693d8f90b67238b9514db3cd
         'TypeError' => __DIR__ . '/..' . '/symfony/polyfill-php70/Resources/stubs/TypeError.php',
     );
 
-    public static function getInitializer(ClassLoader $loader)
+    /**
+     * @param \Composer\Autoload\ClassLoader $loader
+     */
+    public static function getInitializer($loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInite3c7bcca693d8f90b67238b9514db3cd::$prefixLengthsPsr4;

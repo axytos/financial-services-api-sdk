@@ -162,7 +162,7 @@ class ClassLoader
      *
      * @return void
      */
-    public function addClassMap(array $classMap)
+    public function addClassMap($classMap)
     {
         if ($this->classMap) {
             $this->classMap = array_merge($this->classMap, $classMap);

@@ -99,7 +99,7 @@ class HandlerStack
      *                                                                     returns a Promise.
      * @return void
      */
-    public function setHandler(callable $handler)
+    public function setHandler($handler)
     {
         $this->handler = $handler;
         $this->cached = null;
@@ -119,7 +119,7 @@ class HandlerStack
      * @param string                       $name       Name to register for this middleware.
      * @return void
      */
-    public function unshift(callable $middleware, $name = null)
+    public function unshift($middleware, $name = null)
     {
         \array_unshift($this->stack, [$middleware, $name]);
         $this->cached = null;
@@ -131,9 +131,8 @@ class HandlerStack
      * @param string                       $name       Name to register for this middleware.
      * @return void
      */
-    public function push(callable $middleware, $name = '')
+    public function push($middleware, $name = '')
     {
-        $name = (string) $name;
         $this->stack[] = [$middleware, $name];
         $this->cached = null;
     }
@@ -145,10 +144,8 @@ class HandlerStack
      * @param string                       $withName   Name to register for this middleware.
      * @return void
      */
-    public function before($findName, callable $middleware, $withName = '')
+    public function before($findName, $middleware, $withName = '')
     {
-        $findName = (string) $findName;
-        $withName = (string) $withName;
         $this->splice($findName, $withName, $middleware, \true);
     }
     /**
@@ -159,10 +156,8 @@ class HandlerStack
      * @param string                       $withName   Name to register for this middleware.
      * @return void
      */
-    public function after($findName, callable $middleware, $withName = '')
+    public function after($findName, $middleware, $withName = '')
     {
-        $findName = (string) $findName;
-        $withName = (string) $withName;
         $this->splice($findName, $withName, $middleware, \false);
     }
     /**

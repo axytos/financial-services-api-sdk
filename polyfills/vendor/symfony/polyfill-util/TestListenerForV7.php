@@ -36,60 +36,123 @@ class TestListenerForV7 extends TestSuite implements TestListenerInterface
         $this->trait = new TestListenerTrait();
     }
 
-    public function startTestSuite(TestSuite $suite): void
+    /**
+     * @param \PHPUnit\Framework\TestSuite $suite
+     * @return void
+     */
+    public function startTestSuite($suite)
     {
         $this->trait->startTestSuite($suite);
     }
 
-    public function addError(Test $test, \Throwable $t, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Throwable $t
+     * @param float $time
+     * @return void
+     */
+    public function addError($test, $t, $time)
     {
         $this->trait->addError($test, $t, $time);
     }
 
-    public function addWarning(Test $test, Warning $e, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \PHPUnit\Framework\Warning $e
+     * @param float $time
+     * @return void
+     */
+    public function addWarning($test, $e, $time)
     {
     }
 
-    public function addFailure(Test $test, AssertionFailedError $e, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \PHPUnit\Framework\AssertionFailedError $e
+     * @param float $time
+     * @return void
+     */
+    public function addFailure($test, $e, $time)
     {
         $this->trait->addError($test, $e, $time);
     }
 
-    public function addIncompleteTest(Test $test, \Throwable $t, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Throwable $t
+     * @param float $time
+     * @return void
+     */
+    public function addIncompleteTest($test, $t, $time)
     {
     }
 
-    public function addRiskyTest(Test $test, \Throwable $t, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Throwable $t
+     * @param float $time
+     * @return void
+     */
+    public function addRiskyTest($test, $t, $time)
     {
     }
 
-    public function addSkippedTest(Test $test, \Throwable $t, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param \Throwable $t
+     * @param float $time
+     * @return void
+     */
+    public function addSkippedTest($test, $t, $time)
     {
     }
 
-    public function endTestSuite(TestSuite $suite): void
+    /**
+     * @param \PHPUnit\Framework\TestSuite $suite
+     * @return void
+     */
+    public function endTestSuite($suite)
     {
     }
 
-    public function startTest(Test $test): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @return void
+     */
+    public function startTest($test)
     {
     }
 
-    public function endTest(Test $test, float $time): void
+    /**
+     * @param \PHPUnit\Framework\Test $test
+     * @param float $time
+     * @return void
+     */
+    public function endTest($test, $time)
     {
     }
 
-    public static function warning($message): WarningTestCase
+    /**
+     * @return \PHPUnit\Framework\WarningTestCase
+     */
+    public static function warning($message)
     {
         return new WarningTestCase($message);
     }
 
-    protected function setUp(): void
+    /**
+     * @return void
+     * @before
+     */
+    protected function beforeEach()
     {
         TestListenerTrait::$enabledPolyfills = $this->suite->getName();
     }
 
-    protected function tearDown(): void
+    /**
+     * @return void
+     */
+    protected function tearDown()
     {
         TestListenerTrait::$enabledPolyfills = false;
     }

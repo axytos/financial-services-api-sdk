@@ -29,46 +29,82 @@ class TestListenerForV5 extends \PHPUnit_Framework_TestSuite implements \PHPUnit
         $this->trait = new TestListenerTrait();
     }
 
-    public function startTestSuite(\PHPUnit_Framework_TestSuite $suite)
+    /**
+     * @param \PHPUnit_Framework_TestSuite $suite
+     */
+    public function startTestSuite($suite)
     {
         $this->trait->startTestSuite($suite);
     }
 
-    public function addError(\PHPUnit_Framework_Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     * @param \Exception $e
+     */
+    public function addError($test, $e, $time)
     {
         $this->trait->addError($test, $e, $time);
     }
 
-    public function addWarning(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_Warning $e, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     * @param \PHPUnit_Framework_Warning $e
+     */
+    public function addWarning($test, $e, $time)
     {
     }
 
-    public function addFailure(\PHPUnit_Framework_Test $test, \PHPUnit_Framework_AssertionFailedError $e, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     * @param \PHPUnit_Framework_AssertionFailedError $e
+     */
+    public function addFailure($test, $e, $time)
     {
         $this->trait->addError($test, $e, $time);
     }
 
-    public function addIncompleteTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     * @param \Exception $e
+     */
+    public function addIncompleteTest($test, $e, $time)
     {
     }
 
-    public function addRiskyTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     * @param \Exception $e
+     */
+    public function addRiskyTest($test, $e, $time)
     {
     }
 
-    public function addSkippedTest(\PHPUnit_Framework_Test $test, \Exception $e, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     * @param \Exception $e
+     */
+    public function addSkippedTest($test, $e, $time)
     {
     }
 
-    public function endTestSuite(\PHPUnit_Framework_TestSuite $suite)
+    /**
+     * @param \PHPUnit_Framework_TestSuite $suite
+     */
+    public function endTestSuite($suite)
     {
     }
 
-    public function startTest(\PHPUnit_Framework_Test $test)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     */
+    public function startTest($test)
     {
     }
 
-    public function endTest(\PHPUnit_Framework_Test $test, $time)
+    /**
+     * @param \PHPUnit_Framework_Test $test
+     */
+    public function endTest($test, $time)
     {
     }
 
@@ -77,7 +113,10 @@ class TestListenerForV5 extends \PHPUnit_Framework_TestSuite implements \PHPUnit
         return parent::warning($message);
     }
 
-    protected function setUp()
+    /**
+     * @before
+     */
+    protected function beforeEach()
     {
         TestListenerTrait::$enabledPolyfills = $this->suite->getName();
     }
