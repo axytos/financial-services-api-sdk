@@ -1,6 +1,6 @@
 <?php
 
-namespace Axytos\FinancialServices\Tests;
+namespace Axytos\FinancialServices\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 

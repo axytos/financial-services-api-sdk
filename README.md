@@ -13,7 +13,7 @@ OpenAPI client code is:
 3. downgraded to PHP 5.6 with [rectorphp/rector](https://github.com/rectorphp/rector)
 
 Polyfills are used from:
-* [paragonie/random_compat](https://github.com/paragonie/random_compat)
+* [symfony/polyfill](https://github.com/symfony/polyfill)
 
 ## Security
 
@@ -27,7 +27,7 @@ Logic level security measures of a dependency should not be affected.
 
 If 3rd-party dependencies depend on language level security features (like `random_bytes`) these features are substitued through the following polyfills:
 
-* [paragonie/random_compat](https://github.com/paragonie/random_compat)
+* [symfony/polyfill](https://github.com/symfony/polyfill)
 
 Security advisories for 3rd-party dependencies can be checked with:
 
@@ -85,7 +85,7 @@ see: https://www.php.net/manual/de/class.error.php
 * `guzzlehttp/guzzle/src/Utils.php`
 * `guzzlehttp/guzzle/src/Handler/MockHandler.php`
 
-[paragonie/random_compat](https://github.com/paragonie/random_compat) is used as polyfill.
+[symfony/polyfill](https://github.com/symfony/polyfill) is used as polyfill.
 
 #### (4) `random_bytes`
 
@@ -95,4 +95,4 @@ see: https://www.php.net/manual/en/function.random-bytes.php
 
 * `guzzlehttp/psr7/src/MultipartStream.php`
 
-[paragonie/random_compat](https://github.com/paragonie/random_compat) is used as polyfill. 
+[symfony/polyfill](https://github.com/symfony/polyfill) is used as polyfill. 

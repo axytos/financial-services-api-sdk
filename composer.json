@@ -19,20 +19,19 @@
     "require": {
         "php": ">=5.6.0"
     },
-    "replace": {
-        "symfony/polyfill-php54": "*",
-        "symfony/polyfill-php55": "*",
-        "symfony/polyfill-php56": "*",
-        "symfony/polyfill-php70": "*",
-        "symfony/polyfill-php71": "*",
-        "symfony/polyfill-php72": "*"
-    },
     "require-dev": {
         "phpunit/phpunit": "^5.7 || ^9.5"
     },
     "scripts": {
         "test": [
-            "@phpunit"
+            "@test-unit",
+            "@test-integration"
+        ],
+        "test-unit": [
+            "@phpunit --testsuite Unit"
+        ],
+        "test-integration": [
+            "@phpunit --testsuite Integration"
         ],
         "phpunit": "vendor/bin/phpunit"
     }
