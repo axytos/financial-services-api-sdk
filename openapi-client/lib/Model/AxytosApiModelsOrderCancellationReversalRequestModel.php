@@ -1,7 +1,7 @@
 <?php
 
 /**
- * AxytosCommonPublicAPIModelsCommonCompanyRequestModel
+ * AxytosApiModelsOrderCancellationReversalRequestModel
  *
  * PHP version 7.4
  *
@@ -31,7 +31,7 @@ namespace Axytos\FinancialServices\OpenAPI\Client\Model;
 use ArrayAccess;
 use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
 /**
- * AxytosCommonPublicAPIModelsCommonCompanyRequestModel Class Doc Comment
+ * AxytosApiModelsOrderCancellationReversalRequestModel Class Doc Comment
  *
  * @category Class
  * @package Axytos\FinancialServices\OpenAPI\Client
@@ -39,7 +39,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
  */
-class AxytosCommonPublicAPIModelsCommonCompanyRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
+class AxytosApiModelsOrderCancellationReversalRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
     const DISCRIMINATOR = null;
     /**
@@ -47,13 +47,13 @@ class AxytosCommonPublicAPIModelsCommonCompanyRequestModel implements ModelInter
      *
      * @var string
      */
-    protected static $openAPIModelName = 'Axytos.Common.PublicAPI.Models.Common.CompanyRequestModel';
+    protected static $openAPIModelName = 'Axytos.Api.Models.OrderCancellationReversalRequestModel';
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['name' => 'string', 'number' => 'string', 'legal_form' => 'string', 'uid' => 'string', 'foundation_date' => 'string'];
+    protected static $openAPITypes = ['external_order_id' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -61,7 +61,7 @@ class AxytosCommonPublicAPIModelsCommonCompanyRequestModel implements ModelInter
      * @phpstan-var array<string, string|null>
      * @psalm-var array<string, string|null>
      */
-    protected static $openAPIFormats = ['name' => null, 'number' => null, 'legal_form' => null, 'uid' => null, 'foundation_date' => 'date-time'];
+    protected static $openAPIFormats = ['external_order_id' => null];
     /**
      * Array of property to type mappings. Used for (de)serialization
      *
@@ -86,19 +86,19 @@ class AxytosCommonPublicAPIModelsCommonCompanyRequestModel implements ModelInter
      *
      * @var string[]
      */
-    protected static $attributeMap = ['name' => 'name', 'number' => 'number', 'legal_form' => 'legalForm', 'uid' => 'uid', 'foundation_date' => 'foundationDate'];
+    protected static $attributeMap = ['external_order_id' => 'externalOrderId'];
     /**
      * Array of attributes to setter functions (for deserialization of responses)
      *
      * @var string[]
      */
-    protected static $setters = ['name' => 'setName', 'number' => 'setNumber', 'legal_form' => 'setLegalForm', 'uid' => 'setUid', 'foundation_date' => 'setFoundationDate'];
+    protected static $setters = ['external_order_id' => 'setExternalOrderId'];
     /**
      * Array of attributes to getter functions (for serialization of requests)
      *
      * @var string[]
      */
-    protected static $getters = ['name' => 'getName', 'number' => 'getNumber', 'legal_form' => 'getLegalForm', 'uid' => 'getUid', 'foundation_date' => 'getFoundationDate'];
+    protected static $getters = ['external_order_id' => 'getExternalOrderId'];
     /**
      * Array of attributes where the key is the local name,
      * and the value is the original name
@@ -150,11 +150,7 @@ class AxytosCommonPublicAPIModelsCommonCompanyRequestModel implements ModelInter
      */
     public function __construct(array $data = null)
     {
-        $this->container['name'] = isset($data['name']) ? $data['name'] : null;
-        $this->container['number'] = isset($data['number']) ? $data['number'] : null;
-        $this->container['legal_form'] = isset($data['legal_form']) ? $data['legal_form'] : null;
-        $this->container['uid'] = isset($data['uid']) ? $data['uid'] : null;
-        $this->container['foundation_date'] = isset($data['foundation_date']) ? $data['foundation_date'] : null;
+        $this->container['external_order_id'] = isset($data['external_order_id']) ? $data['external_order_id'] : null;
     }
     /**
      * Show all the invalid properties with reasons.
@@ -177,110 +173,24 @@ class AxytosCommonPublicAPIModelsCommonCompanyRequestModel implements ModelInter
         return \count($this->listInvalidProperties()) === 0;
     }
     /**
-     * Gets name
-     *
-     * @return string|null
-     * @deprecated
-     */
-    public function getName()
-    {
-        return $this->container['name'];
-    }
-    /**
-     * Sets name
-     *
-     * @param string|null $name name
-     *
-     * @return self
-     * @deprecated
-     */
-    public function setName($name)
-    {
-        $this->container['name'] = $name;
-        return $this;
-    }
-    /**
-     * Gets number
+     * Gets external_order_id
      *
      * @return string|null
      */
-    public function getNumber()
+    public function getExternalOrderId()
     {
-        return $this->container['number'];
+        return $this->container['external_order_id'];
     }
     /**
-     * Sets number
+     * Sets external_order_id
      *
-     * @param string|null $number number
+     * @param string|null $external_order_id external_order_id
      *
      * @return self
      */
-    public function setNumber($number)
+    public function setExternalOrderId($external_order_id)
     {
-        $this->container['number'] = $number;
-        return $this;
-    }
-    /**
-     * Gets legal_form
-     *
-     * @return string|null
-     */
-    public function getLegalForm()
-    {
-        return $this->container['legal_form'];
-    }
-    /**
-     * Sets legal_form
-     *
-     * @param string|null $legal_form legal_form
-     *
-     * @return self
-     */
-    public function setLegalForm($legal_form)
-    {
-        $this->container['legal_form'] = $legal_form;
-        return $this;
-    }
-    /**
-     * Gets uid
-     *
-     * @return string|null
-     */
-    public function getUid()
-    {
-        return $this->container['uid'];
-    }
-    /**
-     * Sets uid
-     *
-     * @param string|null $uid uid
-     *
-     * @return self
-     */
-    public function setUid($uid)
-    {
-        $this->container['uid'] = $uid;
-        return $this;
-    }
-    /**
-     * Gets foundation_date
-     *
-     * @return string|null
-     */
-    public function getFoundationDate()
-    {
-        return $this->container['foundation_date'];
-    }
-    /**
-     * Sets foundation_date
-     *
-     * @param string|null $foundation_date foundation_date
-     *
-     * @return self
-     */
-    public function setFoundationDate($foundation_date)
-    {
-        $this->container['foundation_date'] = $foundation_date;
+        $this->container['external_order_id'] = $external_order_id;
         return $this;
     }
     /**

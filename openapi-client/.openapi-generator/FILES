@@ -19,6 +19,7 @@ lib/Model/AxytosApiModelsDebitorCreationModel.php
 lib/Model/AxytosApiModelsErrorRequestModel.php
 lib/Model/AxytosApiModelsInvoiceCreationModel.php
 lib/Model/AxytosApiModelsInvoiceCreationResponse.php
+lib/Model/AxytosApiModelsOrderCancellationReversalRequestModel.php
 lib/Model/AxytosApiModelsPaymentResponseModel.php
 lib/Model/AxytosApiModelsPaymentStateResponseModel.php
 lib/Model/AxytosApiModelsRefundRequestModel.php
