@@ -14,6 +14,7 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
  *
  * @link https://docs.python.org/2/library/cookielib.html Inspiration
  * @extends \IteratorAggregate<SetCookie>
+ * @internal
  */
 interface CookieJarInterface extends \Countable, \IteratorAggregate
 {

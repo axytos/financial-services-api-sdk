@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class UtilityClassesInstantiationTest extends TestCase
@@ -11,6 +12,7 @@ class UtilityClassesInstantiationTest extends TestCase
      * @param string $className
      * @return void
      */
+    #[DataProvider('utilityClassNameProvider')]
     public function testUtilityClassesCanBeConstructed($className)
     {
         $instance = new $className();
@@ -21,7 +23,7 @@ class UtilityClassesInstantiationTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function utilityClassNameProvider()
+    public static function utilityClassNameProvider()
     {
         return [
             ['Axytos\FinancialServices\OpenAPI\Client\ApiException'],

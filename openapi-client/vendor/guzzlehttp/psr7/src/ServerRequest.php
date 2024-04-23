@@ -20,6 +20,7 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * Requests are considered immutable; all methods that might change state are
  * implemented such that they retain the internal state of the current
  * message and return a new instance that contains the changed state.
+ * @internal
  */
 class ServerRequest extends Request implements ServerRequestInterface
 {
@@ -50,7 +51,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     /**
      * @param string                               $method       HTTP method
      * @param string|UriInterface                  $uri          URI
-     * @param array<string, string|string[]>       $headers      Request headers
+     * @param (string|string[])[]                  $headers      Request headers
      * @param string|resource|StreamInterface|null $body         Request body
      * @param string                               $version      Protocol version
      * @param array                                $serverParams Typically the $_SERVER superglobal
@@ -116,7 +117,7 @@ class ServerRequest extends Request implements ServerRequestInterface
     {
         $normalizedFiles = [];
         foreach (\array_keys($files['tmp_name']) as $key) {
-            $spec = ['tmp_name' => $files['tmp_name'][$key], 'size' => $files['size'][$key], 'error' => $files['error'][$key], 'name' => $files['name'][$key], 'type' => $files['type'][$key]];
+            $spec = ['tmp_name' => $files['tmp_name'][$key], 'size' => isset($files['size'][$key]) ? $files['size'][$key] : null, 'error' => isset($files['error'][$key]) ? $files['error'][$key] : null, 'name' => isset($files['name'][$key]) ? $files['name'][$key] : null, 'type' => isset($files['type'][$key]) ? $files['type'][$key] : null];
             $normalizedFiles[$key] = self::createUploadedFileFromSpec($spec);
         }
         return $normalizedFiles;
@@ -255,8 +256,6 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $new;
     }
     /**
-     * {@inheritdoc}
-     *
      * @return array|object|null
      */
     public function getParsedBody()
@@ -280,8 +279,6 @@ class ServerRequest extends Request implements ServerRequestInterface
         return $this->attributes;
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getAttribute($attribute, $default = null)

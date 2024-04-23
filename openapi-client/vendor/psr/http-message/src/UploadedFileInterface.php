@@ -9,6 +9,7 @@ namespace Axytos\FinancialServices\Psr\Http\Message;
  * might change state MUST be implemented such that they retain the internal
  * state of the current instance and return an instance that contains the
  * changed state.
+ * @internal
  */
 interface UploadedFileInterface
 {
@@ -60,6 +61,7 @@ interface UploadedFileInterface
      * @throws \InvalidArgumentException if the $targetPath specified is invalid.
      * @throws \RuntimeException on any error during the move operation, or on
      *     the second or subsequent call to the method.
+     * @return void
      */
     public function moveTo($targetPath);
     /**

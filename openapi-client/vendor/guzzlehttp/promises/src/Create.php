@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\GuzzleHttp\Promise;
 
+/** @internal */
 final class Create
 {
     /**

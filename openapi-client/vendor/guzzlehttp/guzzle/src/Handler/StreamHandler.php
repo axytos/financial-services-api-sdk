@@ -18,6 +18,7 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * HTTP handler that uses PHP's HTTP stream wrapper.
  *
  * @final
+ * @internal
  */
 class StreamHandler
 {
@@ -310,7 +311,7 @@ class StreamHandler
         }
         $context = ['http' => ['method' => $request->getMethod(), 'header' => $headers, 'protocol_version' => $request->getProtocolVersion(), 'ignore_errors' => \true, 'follow_location' => 0], 'ssl' => ['peer_name' => $request->getUri()->getHost()]];
         $body = (string) $request->getBody();
-        if (!empty($body)) {
+        if ('' !== $body) {
             $context['http']['content'] = $body;
             // Prevent the HTTP handler from adding a Content-Type header.
             if (!$request->hasHeader('Content-Type')) {

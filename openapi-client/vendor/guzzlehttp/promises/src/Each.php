@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\GuzzleHttp\Promise;
 
+/** @internal */
 final class Each
 {
     /**
@@ -59,7 +60,7 @@ final class Each
      */
     public static function ofLimitAll($iterable, $concurrency, callable $onFulfilled = null)
     {
-        return each_limit($iterable, $concurrency, $onFulfilled, function ($reason, $idx, PromiseInterface $aggregate) {
+        return self::ofLimit($iterable, $concurrency, $onFulfilled, function ($reason, $idx, PromiseInterface $aggregate) {
             $aggregate->reject($reason);
         });
     }

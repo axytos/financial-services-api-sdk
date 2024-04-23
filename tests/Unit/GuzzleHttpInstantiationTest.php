@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class GuzzleHttpInstantiationTest extends TestCase
@@ -11,6 +12,7 @@ class GuzzleHttpInstantiationTest extends TestCase
      * @param string $className
      * @return void
      */
+    #[DataProvider('guzzleHttpClassNameProvider')]
     public function testGuzzleHttpClassesCanBeConstructed($className)
     {
         $instance = new $className();
@@ -21,7 +23,7 @@ class GuzzleHttpInstantiationTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function guzzleHttpClassNameProvider()
+    public static function guzzleHttpClassNameProvider()
     {
         return [
             ['Axytos\FinancialServices\GuzzleHttp\Client'],

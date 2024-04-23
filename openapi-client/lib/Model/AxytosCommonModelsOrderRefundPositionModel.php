@@ -38,6 +38,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
+ * @internal
  */
 class AxytosCommonModelsOrderRefundPositionModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {

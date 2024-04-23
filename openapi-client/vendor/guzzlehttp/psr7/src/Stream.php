@@ -5,12 +5,13 @@ namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * PHP stream implementation.
+ * @internal
  */
 class Stream implements StreamInterface
 {
     /**
-     * @see http://php.net/manual/function.fopen.php
-     * @see http://php.net/manual/en/function.gzopen.php
+     * @see https://www.php.net/manual/en/function.fopen.php
+     * @see https://www.php.net/manual/en/function.gzopen.php
      */
     const READABLE_MODES = '/r|a\\+|ab\\+|w\\+|wb\\+|x\\+|xb\\+|c\\+|cb\\+/';
     const WRITABLE_MODES = '/a|w|r\\+|rb\\+|rw|x|c/';
@@ -262,8 +263,6 @@ class Stream implements StreamInterface
         return $result;
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)

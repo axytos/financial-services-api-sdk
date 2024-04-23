@@ -8,7 +8,8 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  *
  * @author Tobias Schultze
  *
- * @link https://tools.ietf.org/html/rfc3986#section-6
+ * @see https://datatracker.ietf.org/doc/html/rfc3986#section-6
+ * @internal
  */
 final class UriNormalizer
 {
@@ -101,7 +102,7 @@ final class UriNormalizer
      * @param UriInterface $uri   The URI to normalize
      * @param int          $flags A bitmask of normalizations to apply, see constants
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-6.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-6.2
      * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
     public static function normalize(UriInterface $uri, $flags = self::PRESERVING_NORMALIZATIONS)
@@ -147,7 +148,7 @@ final class UriNormalizer
      * @param UriInterface $uri2           An URI to compare
      * @param int          $normalizations A bitmask of normalizations to apply, see constants
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-6.1
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-6.1
      * @return bool
      */
     public static function isEquivalent(UriInterface $uri1, UriInterface $uri2, $normalizations = self::PRESERVING_NORMALIZATIONS)

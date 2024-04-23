@@ -11,6 +11,7 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
  * invoking the provided "decider" function.
  *
  * @final
+ * @internal
  */
 class RetryMiddleware
 {

@@ -6,6 +6,7 @@ use InvalidArgumentException;
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UploadedFileInterface;
 use RuntimeException;
+/** @internal */
 class UploadedFile implements UploadedFileInterface
 {
     const ERRORS = [\UPLOAD_ERR_OK, \UPLOAD_ERR_INI_SIZE, \UPLOAD_ERR_FORM_SIZE, \UPLOAD_ERR_PARTIAL, \UPLOAD_ERR_NO_FILE, \UPLOAD_ERR_NO_TMP_DIR, \UPLOAD_ERR_CANT_WRITE, \UPLOAD_ERR_EXTENSION];
@@ -91,7 +92,7 @@ class UploadedFile implements UploadedFileInterface
     /**
      * @return bool
      */
-    private function isStringNotEmpty($param)
+    private static function isStringNotEmpty($param)
     {
         return \is_string($param) && \false === empty($param);
     }
@@ -142,7 +143,7 @@ class UploadedFile implements UploadedFileInterface
     public function moveTo($targetPath)
     {
         $this->validateActive();
-        if (\false === $this->isStringNotEmpty($targetPath)) {
+        if (\false === self::isStringNotEmpty($targetPath)) {
             throw new InvalidArgumentException('Invalid path provided for move operation; must be a non-empty string');
         }
         if ($this->file) {

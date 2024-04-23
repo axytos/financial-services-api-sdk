@@ -8,6 +8,7 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  *
  * Allows for easy testing and extension of a provided stream without needing
  * to create a concrete class for a simple extension point.
+ * @internal
  */
 #[\AllowDynamicProperties]
 final class FnStream implements StreamInterface
@@ -44,7 +45,7 @@ final class FnStream implements StreamInterface
     public function __destruct()
     {
         if (isset($this->_fn_close)) {
-            \call_user_func($this->_fn_close);
+            call_user_func($this->_fn_close);
         }
     }
     /**
@@ -83,7 +84,8 @@ final class FnStream implements StreamInterface
     public function __toString()
     {
         try {
-            return \call_user_func($this->_fn___toString);
+            /** @var string */
+            return call_user_func($this->_fn___toString);
         } catch (\Throwable $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
@@ -103,96 +105,94 @@ final class FnStream implements StreamInterface
      */
     public function close()
     {
-        \call_user_func($this->_fn_close);
+        call_user_func($this->_fn_close);
     }
     public function detach()
     {
-        return \call_user_func($this->_fn_detach);
+        return call_user_func($this->_fn_detach);
     }
     /**
      * @return int|null
      */
     public function getSize()
     {
-        return \call_user_func($this->_fn_getSize);
+        return call_user_func($this->_fn_getSize);
     }
     /**
      * @return int
      */
     public function tell()
     {
-        return \call_user_func($this->_fn_tell);
+        return call_user_func($this->_fn_tell);
     }
     /**
      * @return bool
      */
     public function eof()
     {
-        return \call_user_func($this->_fn_eof);
+        return call_user_func($this->_fn_eof);
     }
     /**
      * @return bool
      */
     public function isSeekable()
     {
-        return \call_user_func($this->_fn_isSeekable);
+        return call_user_func($this->_fn_isSeekable);
     }
     /**
      * @return void
      */
     public function rewind()
     {
-        \call_user_func($this->_fn_rewind);
+        call_user_func($this->_fn_rewind);
     }
     /**
      * @return void
      */
     public function seek($offset, $whence = \SEEK_SET)
     {
-        \call_user_func($this->_fn_seek, $offset, $whence);
+        call_user_func($this->_fn_seek, $offset, $whence);
     }
     /**
      * @return bool
      */
     public function isWritable()
     {
-        return \call_user_func($this->_fn_isWritable);
+        return call_user_func($this->_fn_isWritable);
     }
     /**
      * @return int
      */
     public function write($string)
     {
-        return \call_user_func($this->_fn_write, $string);
+        return call_user_func($this->_fn_write, $string);
     }
     /**
      * @return bool
      */
     public function isReadable()
     {
-        return \call_user_func($this->_fn_isReadable);
+        return call_user_func($this->_fn_isReadable);
     }
     /**
      * @return string
      */
     public function read($length)
     {
-        return \call_user_func($this->_fn_read, $length);
+        return call_user_func($this->_fn_read, $length);
     }
     /**
      * @return string
      */
     public function getContents()
     {
-        return \call_user_func($this->_fn_getContents);
+        return call_user_func($this->_fn_getContents);
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)
     {
-        return \call_user_func($this->_fn_getMetadata, $key);
+        return call_user_func($this->_fn_getMetadata, $key);
     }
 }

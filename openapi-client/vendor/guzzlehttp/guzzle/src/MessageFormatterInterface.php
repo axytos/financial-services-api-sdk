@@ -4,6 +4,7 @@ namespace Axytos\FinancialServices\GuzzleHttp;
 
 use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
 use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
+/** @internal */
 interface MessageFormatterInterface
 {
     /**

@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\GuzzleHttp\Promise;
 
+/** @internal */
 final class Utils
 {
     /**
@@ -98,7 +99,7 @@ final class Utils
     {
         $results = [];
         foreach ($promises as $key => $promise) {
-            $results[$key] = inspect($promise);
+            $results[$key] = self::inspect($promise);
         }
         return $results;
     }

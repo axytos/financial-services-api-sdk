@@ -10,6 +10,7 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
 /**
  * HTTP Request exception
+ * @internal
  */
 class RequestException extends TransferException implements RequestExceptionInterface
 {

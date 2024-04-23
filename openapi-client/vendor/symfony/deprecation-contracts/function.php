@@ -20,6 +20,7 @@ if (!\function_exists('Axytos\\FinancialServices\\trigger_deprecation')) {
      * @param mixed  ...$args Values to insert in the message using printf() formatting
      *
      * @author Nicolas Grekas <p@tchwork.com>
+     * @internal
      * @return void
      */
     function trigger_deprecation($package, $version, $message, ...$args)

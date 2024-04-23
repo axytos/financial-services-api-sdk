@@ -9,6 +9,7 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
  * Provides basic proxies for handlers.
  *
  * @final
+ * @internal
  */
 class Proxy
 {

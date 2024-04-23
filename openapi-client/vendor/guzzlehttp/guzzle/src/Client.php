@@ -12,6 +12,7 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
 /**
  * @final
+ * @internal
  */
 class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Client\ClientInterface
 {

@@ -6,6 +6,7 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
+ * @internal
  */
 final class MultipartStream implements StreamInterface
 {
@@ -48,7 +49,7 @@ final class MultipartStream implements StreamInterface
     /**
      * Get the headers needed before transferring the content of a POST file
      *
-     * @param array<string, string> $headers
+     * @param string[] $headers
      * @return string
      */
     private function getHeaders(array $headers)
@@ -69,7 +70,7 @@ final class MultipartStream implements StreamInterface
         $stream = new AppendStream();
         foreach ($elements as $element) {
             if (!\is_array($element)) {
-                throw new \UnexpectedValueException("An array is expected");
+                throw new \UnexpectedValueException('An array is expected');
             }
             $this->addElement($stream, $element);
         }
@@ -100,43 +101,45 @@ final class MultipartStream implements StreamInterface
         $stream->addStream(Utils::streamFor("\r\n"));
     }
     /**
+     * @param string[] $headers
+     *
+     * @return array{0: StreamInterface, 1: string[]}
      * @param string|null $filename
      * @param string $name
-     * @return mixed[]
      */
     private function createElement($name, StreamInterface $stream, $filename, array $headers)
     {
         $name = (string) $name;
         // Set a default content-disposition header if one was no provided
-        $disposition = $this->getHeader($headers, 'content-disposition');
+        $disposition = self::getHeader($headers, 'content-disposition');
         if (!$disposition) {
             $headers['Content-Disposition'] = $filename === '0' || $filename ? \sprintf('form-data; name="%s"; filename="%s"', $name, \basename($filename)) : "form-data; name=\"{$name}\"";
         }
         // Set a default content-length header if one was no provided
-        $length = $this->getHeader($headers, 'content-length');
+        $length = self::getHeader($headers, 'content-length');
         if (!$length) {
             if ($length = $stream->getSize()) {
                 $headers['Content-Length'] = (string) $length;
             }
         }
         // Set a default Content-Type if one was not supplied
-        $type = $this->getHeader($headers, 'content-type');
+        $type = self::getHeader($headers, 'content-type');
         if (!$type && ($filename === '0' || $filename)) {
-            if ($type = MimeType::fromFilename($filename)) {
-                $headers['Content-Type'] = $type;
-            }
+            $headers['Content-Type'] = MimeType::fromFilename($filename) !== null ? MimeType::fromFilename($filename) : 'application/octet-stream';
         }
         return [$stream, $headers];
     }
     /**
+     * @param string[] $headers
+     * @return string|null
      * @param string $key
      */
-    private function getHeader(array $headers, $key)
+    private static function getHeader(array $headers, $key)
     {
         $key = (string) $key;
         $lowercaseHeader = \strtolower($key);
         foreach ($headers as $k => $v) {
-            if (\strtolower($k) === $lowercaseHeader) {
+            if (\strtolower((string) $k) === $lowercaseHeader) {
                 return $v;
             }
         }

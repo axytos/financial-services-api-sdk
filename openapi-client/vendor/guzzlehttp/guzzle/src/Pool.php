@@ -19,6 +19,7 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
  * options, and the function MUST then return a wait-able promise.
  *
  * @final
+ * @internal
  */
 class Pool implements PromisorInterface
 {

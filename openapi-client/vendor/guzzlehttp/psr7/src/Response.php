@@ -6,6 +6,7 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * PSR-7 response implementation.
+ * @internal
  */
 class Response implements ResponseInterface
 {
@@ -18,7 +19,7 @@ class Response implements ResponseInterface
     private $statusCode;
     /**
      * @param int                                  $status  Status code
-     * @param array<string, string|string[]>       $headers Response headers
+     * @param (string|string[])[]                  $headers Response headers
      * @param string|resource|StreamInterface|null $body    Response body
      * @param string                               $version Protocol version
      * @param string $reason Reason phrase (when empty a default will be used based on the status code)

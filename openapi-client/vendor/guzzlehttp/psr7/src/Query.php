@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
+/** @internal */
 final class Query
 {
     /**

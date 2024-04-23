@@ -3,6 +3,7 @@
 namespace Axytos\FinancialServices\GuzzleHttp;
 
 use Axytos\FinancialServices\Psr\Http\Message\MessageInterface;
+/** @internal */
 final class BodySummarizer implements BodySummarizerInterface
 {
     /**

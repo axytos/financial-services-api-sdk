@@ -3,6 +3,7 @@
 namespace Axytos\FinancialServices\GuzzleHttp\Handler;
 
 use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
+/** @internal */
 interface CurlFactoryInterface
 {
     /**

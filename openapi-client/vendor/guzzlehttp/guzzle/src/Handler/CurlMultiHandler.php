@@ -17,6 +17,7 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
  * @property resource|\CurlMultiHandle $_mh Internal use only. Lazy loaded multi-handle.
  *
  * @final
+ * @internal
  */
 #[\AllowDynamicProperties]
 class CurlMultiHandler

@@ -6,22 +6,23 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
 use Axytos\FinancialServices\Psr\Http\Message\ServerRequestInterface;
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
+/** @internal */
 final class Utils
 {
     /**
      * Remove the items given by the keys, case insensitively from the data.
      *
-     * @param string[] $keys
+     * @param (string|int)[] $keys
      * @return mixed[]
      */
     public static function caselessRemove(array $keys, array $data)
     {
         $result = [];
         foreach ($keys as &$key) {
-            $key = \strtolower($key);
+            $key = \strtolower((string) $key);
         }
         foreach ($data as $k => $v) {
-            if (!\is_string($k) || !\in_array(\strtolower($k), $keys)) {
+            if (!\in_array(\strtolower((string) $k), $keys)) {
                 $result[$k] = $v;
             }
         }
@@ -191,7 +192,7 @@ final class Utils
      * Read a line from the stream up to the maximum allowed buffer length.
      *
      * @param StreamInterface $stream    Stream to read from
-     * @param int|null        $maxLength Maximum buffer length
+     * @param int $maxLength Maximum buffer length
      * @return string
      */
     public static function readLine(StreamInterface $stream, $maxLength = null)

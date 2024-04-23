@@ -2,6 +2,7 @@
 
 namespace Axytos\FinancialServices\Tests\Unit;
 
+use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
 class ModelClassesInstantiationTest extends TestCase
@@ -11,6 +12,7 @@ class ModelClassesInstantiationTest extends TestCase
      * @param string $className
      * @return void
      */
+     #[DataProvider('modelClassNameProvider')]
     public function testModelClassesCanBeConstructed($className)
     {
         $instance = new $className();
@@ -21,7 +23,7 @@ class ModelClassesInstantiationTest extends TestCase
     /**
      * @return mixed[]
      */
-    public function modelClassNameProvider()
+    public static function modelClassNameProvider()
     {
         return [
             ['Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiEnumsOrderPaymentState'],

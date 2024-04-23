@@ -6,6 +6,7 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
 use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 /**
  * Exception when an HTTP error occurs (4xx or 5xx error)
+ * @internal
  */
 class BadResponseException extends RequestException
 {

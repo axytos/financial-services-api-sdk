@@ -45,6 +45,7 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
+ * @internal
  */
 class CheckApi
 {

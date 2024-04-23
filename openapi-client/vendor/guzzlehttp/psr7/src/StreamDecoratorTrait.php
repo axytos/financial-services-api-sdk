@@ -7,6 +7,7 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  * Stream decorator trait
  *
  * @property StreamInterface $stream
+ * @internal
  */
 trait StreamDecoratorTrait
 {
@@ -75,7 +76,7 @@ trait StreamDecoratorTrait
         $method = (string) $method;
         /** @var callable $callable */
         $callable = [$this->stream, $method];
-        $result = \call_user_func_array($callable, $args);
+        $result = $callable(...$args);
         // Always return the wrapped object if the result is a return $this
         return $result === $this->stream ? $this : $result;
     }
@@ -87,8 +88,6 @@ trait StreamDecoratorTrait
         $this->stream->close();
     }
     /**
-     * {@inheritdoc}
-     *
      * @return mixed
      */
     public function getMetadata($key = null)

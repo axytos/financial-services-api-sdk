@@ -15,6 +15,7 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * {@see \Axytos\FinancialServices\GuzzleHttp\Middleware::redirect()}.
  *
  * @final
+ * @internal
  */
 class RedirectMiddleware
 {

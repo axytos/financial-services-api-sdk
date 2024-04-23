@@ -8,14 +8,15 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  *
  * @author Tobias Schultze
  *
- * @link https://tools.ietf.org/html/rfc3986#section-5
+ * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5
+ * @internal
  */
 final class UriResolver
 {
     /**
      * Removes dot segments from a path and returns the new path.
      *
-     * @link http://tools.ietf.org/html/rfc3986#section-5.2.4
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5.2.4
      * @param string $path
      * @return string
      */
@@ -48,7 +49,7 @@ final class UriResolver
     /**
      * Converts the relative URI into a new URI that is resolved against the base URI.
      *
-     * @link http://tools.ietf.org/html/rfc3986#section-5.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5.2
      * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
     public static function resolve(UriInterface $base, UriInterface $rel)

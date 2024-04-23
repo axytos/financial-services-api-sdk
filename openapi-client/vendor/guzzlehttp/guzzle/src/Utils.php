@@ -8,6 +8,7 @@ use Axytos\FinancialServices\GuzzleHttp\Handler\CurlMultiHandler;
 use Axytos\FinancialServices\GuzzleHttp\Handler\Proxy;
 use Axytos\FinancialServices\GuzzleHttp\Handler\StreamHandler;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
+/** @internal */
 final class Utils
 {
     /**

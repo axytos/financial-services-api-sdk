@@ -35,6 +35,7 @@ namespace Axytos\FinancialServices\OpenAPI\Client;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
+ * @internal
  */
 class Configuration
 {

@@ -12,6 +12,7 @@ namespace Axytos\FinancialServices\GuzzleHttp;
  *                if a class is provided, the class name.
  *
  * @deprecated describe_type will be removed in guzzlehttp/guzzle:8.0. Use Utils::describeType instead.
+ * @internal
  */
 function describe_type($input)
 {
@@ -24,6 +25,7 @@ function describe_type($input)
  *                        format: "Name: Value"
  *
  * @deprecated headers_from_lines will be removed in guzzlehttp/guzzle:8.0. Use Utils::headersFromLines instead.
+ * @internal
  * @return mixed[]
  */
 function headers_from_lines($lines)
@@ -38,6 +40,7 @@ function headers_from_lines($lines)
  * @return resource
  *
  * @deprecated debug_resource will be removed in guzzlehttp/guzzle:8.0. Use Utils::debugResource instead.
+ * @internal
  */
 function debug_resource($value = null)
 {
@@ -53,6 +56,7 @@ function debug_resource($value = null)
  * @return callable(\Psr\Http\Message\RequestInterface, array): \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface Returns the best handler for the given system.
  *
  * @deprecated choose_handler will be removed in guzzlehttp/guzzle:8.0. Use Utils::chooseHandler instead.
+ * @internal
  */
 function choose_handler()
 {
@@ -62,6 +66,7 @@ function choose_handler()
  * Get the default User-Agent string to use with Guzzle.
  *
  * @deprecated default_user_agent will be removed in guzzlehttp/guzzle:8.0. Use Utils::defaultUserAgent instead.
+ * @internal
  * @return string
  */
 function default_user_agent()
@@ -82,6 +87,7 @@ function default_user_agent()
  * @throws \RuntimeException if no bundle can be found.
  *
  * @deprecated default_ca_bundle will be removed in guzzlehttp/guzzle:8.0. This function is not needed in PHP 5.6+.
+ * @internal
  * @return string
  */
 function default_ca_bundle()
@@ -93,6 +99,7 @@ function default_ca_bundle()
  * header casing.
  *
  * @deprecated normalize_header_keys will be removed in guzzlehttp/guzzle:8.0. Use Utils::normalizeHeaderKeys instead.
+ * @internal
  * @return mixed[]
  */
 function normalize_header_keys(array $headers)
@@ -119,6 +126,7 @@ function normalize_header_keys(array $headers)
  * @throws Exception\InvalidArgumentException
  *
  * @deprecated is_host_in_noproxy will be removed in guzzlehttp/guzzle:8.0. Use Utils::isHostInNoProxy instead.
+ * @internal
  * @return bool
  */
 function is_host_in_noproxy($host, array $noProxyArray)
@@ -141,6 +149,7 @@ function is_host_in_noproxy($host, array $noProxyArray)
  *
  * @link https://www.php.net/manual/en/function.json-decode.php
  * @deprecated json_decode will be removed in guzzlehttp/guzzle:8.0. Use Utils::jsonDecode instead.
+ * @internal
  */
 function json_decode($json, $assoc = \false, $depth = 512, $options = 0)
 {
@@ -161,6 +170,7 @@ function json_decode($json, $assoc = \false, $depth = 512, $options = 0)
  *
  * @link https://www.php.net/manual/en/function.json-encode.php
  * @deprecated json_encode will be removed in guzzlehttp/guzzle:8.0. Use Utils::jsonEncode instead.
+ * @internal
  * @return string
  */
 function json_encode($value, $options = 0, $depth = 512)

@@ -6,6 +6,7 @@ namespace Axytos\FinancialServices\GuzzleHttp\Promise;
  * Promises/A+ implementation that avoids recursion when possible.
  *
  * @link https://promisesaplus.com/
+ * @internal
  */
 class Promise implements PromiseInterface
 {

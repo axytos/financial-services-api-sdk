@@ -10,6 +10,7 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * @author Michael Dowling
  * @author Tobias Schultze
  * @author Matthew Weier O'Phinney
+ * @internal
  */
 class Uri implements UriInterface, \JsonSerializable
 {
@@ -24,13 +25,13 @@ class Uri implements UriInterface, \JsonSerializable
     /**
      * Unreserved characters for use in a regex.
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-2.3
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
      */
     const CHAR_UNRESERVED = 'a-zA-Z0-9_\\-\\.~';
     /**
      * Sub-delims for use in a regex.
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-2.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-2.2
      */
     const CHAR_SUB_DELIMS = '!\\$&\'\\(\\)\\*\\+,;=';
     const QUERY_SEPARATORS_REPLACEMENT = ['=' => '%3D', '&' => '%26'];
@@ -126,7 +127,7 @@ class Uri implements UriInterface, \JsonSerializable
      * `file:///` is the more common syntax for the file scheme anyway (Chrome for example redirects to
      * that format).
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-5.3
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-5.3
      * @param string|null $scheme
      * @param string|null $authority
      * @param string $path
@@ -181,7 +182,7 @@ class Uri implements UriInterface, \JsonSerializable
      * @see Uri::isNetworkPathReference
      * @see Uri::isAbsolutePathReference
      * @see Uri::isRelativePathReference
-     * @link https://tools.ietf.org/html/rfc3986#section-4
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-4
      * @param \Axytos\FinancialServices\Psr\Http\Message\UriInterface $uri
      * @return bool
      */
@@ -194,7 +195,7 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * A relative reference that begins with two slash characters is termed an network-path reference.
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-4.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-4.2
      * @param \Axytos\FinancialServices\Psr\Http\Message\UriInterface $uri
      * @return bool
      */
@@ -207,7 +208,7 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * A relative reference that begins with a single slash character is termed an absolute-path reference.
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-4.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-4.2
      * @param \Axytos\FinancialServices\Psr\Http\Message\UriInterface $uri
      * @return bool
      */
@@ -220,7 +221,7 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * A relative reference that does not begin with a slash character is termed a relative-path reference.
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-4.2
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-4.2
      * @param \Axytos\FinancialServices\Psr\Http\Message\UriInterface $uri
      * @return bool
      */
@@ -238,7 +239,7 @@ class Uri implements UriInterface, \JsonSerializable
      * @param UriInterface      $uri  The URI to check
      * @param UriInterface|null $base An optional base URI to compare against
      *
-     * @link https://tools.ietf.org/html/rfc3986#section-4.4
+     * @see https://datatracker.ietf.org/doc/html/rfc3986#section-4.4
      * @return bool
      */
     public static function isSameDocumentReference($uri, $base = null)
@@ -289,8 +290,8 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * It has the same behavior as withQueryValue() but for an associative array of key => value.
      *
-     * @param UriInterface               $uri           URI to use as a base.
-     * @param array<string, string|null> $keyValueArray Associative array of key and values
+     * @param UriInterface    $uri           URI to use as a base.
+     * @param (string|null)[] $keyValueArray Associative array of key and values
      * @return \Axytos\FinancialServices\Psr\Http\Message\UriInterface
      */
     public static function withQueryValues($uri, $keyValueArray)
@@ -304,7 +305,7 @@ class Uri implements UriInterface, \JsonSerializable
     /**
      * Creates a URI from a hash of `parse_url` components.
      *
-     * @link http://php.net/manual/en/function.parse-url.php
+     * @see https://www.php.net/manual/en/function.parse-url.php
      *
      * @throws MalformedUriException If the components do not form a valid URI.
      * @param mixed[] $parts
@@ -573,7 +574,7 @@ class Uri implements UriInterface, \JsonSerializable
         return $port;
     }
     /**
-     * @param string[] $keys
+     * @param (string|int)[] $keys
      *
      * @return string[]
      */
@@ -583,7 +584,9 @@ class Uri implements UriInterface, \JsonSerializable
         if ($current === '') {
             return [];
         }
-        $decodedKeys = \array_map('rawurldecode', $keys);
+        $decodedKeys = \array_map(function ($k) {
+            return \rawurldecode((string) $k);
+        }, $keys);
         return \array_filter(\explode('&', $current), function ($part) use($decodedKeys) {
             return !\in_array(\rawurldecode(\explode('=', $part)[0]), $decodedKeys, \true);
         });

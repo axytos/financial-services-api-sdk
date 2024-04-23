@@ -15,6 +15,7 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  * Handler that returns responses or throw exceptions from a queue.
  *
  * @final
+ * @internal
  */
 class MockHandler implements \Countable
 {
