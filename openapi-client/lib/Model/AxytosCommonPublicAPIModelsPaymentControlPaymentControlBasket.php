@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['net_total' => 'double', 'gross_total' => 'double', 'currency' => 'string', 'positions' => '\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition[]'];
+    protected static $openAPITypes = ['net_total' => 'double', 'gross_total' => 'double', 'currency' => 'string', 'positions' => '\Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasketPosition[]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -164,7 +163,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
     public function listInvalidProperties()
     {
         $invalidProperties = [];
-        if (!\is_null($this->container['net_total']) && $this->container['net_total'] < 0.001) {
+        if (!is_null($this->container['net_total']) && $this->container['net_total'] < 0.001) {
             $invalidProperties[] = "invalid value for 'net_total', must be bigger than or equal to 0.001.";
         }
         if ($this->container['gross_total'] === null) {
@@ -183,7 +182,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets net_total
@@ -203,7 +202,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
      */
     public function setNetTotal($net_total)
     {
-        if (!\is_null($net_total) && $net_total < 0.001) {
+        if (!is_null($net_total) && $net_total < 0.001) {
             throw new \InvalidArgumentException('invalid value for $net_total when calling AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket., must be bigger than or equal to 0.001.');
         }
         $this->container['net_total'] = $net_total;
@@ -310,7 +309,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -347,7 +346,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -356,6 +355,6 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket implements M
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

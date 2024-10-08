@@ -15,7 +15,6 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
  * Creates curl resources from a request
  *
  * @final
- * @internal
  */
 class CurlFactory implements CurlFactoryInterface
 {
@@ -65,7 +64,7 @@ class CurlFactory implements CurlFactoryInterface
         }
         $conf[\CURLOPT_HEADERFUNCTION] = $this->createHeaderFn($easy);
         $easy->handle = $this->handles ? \array_pop($this->handles) : \curl_init();
-        \curl_setopt_array($easy->handle, $conf);
+        curl_setopt_array($easy->handle, $conf);
         return $easy;
     }
     /**
@@ -230,7 +229,7 @@ class CurlFactory implements CurlFactoryInterface
             if ($body->isSeekable()) {
                 $body->rewind();
             }
-            $conf[\CURLOPT_READFUNCTION] = static function ($ch, $fd, $length) use($body) {
+            $conf[\CURLOPT_READFUNCTION] = static function ($ch, $fd, $length) use ($body) {
                 return $body->read($length);
             };
         }
@@ -338,7 +337,7 @@ class CurlFactory implements CurlFactoryInterface
             $sink = new LazyOpenStream($sink, 'w+');
         }
         $easy->sink = $sink;
-        $conf[\CURLOPT_WRITEFUNCTION] = static function ($ch, $write) use($sink) {
+        $conf[\CURLOPT_WRITEFUNCTION] = static function ($ch, $write) use ($sink) {
             return $sink->write($write);
         };
         $timeoutRequiresNoSignal = \false;
@@ -387,9 +386,9 @@ class CurlFactory implements CurlFactoryInterface
             }
             # OpenSSL (versions 0.9.3 and later) also support "P12" for PKCS#12-encoded files.
             # see https://curl.se/libcurl/c/CURLOPT_SSLCERTTYPE.html
-            $ext = \pathinfo($cert, \PATHINFO_EXTENSION);
-            if (\preg_match('#^(der|p12)$#i', $ext)) {
-                $conf[\CURLOPT_SSLCERTTYPE] = \strtoupper($ext);
+            $ext = pathinfo($cert, \PATHINFO_EXTENSION);
+            if (preg_match('#^(der|p12)$#i', $ext)) {
+                $conf[\CURLOPT_SSLCERTTYPE] = strtoupper($ext);
             }
             $conf[\CURLOPT_SSLCERT] = $cert;
         }
@@ -413,7 +412,7 @@ class CurlFactory implements CurlFactoryInterface
                 throw new \InvalidArgumentException('progress client option must be callable');
             }
             $conf[\CURLOPT_NOPROGRESS] = \false;
-            $conf[\CURLOPT_PROGRESSFUNCTION] = static function ($resource, $downloadSize, $downloaded, $uploadSize, $uploaded) use($progress) {
+            $conf[\CURLOPT_PROGRESSFUNCTION] = static function ($resource, $downloadSize, $downloaded, $uploadSize, $uploaded) use ($progress) {
                 $downloadSize = (int) $downloadSize;
                 $downloaded = (int) $downloaded;
                 $uploadSize = (int) $uploadSize;
@@ -474,7 +473,7 @@ class CurlFactory implements CurlFactoryInterface
         } else {
             $onHeaders = null;
         }
-        return static function ($ch, $h) use($onHeaders, $easy, &$startingResponse) {
+        return static function ($ch, $h) use ($onHeaders, $easy, &$startingResponse) {
             $value = \trim($h);
             if ($value === '') {
                 $startingResponse = \true;

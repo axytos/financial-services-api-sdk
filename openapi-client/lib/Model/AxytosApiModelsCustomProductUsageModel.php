@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -183,7 +182,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets external_customer_id
@@ -304,7 +303,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -341,7 +340,7 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -350,6 +349,6 @@ class AxytosApiModelsCustomProductUsageModel implements ModelInterface, ArrayAcc
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

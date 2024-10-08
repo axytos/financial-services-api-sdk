@@ -15,7 +15,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  * Handler that returns responses or throw exceptions from a queue.
  *
  * @final
- * @internal
  */
 class MockHandler implements \Countable
 {
@@ -67,7 +66,7 @@ class MockHandler implements \Countable
         $this->onRejected = $onRejected;
         if ($queue) {
             // array_values included for BC
-            $this->append(...\array_values($queue));
+            $this->append(...array_values($queue));
         }
     }
     /**
@@ -99,7 +98,7 @@ class MockHandler implements \Countable
             $response = $response($request, $options);
         }
         $response = ($throwable = $response) instanceof \Throwable || $throwable instanceof \Exception ? P\Create::rejectionFor($response) : P\Create::promiseFor($response);
-        return $response->then(function ($value) use($request, $options) {
+        return $response->then(function ($value) use ($request, $options) {
             $this->invokeStats($request, $options, $value);
             if ($this->onFulfilled) {
                 call_user_func($this->onFulfilled, $value);
@@ -116,7 +115,7 @@ class MockHandler implements \Countable
                 }
             }
             return $value;
-        }, function ($reason) use($request, $options) {
+        }, function ($reason) use ($request, $options) {
             $this->invokeStats($request, $options, null, $reason);
             if ($this->onRejected) {
                 call_user_func($this->onRejected, $reason);

@@ -10,7 +10,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
  * an HTTP handler function.
  *
  * @final
- * @internal
  */
 class HandlerStack
 {
@@ -169,12 +168,12 @@ class HandlerStack
      */
     public function remove($remove)
     {
-        if (!\is_string($remove) && !\is_callable($remove)) {
+        if (!is_string($remove) && !is_callable($remove)) {
             trigger_deprecation('guzzlehttp/guzzle', '7.4', 'Not passing a callable or string to %s::%s() is deprecated and will cause an error in 8.0.', __CLASS__, __FUNCTION__);
         }
         $this->cached = null;
         $idx = \is_callable($remove) ? 0 : 1;
-        $this->stack = \array_values(\array_filter($this->stack, static function ($tuple) use($idx, $remove) {
+        $this->stack = \array_values(\array_filter($this->stack, static function ($tuple) use ($idx, $remove) {
             return $tuple[$idx] !== $remove;
         }));
     }

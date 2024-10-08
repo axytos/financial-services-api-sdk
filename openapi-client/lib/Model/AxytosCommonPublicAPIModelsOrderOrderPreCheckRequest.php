@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsOrderOrderPreCheckRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsOrderOrderPreCheckRequest implements ModelInter
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['request_mode' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsPaymentControlRequestMode', 'custom_reference' => 'string', 'personal_data' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel', 'proof_of_interest' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsProofOfInterest', 'selected_payment_type' => 'string', 'payment_type_security' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsPaymentTypeSecurity', 'invoice_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonInvoiceAddress', 'delivery_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonDeliveryAddress', 'basket' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsOrderBasket', 'order_precheck_response' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsPaymentControlOrderPrecheckResponse'];
+    protected static $openAPITypes = ['request_mode' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsPaymentControlRequestMode', 'custom_reference' => 'string', 'personal_data' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel', 'proof_of_interest' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsProofOfInterest', 'selected_payment_type' => 'string', 'payment_type_security' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsPaymentTypeSecurity', 'invoice_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonInvoiceAddress', 'delivery_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonDeliveryAddress', 'basket' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsOrderBasket', 'order_precheck_response' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsPaymentControlOrderPrecheckResponse'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -192,7 +191,7 @@ class AxytosCommonPublicAPIModelsOrderOrderPreCheckRequest implements ModelInter
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets request_mode
@@ -439,7 +438,7 @@ class AxytosCommonPublicAPIModelsOrderOrderPreCheckRequest implements ModelInter
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -476,7 +475,7 @@ class AxytosCommonPublicAPIModelsOrderOrderPreCheckRequest implements ModelInter
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -485,6 +484,6 @@ class AxytosCommonPublicAPIModelsOrderOrderPreCheckRequest implements ModelInter
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

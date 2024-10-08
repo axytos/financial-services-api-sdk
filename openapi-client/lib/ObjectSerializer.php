@@ -37,7 +37,6 @@ use Axytos\FinancialServices\OpenAPI\Client\Model\ModelInterface;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @internal
  */
 class ObjectSerializer
 {
@@ -63,32 +62,32 @@ class ObjectSerializer
      */
     public static function sanitizeForSerialization($data, $type = null, $format = null)
     {
-        if (\is_scalar($data) || null === $data) {
+        if (is_scalar($data) || null === $data) {
             return $data;
         }
         if ($data instanceof \DateTime) {
             return $format === 'date' ? $data->format('Y-m-d') : $data->format(self::$dateTimeFormat);
         }
-        if (\is_array($data)) {
+        if (is_array($data)) {
             foreach ($data as $property => $value) {
                 $data[$property] = self::sanitizeForSerialization($value);
             }
             return $data;
         }
-        if (\is_object($data)) {
+        if (is_object($data)) {
             $values = [];
             if ($data instanceof ModelInterface) {
                 $formats = $data::openAPIFormats();
                 foreach ($data::openAPITypes() as $property => $openAPIType) {
                     $getter = $data::getters()[$property];
                     $value = $data->{$getter}();
-                    if ($value !== null && !\in_array($openAPIType, ['\\DateTime', '\\SplFileObject', 'array', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], \true)) {
+                    if ($value !== null && !in_array($openAPIType, ['\DateTime', '\SplFileObject', 'array', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], \true)) {
                         $callable = [$openAPIType, 'getAllowableEnumValues'];
-                        if (\is_callable($callable)) {
+                        if (is_callable($callable)) {
                             /** array $callable */
                             $allowedEnumTypes = $callable();
-                            if (!\in_array($value, $allowedEnumTypes, \true)) {
-                                $imploded = \implode("', '", $allowedEnumTypes);
+                            if (!in_array($value, $allowedEnumTypes, \true)) {
+                                $imploded = implode("', '", $allowedEnumTypes);
                                 throw new \InvalidArgumentException("Invalid value for enum '{$openAPIType}', must be one of: '{$imploded}'");
                             }
                         }
@@ -117,7 +116,7 @@ class ObjectSerializer
      */
     public static function sanitizeFilename($filename)
     {
-        if (\preg_match("/.*[\\/\\\\](.*)\$/", $filename, $match)) {
+        if (preg_match("/.*[\\/\\\\](.*)\$/", $filename, $match)) {
             return $match[1];
         } else {
             return $filename;
@@ -132,10 +131,10 @@ class ObjectSerializer
      */
     public static function sanitizeTimestamp($timestamp)
     {
-        if (!\is_string($timestamp)) {
+        if (!is_string($timestamp)) {
             return $timestamp;
         }
-        return \preg_replace('/(:\\d{2}.\\d{6})\\d*/', '$1', $timestamp);
+        return preg_replace('/(:\d{2}.\d{6})\d*/', '$1', $timestamp);
     }
     /**
      * Take value and turn it into a string suitable for inclusion in
@@ -147,7 +146,7 @@ class ObjectSerializer
      */
     public static function toPathValue($value)
     {
-        return \rawurlencode(self::toString($value));
+        return rawurlencode(self::toString($value));
     }
     /**
      * Take query parameter properties and turn it into an array suitable for
@@ -172,16 +171,16 @@ class ObjectSerializer
             }
         }
         $query = [];
-        $value = \in_array($openApiType, ['object', 'array'], \true) ? (array) $value : $value;
+        $value = in_array($openApiType, ['object', 'array'], \true) ? (array) $value : $value;
         // since \Axytos\FinancialServices\GuzzleHttp\Psr7\Query::build fails with nested arrays
         // need to flatten array first
         $flattenArray = function ($arr, $name, &$result = []) use (&$flattenArray, $style, $explode) {
-            if (!\is_array($arr)) {
+            if (!is_array($arr)) {
                 return $arr;
             }
             foreach ($arr as $k => $v) {
                 $prop = $style === 'deepObject' ? $prop = "{$name}[{$k}]" : $k;
-                if (\is_array($v)) {
+                if (is_array($v)) {
                     $flattenArray($v, $prop, $result);
                 } else {
                     if ($style !== 'deepObject' && !$explode) {
@@ -197,7 +196,7 @@ class ObjectSerializer
         if ($openApiType === 'object' && ($style === 'deepObject' || $explode)) {
             return $value;
         }
-        if ('boolean' === $openApiType && \is_bool($value)) {
+        if ('boolean' === $openApiType && is_bool($value)) {
             $value = self::convertBoolToQueryStringFormat($value);
         }
         // handle style in serializeCollection
@@ -230,7 +229,7 @@ class ObjectSerializer
     public static function toHeaderValue($value)
     {
         $callable = [$value, 'toHeaderValue'];
-        if (\is_callable($callable)) {
+        if (is_callable($callable)) {
             return $callable();
         }
         return self::toString($value);
@@ -267,7 +266,7 @@ class ObjectSerializer
         if ($value instanceof \DateTime) {
             // datetime in ISO8601 format
             return $value->format(self::$dateTimeFormat);
-        } elseif (\is_bool($value)) {
+        } elseif (is_bool($value)) {
             return $value ? 'true' : 'false';
         } else {
             return (string) $value;
@@ -288,22 +287,22 @@ class ObjectSerializer
         if ($allowCollectionFormatMulti && 'multi' === $style) {
             // http_build_query() almost does the job for us. We just
             // need to fix the result of multidimensional arrays.
-            return \preg_replace('/%5B[0-9]+%5D=/', '=', \http_build_query($collection, '', '&'));
+            return preg_replace('/%5B[0-9]+%5D=/', '=', http_build_query($collection, '', '&'));
         }
         switch ($style) {
             case 'pipeDelimited':
             case 'pipes':
-                return \implode('|', $collection);
+                return implode('|', $collection);
             case 'tsv':
-                return \implode("\t", $collection);
+                return implode("\t", $collection);
             case 'spaceDelimited':
             case 'ssv':
-                return \implode(' ', $collection);
+                return implode(' ', $collection);
             case 'simple':
             case 'csv':
             // Deliberate fall through. CSV is default format.
             default:
-                return \implode(',', $collection);
+                return implode(',', $collection);
         }
     }
     /**
@@ -321,26 +320,26 @@ class ObjectSerializer
         if (null === $data) {
             return null;
         }
-        if (\strcasecmp(\substr($class, -2), '[]') === 0) {
-            $data = \is_string($data) ? \json_decode($data) : $data;
-            if (!\is_array($data)) {
+        if (strcasecmp(substr($class, -2), '[]') === 0) {
+            $data = is_string($data) ? json_decode($data) : $data;
+            if (!is_array($data)) {
                 throw new \InvalidArgumentException("Invalid array '{$class}'");
             }
-            $subClass = \substr($class, 0, -2);
+            $subClass = substr($class, 0, -2);
             $values = [];
             foreach ($data as $key => $value) {
                 $values[] = self::deserialize($value, $subClass, null);
             }
             return $values;
         }
-        if (\preg_match('/^(array<|map\\[)/', $class)) {
+        if (preg_match('/^(array<|map\[)/', $class)) {
             // for associative array e.g. array<string,int>
-            $data = \is_string($data) ? \json_decode($data) : $data;
-            \settype($data, 'array');
-            $inner = \substr($class, 4, -1);
+            $data = is_string($data) ? json_decode($data) : $data;
+            settype($data, 'array');
+            $inner = substr($class, 4, -1);
             $deserialized = [];
-            if (\strrpos($inner, ",") !== \false) {
-                $subClass_array = \explode(',', $inner, 2);
+            if (strrpos($inner, ",") !== \false) {
+                $subClass_array = explode(',', $inner, 2);
                 $subClass = $subClass_array[1];
                 foreach ($data as $key => $value) {
                     $deserialized[$key] = self::deserialize($value, $subClass, null);
@@ -349,13 +348,13 @@ class ObjectSerializer
             return $deserialized;
         }
         if ($class === 'object') {
-            \settype($data, 'array');
+            settype($data, 'array');
             return $data;
         } elseif ($class === 'mixed') {
-            \settype($data, \gettype($data));
+            settype($data, gettype($data));
             return $data;
         }
-        if ($class === '\\DateTime') {
+        if ($class === '\DateTime') {
             // Some API's return an invalid, empty string as a
             // date-time property. DateTime::__construct() will return
             // the current time for empty input which is probably not
@@ -375,40 +374,40 @@ class ObjectSerializer
                 return null;
             }
         }
-        if ($class === '\\SplFileObject') {
+        if ($class === '\SplFileObject') {
             $data = Utils::streamFor($data);
             /** @var \Axytos\FinancialServices\Psr\Http\Message\StreamInterface $data */
             // determine file name
-            if (\is_array($httpHeaders) && \array_key_exists('Content-Disposition', $httpHeaders) && \preg_match('/inline; filename=[\'"]?([^\'"\\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)) {
+            if (is_array($httpHeaders) && array_key_exists('Content-Disposition', $httpHeaders) && preg_match('/inline; filename=[\'"]?([^\'"\s]+)[\'"]?$/i', $httpHeaders['Content-Disposition'], $match)) {
                 $filename = Configuration::getDefaultConfiguration()->getTempFolderPath() . \DIRECTORY_SEPARATOR . self::sanitizeFilename($match[1]);
             } else {
-                $filename = \tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
+                $filename = tempnam(Configuration::getDefaultConfiguration()->getTempFolderPath(), '');
             }
-            $file = \fopen($filename, 'w');
+            $file = fopen($filename, 'w');
             while ($chunk = $data->read(200)) {
-                \fwrite($file, $chunk);
+                fwrite($file, $chunk);
             }
-            \fclose($file);
+            fclose($file);
             return new \SplFileObject($filename, 'r');
         }
         /** @psalm-suppress ParadoxicalCondition */
-        if (\in_array($class, ['\\DateTime', '\\SplFileObject', 'array', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], \true)) {
-            \settype($data, $class);
+        if (in_array($class, ['\DateTime', '\SplFileObject', 'array', 'bool', 'boolean', 'byte', 'double', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], \true)) {
+            settype($data, $class);
             return $data;
         }
-        if (\method_exists($class, 'getAllowableEnumValues')) {
-            if (!\in_array($data, $class::getAllowableEnumValues(), \true)) {
-                $imploded = \implode("', '", $class::getAllowableEnumValues());
+        if (method_exists($class, 'getAllowableEnumValues')) {
+            if (!in_array($data, $class::getAllowableEnumValues(), \true)) {
+                $imploded = implode("', '", $class::getAllowableEnumValues());
                 throw new \InvalidArgumentException("Invalid value for enum '{$class}', must be one of: '{$imploded}'");
             }
             return $data;
         } else {
-            $data = \is_string($data) ? \json_decode($data) : $data;
+            $data = is_string($data) ? json_decode($data) : $data;
             // If a discriminator is defined and points to a valid subclass, use it.
             $discriminator = $class::DISCRIMINATOR;
-            if (!empty($discriminator) && isset($data->{$discriminator}) && \is_string($data->{$discriminator})) {
-                $subclass = '\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\' . $data->{$discriminator};
-                if (\is_subclass_of($subclass, $class)) {
+            if (!empty($discriminator) && isset($data->{$discriminator}) && is_string($data->{$discriminator})) {
+                $subclass = '\Axytos\FinancialServices\OpenAPI\Client\Model\\' . $data->{$discriminator};
+                if (is_subclass_of($subclass, $class)) {
                     $class = $subclass;
                 }
             }

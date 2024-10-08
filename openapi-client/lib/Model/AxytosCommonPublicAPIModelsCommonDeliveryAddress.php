@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsCommonDeliveryAddress implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsCommonDeliveryAddress implements ModelInterface
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['salutation' => 'string', 'company' => 'string', 'firstname' => 'string', 'lastname' => 'string', 'zip_code' => 'string', 'city' => 'string', 'region' => 'string', 'country' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsCountryCode', 'vat_id' => 'string', 'address_line1' => 'string', 'address_line2' => 'string', 'address_line3' => 'string', 'address_line4' => 'string'];
+    protected static $openAPITypes = ['salutation' => 'string', 'company' => 'string', 'firstname' => 'string', 'lastname' => 'string', 'zip_code' => 'string', 'city' => 'string', 'region' => 'string', 'country' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsCountryCode', 'vat_id' => 'string', 'address_line1' => 'string', 'address_line2' => 'string', 'address_line3' => 'string', 'address_line4' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -192,7 +191,7 @@ class AxytosCommonPublicAPIModelsCommonDeliveryAddress implements ModelInterface
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets salutation
@@ -502,7 +501,7 @@ class AxytosCommonPublicAPIModelsCommonDeliveryAddress implements ModelInterface
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -539,7 +538,7 @@ class AxytosCommonPublicAPIModelsCommonDeliveryAddress implements ModelInterface
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -548,6 +547,6 @@ class AxytosCommonPublicAPIModelsCommonDeliveryAddress implements ModelInterface
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

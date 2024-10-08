@@ -9,7 +9,6 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
  * Content-Type, and Expect headers.
  *
  * @final
- * @internal
  */
 class PrepareBodyMiddleware
 {
@@ -38,7 +37,7 @@ class PrepareBodyMiddleware
         // Add a default content-type if possible.
         if (!$request->hasHeader('Content-Type')) {
             if ($uri = $request->getBody()->getMetadata('uri')) {
-                if (\is_string($uri) && ($type = Psr7\MimeType::fromFilename($uri))) {
+                if (is_string($uri) && $type = Psr7\MimeType::fromFilename($uri)) {
                     $modify['set_headers']['Content-Type'] = $type;
                 }
             }

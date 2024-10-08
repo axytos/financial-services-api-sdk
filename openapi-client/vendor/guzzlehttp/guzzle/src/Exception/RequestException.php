@@ -10,7 +10,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
 /**
  * HTTP Request exception
- * @internal
  */
 class RequestException extends TransferException implements RequestExceptionInterface
 {
@@ -94,7 +93,7 @@ class RequestException extends TransferException implements RequestExceptionInte
     private static function obfuscateUri(UriInterface $uri)
     {
         $userInfo = $uri->getUserInfo();
-        if (\false !== ($pos = \strpos($userInfo, ':'))) {
+        if (\false !== $pos = \strpos($userInfo, ':')) {
             return $uri->withUserInfo(\substr($userInfo, 0, $pos), '***');
         }
         return $uri;

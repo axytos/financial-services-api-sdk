@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsOrderShippingBasketPosition implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -178,7 +177,7 @@ class AxytosCommonPublicAPIModelsOrderShippingBasketPosition implements ModelInt
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets product_id
@@ -204,7 +203,7 @@ class AxytosCommonPublicAPIModelsOrderShippingBasketPosition implements ModelInt
     /**
      * Gets quantity
      *
-     * @return int
+     * @return float
      */
     public function getQuantity()
     {
@@ -257,7 +256,7 @@ class AxytosCommonPublicAPIModelsOrderShippingBasketPosition implements ModelInt
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -294,7 +293,7 @@ class AxytosCommonPublicAPIModelsOrderShippingBasketPosition implements ModelInt
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -303,6 +302,6 @@ class AxytosCommonPublicAPIModelsOrderShippingBasketPosition implements ModelInt
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

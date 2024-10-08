@@ -8,7 +8,6 @@ use Axytos\FinancialServices\GuzzleHttp\Handler\CurlMultiHandler;
 use Axytos\FinancialServices\GuzzleHttp\Handler\Proxy;
 use Axytos\FinancialServices\GuzzleHttp\Handler\StreamHandler;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
-/** @internal */
 final class Utils
 {
     /**
@@ -102,7 +101,7 @@ final class Utils
      */
     public static function defaultUserAgent()
     {
-        return \sprintf('GuzzleHttp/%d', ClientInterface::MAJOR_VERSION);
+        return sprintf('GuzzleHttp/%d', ClientInterface::MAJOR_VERSION);
     }
     /**
      * Returns the default cacert bundle for the current system.
@@ -137,8 +136,8 @@ final class Utils
             // Google app engine
             '/etc/ca-certificates.crt',
             // Windows?
-            'C:\\windows\\system32\\curl-ca-bundle.crt',
-            'C:\\windows\\curl-ca-bundle.crt',
+            'C:\windows\system32\curl-ca-bundle.crt',
+            'C:\windows\curl-ca-bundle.crt',
         ];
         if ($cached) {
             return $cached;
@@ -309,19 +308,19 @@ EOT
             $asciiHost = self::idnToAsci($uri->getHost(), $options, $info);
             if ($asciiHost === \false) {
                 $errorBitSet = isset($info['errors']) ? $info['errors'] : 0;
-                $errorConstants = \array_filter(\array_keys(\get_defined_constants()), static function ($name) {
+                $errorConstants = array_filter(array_keys(get_defined_constants()), static function ($name) {
                     $name = (string) $name;
-                    return \substr($name, 0, 11) === 'IDNA_ERROR_';
+                    return substr($name, 0, 11) === 'IDNA_ERROR_';
                 });
                 $errors = [];
                 foreach ($errorConstants as $errorConstant) {
-                    if ($errorBitSet & \constant($errorConstant)) {
+                    if ($errorBitSet & constant($errorConstant)) {
                         $errors[] = $errorConstant;
                     }
                 }
                 $errorMessage = 'IDN conversion failed';
                 if ($errors) {
-                    $errorMessage .= ' (errors: ' . \implode(', ', $errors) . ')';
+                    $errorMessage .= ' (errors: ' . implode(', ', $errors) . ')';
                 }
                 throw new InvalidArgumentException($errorMessage);
             }

@@ -35,7 +35,6 @@ namespace Axytos\FinancialServices\OpenAPI\Client;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @internal
  */
 class Configuration
 {
@@ -116,7 +115,7 @@ class Configuration
      */
     public function __construct()
     {
-        $this->tempFolderPath = \sys_get_temp_dir();
+        $this->tempFolderPath = sys_get_temp_dir();
     }
     /**
      * Sets API key
@@ -282,7 +281,7 @@ class Configuration
      */
     public function setUserAgent($userAgent)
     {
-        if (!\is_string($userAgent)) {
+        if (!is_string($userAgent)) {
             throw new \InvalidArgumentException('User-agent must be a string.');
         }
         $this->userAgent = $userAgent;
@@ -390,8 +389,8 @@ class Configuration
      */
     public static function toDebugReport()
     {
-        $report = 'PHP SDK (OpenAPI\\Client) Debug Report:' . \PHP_EOL;
-        $report .= '    OS: ' . \php_uname() . \PHP_EOL;
+        $report = 'PHP SDK (OpenAPI\Client) Debug Report:' . \PHP_EOL;
+        $report .= '    OS: ' . php_uname() . \PHP_EOL;
         $report .= '    PHP Version: ' . \PHP_VERSION . \PHP_EOL;
         $report .= '    The version of the OpenAPI document: v1' . \PHP_EOL;
         $report .= '    Temp Folder Path: ' . self::getDefaultConfiguration()->getTempFolderPath() . \PHP_EOL;
@@ -441,24 +440,24 @@ class Configuration
         }
         $hosts = $this->getHostSettings();
         // check array index out of bound
-        if ($index < 0 || $index >= \sizeof($hosts)) {
-            throw new \InvalidArgumentException("Invalid index {$index} when selecting the host. Must be less than " . \sizeof($hosts));
+        if ($index < 0 || $index >= sizeof($hosts)) {
+            throw new \InvalidArgumentException("Invalid index {$index} when selecting the host. Must be less than " . sizeof($hosts));
         }
         $host = $hosts[$index];
         $url = $host["url"];
         // go through variable and assign a value
         foreach (isset($host["variables"]) ? $host["variables"] : [] as $name => $variable) {
-            if (\array_key_exists($name, $variables)) {
+            if (array_key_exists($name, $variables)) {
                 // check to see if it's in the variables provided by the user
-                if (\in_array($variables[$name], $variable["enum_values"], \true)) {
+                if (in_array($variables[$name], $variable["enum_values"], \true)) {
                     // check to see if the value is in the enum
-                    $url = \str_replace("{" . $name . "}", $variables[$name], $url);
+                    $url = str_replace("{" . $name . "}", $variables[$name], $url);
                 } else {
-                    throw new \InvalidArgumentException("The variable `{$name}` in the host URL has invalid value " . $variables[$name] . ". Must be " . \join(',', $variable["enum_values"]) . ".");
+                    throw new \InvalidArgumentException("The variable `{$name}` in the host URL has invalid value " . $variables[$name] . ". Must be " . join(',', $variable["enum_values"]) . ".");
                 }
             } else {
                 // use default value
-                $url = \str_replace("{" . $name . "}", $variable["default_value"], $url);
+                $url = str_replace("{" . $name . "}", $variable["default_value"], $url);
             }
         }
         return $url;

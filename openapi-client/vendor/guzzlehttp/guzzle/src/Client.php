@@ -12,7 +12,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
 /**
  * @final
- * @internal
  */
 class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Client\ClientInterface
 {
@@ -216,7 +215,7 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
         // We can only trust the HTTP_PROXY environment variable in a CLI
         // process due to the fact that PHP has no reliable mechanism to
         // get environment variables that start with "HTTP_".
-        if (\PHP_SAPI === 'cli' && ($proxy = Utils::getenv('HTTP_PROXY'))) {
+        if (\PHP_SAPI === 'cli' && $proxy = Utils::getenv('HTTP_PROXY')) {
             $defaults['proxy']['http'] = $proxy;
         }
         if ($proxy = Utils::getenv('HTTPS_PROXY')) {
@@ -306,7 +305,7 @@ class Client implements ClientInterface, \Axytos\FinancialServices\Psr\Http\Clie
     {
         $modify = ['set_headers' => []];
         if (isset($options['headers'])) {
-            if (\array_keys($options['headers']) === \range(0, \count($options['headers']) - 1)) {
+            if (array_keys($options['headers']) === range(0, count($options['headers']) - 1)) {
                 throw new InvalidArgumentException('The headers array must have header name as keys.');
             }
             $modify['set_headers'] = $options['headers'];

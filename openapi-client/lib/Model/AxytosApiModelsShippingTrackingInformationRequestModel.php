@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['external_order_id' => 'string', 'delivery_weight' => 'double', 'tracking_id' => 'string', 'logistician' => 'string', 'delivery_information' => 'string', 'delivery_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonDeliveryAddress'];
+    protected static $openAPITypes = ['external_order_id' => 'string', 'delivery_weight' => 'double', 'tracking_id' => 'string', 'logistician' => 'string', 'delivery_information' => 'string', 'delivery_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonDeliveryAddress'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -191,7 +190,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets external_order_id
@@ -354,7 +353,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -391,7 +390,7 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -400,6 +399,6 @@ class AxytosApiModelsShippingTrackingInformationRequestModel implements ModelInt
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

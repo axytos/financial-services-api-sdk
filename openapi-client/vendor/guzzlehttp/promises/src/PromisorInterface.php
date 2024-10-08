@@ -4,7 +4,6 @@ namespace Axytos\FinancialServices\GuzzleHttp\Promise;
 
 /**
  * Interface used with classes that return a promise.
- * @internal
  */
 interface PromisorInterface
 {

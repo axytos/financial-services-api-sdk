@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -182,7 +181,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets company
@@ -471,7 +470,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -508,7 +507,7 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -517,6 +516,6 @@ class AxytosApiModelsAddressCreationModel implements ModelInterface, ArrayAccess
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

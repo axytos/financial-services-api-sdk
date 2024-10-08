@@ -8,7 +8,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
 /**
  * Client interface for sending HTTP requests.
- * @internal
  */
 trait ClientTrait
 {
@@ -26,7 +25,7 @@ trait ClientTrait
      * @throws GuzzleException
      * @return \Axytos\FinancialServices\Psr\Http\Message\ResponseInterface
      */
-    public abstract function request($method, $uri, $options = []);
+    abstract public function request($method, $uri, $options = []);
     /**
      * Create and send an HTTP GET request.
      *
@@ -142,7 +141,7 @@ trait ClientTrait
      * @param array               $options Request options to apply.
      * @return \Axytos\FinancialServices\GuzzleHttp\Promise\PromiseInterface
      */
-    public abstract function requestAsync($method, $uri, $options = []);
+    abstract public function requestAsync($method, $uri, $options = []);
     /**
      * Create and send an asynchronous HTTP GET request.
      *

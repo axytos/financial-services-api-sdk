@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['external_order_id' => 'string', 'refund_date' => 'string', 'original_invoice_number' => 'string', 'external_sub_order_id' => 'string', 'basket' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonModelsOrderRefundBasket'];
+    protected static $openAPITypes = ['external_order_id' => 'string', 'refund_date' => 'string', 'original_invoice_number' => 'string', 'external_sub_order_id' => 'string', 'basket' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonModelsOrderRefundBasket'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -184,7 +183,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets external_order_id
@@ -326,7 +325,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -363,7 +362,7 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -372,6 +371,6 @@ class AxytosApiModelsRefundRequestModel implements ModelInterface, ArrayAccess, 
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
