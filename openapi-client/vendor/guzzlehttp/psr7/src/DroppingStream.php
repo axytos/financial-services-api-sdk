@@ -6,7 +6,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that begins dropping data once the size of the underlying
  * stream becomes too full.
- * @internal
  */
 final class DroppingStream implements StreamInterface
 {
@@ -36,9 +35,9 @@ final class DroppingStream implements StreamInterface
             return 0;
         }
         // Write the stream or a subset of the stream if needed.
-        if (\strlen($string) < $diff) {
+        if (strlen($string) < $diff) {
             return $this->stream->write($string);
         }
-        return $this->stream->write(\substr($string, 0, $diff));
+        return $this->stream->write(substr($string, 0, $diff));
     }
 }

@@ -33,7 +33,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
  * - {res_body}:       Response body
  *
  * @final
- * @internal
  */
 class MessageFormatter implements MessageFormatterInterface
 {
@@ -70,7 +69,7 @@ class MessageFormatter implements MessageFormatterInterface
     {
         $cache = [];
         /** @var string */
-        return \preg_replace_callback('/{\\s*([A-Za-z_\\-\\.0-9]+)\\s*}/', function (array $matches) use($request, $response, $error, &$cache) {
+        return \preg_replace_callback('/{\s*([A-Za-z_\-\.0-9]+)\s*}/', function (array $matches) use ($request, $response, $error, &$cache) {
             if (isset($cache[$matches[1]])) {
                 return $cache[$matches[1]];
             }

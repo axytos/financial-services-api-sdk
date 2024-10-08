@@ -2,7 +2,6 @@
 
 namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 
-/** @internal */
 final class Header
 {
     /**
@@ -21,13 +20,13 @@ final class Header
         foreach ((array) $header as $value) {
             foreach (self::splitList($value) as $val) {
                 $part = [];
-                foreach (\preg_split('/;(?=([^"]*"[^"]*")*[^"]*$)/', $val) ?: [] as $kvp) {
-                    if (\preg_match_all('/<[^>]+>|[^=]+/', $kvp, $matches)) {
+                foreach (preg_split('/;(?=([^"]*"[^"]*")*[^"]*$)/', $val) ?: [] as $kvp) {
+                    if (preg_match_all('/<[^>]+>|[^=]+/', $kvp, $matches)) {
                         $m = $matches[0];
                         if (isset($m[1])) {
-                            $part[\trim($m[0], $trimmed)] = \trim($m[1], $trimmed);
+                            $part[trim($m[0], $trimmed)] = trim($m[1], $trimmed);
                         } else {
-                            $part[] = \trim($m[0], $trimmed);
+                            $part[] = trim($m[0], $trimmed);
                         }
                     }
                 }

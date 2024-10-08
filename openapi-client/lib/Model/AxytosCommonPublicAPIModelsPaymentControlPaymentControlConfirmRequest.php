@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['custom_reference' => 'string', 'personal_data' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonDebitorCustomerData', 'invoice_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonInvoiceAddress', 'delivery_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonDeliveryAddress', 'basket' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket', 'payment_control_response' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse', 'payment_type' => 'string', 'payment_type_security' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsPaymentTypeSecurity'];
+    protected static $openAPITypes = ['custom_reference' => 'string', 'personal_data' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonDebitorCustomerData', 'invoice_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonInvoiceAddress', 'delivery_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonDeliveryAddress', 'basket' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsPaymentControlPaymentControlBasket', 'payment_control_response' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse', 'payment_type' => 'string', 'payment_type_security' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsPaymentTypeSecurity'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -190,7 +189,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets custom_reference
@@ -395,7 +394,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -432,7 +431,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -441,6 +440,6 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlConfirmRequest impl
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

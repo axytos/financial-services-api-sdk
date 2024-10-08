@@ -6,7 +6,6 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
 use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 /**
  * Cookie jar that stores cookies as an array
- * @internal
  */
 class CookieJar implements CookieJarInterface
 {
@@ -107,15 +106,15 @@ class CookieJar implements CookieJarInterface
             $this->cookies = [];
             return;
         } elseif (!$path) {
-            $this->cookies = \array_filter($this->cookies, static function (SetCookie $cookie) use($domain) {
+            $this->cookies = \array_filter($this->cookies, static function (SetCookie $cookie) use ($domain) {
                 return !$cookie->matchesDomain($domain);
             });
         } elseif (!$name) {
-            $this->cookies = \array_filter($this->cookies, static function (SetCookie $cookie) use($path, $domain) {
+            $this->cookies = \array_filter($this->cookies, static function (SetCookie $cookie) use ($path, $domain) {
                 return !($cookie->matchesPath($path) && $cookie->matchesDomain($domain));
             });
         } else {
-            $this->cookies = \array_filter($this->cookies, static function (SetCookie $cookie) use($path, $domain, $name) {
+            $this->cookies = \array_filter($this->cookies, static function (SetCookie $cookie) use ($path, $domain, $name) {
                 return !($cookie->getName() == $name && $cookie->matchesPath($path) && $cookie->matchesDomain($domain));
             });
         }

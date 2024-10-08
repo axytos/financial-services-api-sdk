@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['approved_payment_type_securities' => '\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsPaymentTypeSecurity[]', 'process_id' => 'string', 'decision' => 'string', 'transaction_metadata' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPITransactionTransactionMetadata', 'step' => 'string'];
+    protected static $openAPITypes = ['approved_payment_type_securities' => '\Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsPaymentTypeSecurity[]', 'process_id' => 'string', 'decision' => 'string', 'transaction_metadata' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPITransactionTransactionMetadata', 'step' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -187,7 +186,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets approved_payment_type_securities
@@ -329,7 +328,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -366,7 +365,7 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -375,6 +374,6 @@ class AxytosCommonPublicAPIModelsPaymentControlPaymentControlResponse implements
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

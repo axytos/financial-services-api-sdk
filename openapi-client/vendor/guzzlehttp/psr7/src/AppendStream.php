@@ -7,7 +7,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  * Reads from multiple streams, one after the other.
  *
  * This is a read-only stream decorator.
- * @internal
  */
 final class AppendStream implements StreamInterface
 {
@@ -41,13 +40,13 @@ final class AppendStream implements StreamInterface
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         } catch (\Exception $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         }
     }
@@ -136,7 +135,7 @@ final class AppendStream implements StreamInterface
      */
     public function eof()
     {
-        return !$this->streams || $this->current >= \count($this->streams) - 1 && $this->streams[$this->current]->eof();
+        return !$this->streams || $this->current >= count($this->streams) - 1 && $this->streams[$this->current]->eof();
     }
     /**
      * @return void
@@ -167,7 +166,7 @@ final class AppendStream implements StreamInterface
         }
         // Seek to the actual position by reading from each stream
         while ($this->pos < $offset && !$this->eof()) {
-            $result = $this->read(\min(8096, $offset - $this->pos));
+            $result = $this->read(min(8096, $offset - $this->pos));
             if ($result === '') {
                 break;
             }
@@ -180,7 +179,7 @@ final class AppendStream implements StreamInterface
     public function read($length)
     {
         $buffer = '';
-        $total = \count($this->streams) - 1;
+        $total = count($this->streams) - 1;
         $remaining = $length;
         $progressToNext = \false;
         while ($remaining > 0) {
@@ -198,9 +197,9 @@ final class AppendStream implements StreamInterface
                 continue;
             }
             $buffer .= $result;
-            $remaining = $length - \strlen($buffer);
+            $remaining = $length - strlen($buffer);
         }
-        $this->pos += \strlen($buffer);
+        $this->pos += strlen($buffer);
         return $buffer;
     }
     /**

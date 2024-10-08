@@ -4,6 +4,9 @@ namespace Axytos\FinancialServices\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class PolyfillCanBeLoadedTest extends TestCase
 {
     /**
@@ -22,7 +25,7 @@ class PolyfillCanBeLoadedTest extends TestCase
     /**
      * @return void
      */
-    public function test_Error_is_polyfilled()
+    public function test_error_is_polyfilled()
     {
         /**
          * this test should fail when executed with PHP 5.6 after:
@@ -35,7 +38,7 @@ class PolyfillCanBeLoadedTest extends TestCase
     /**
      * @return void
      */
-    public function test_TypeError_is_polyfilled()
+    public function test_type_error_is_polyfilled()
     {
         /**
          * this test should fail when executed with PHP 5.6 after:

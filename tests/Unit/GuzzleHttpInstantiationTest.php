@@ -5,15 +5,20 @@ namespace Axytos\FinancialServices\Tests\Unit;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class GuzzleHttpInstantiationTest extends TestCase
 {
     /**
      * @dataProvider guzzleHttpClassNameProvider
+     *
      * @param string $className
+     *
      * @return void
      */
     #[DataProvider('guzzleHttpClassNameProvider')]
-    public function testGuzzleHttpClassesCanBeConstructed($className)
+    public function test_guzzle_http_classes_can_be_constructed($className)
     {
         $instance = new $className();
 
@@ -34,7 +39,7 @@ class GuzzleHttpInstantiationTest extends TestCase
     /**
      * @return void
      */
-    public function test_GuzzleHttpClient_implements_scoped_interface()
+    public function test_guzzle_http_client_implements_scoped_interface()
     {
         $this->assertInstanceOf(
             \Axytos\FinancialServices\GuzzleHttp\ClientInterface::class,

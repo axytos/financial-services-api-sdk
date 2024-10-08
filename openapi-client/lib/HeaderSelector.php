@@ -35,7 +35,6 @@ use Exception;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @internal
  */
 class HeaderSelector
 {
@@ -73,12 +72,12 @@ class HeaderSelector
      */
     private function selectAcceptHeader($accept)
     {
-        if (\count($accept) === 0 || \count($accept) === 1 && $accept[0] === '') {
+        if (count($accept) === 0 || count($accept) === 1 && $accept[0] === '') {
             return null;
-        } elseif ($jsonAccept = \preg_grep('~(?i)^(application/json|[^;/ \\t]+/[^;/ \\t]+[+]json)[ \\t]*(;.*)?$~', $accept)) {
-            return \implode(',', $jsonAccept);
+        } elseif ($jsonAccept = preg_grep('~(?i)^(application/json|[^;/ \t]+/[^;/ \t]+[+]json)[ \t]*(;.*)?$~', $accept)) {
+            return implode(',', $jsonAccept);
         } else {
-            return \implode(',', $accept);
+            return implode(',', $accept);
         }
     }
     /**
@@ -90,12 +89,12 @@ class HeaderSelector
      */
     private function selectContentTypeHeader($contentType)
     {
-        if (\count($contentType) === 0 || \count($contentType) === 1 && $contentType[0] === '') {
+        if (count($contentType) === 0 || count($contentType) === 1 && $contentType[0] === '') {
             return 'application/json';
-        } elseif (\preg_grep("/application\\/json/i", $contentType)) {
+        } elseif (preg_grep("/application\\/json/i", $contentType)) {
             return 'application/json';
         } else {
-            return \implode(',', $contentType);
+            return implode(',', $contentType);
         }
     }
 }

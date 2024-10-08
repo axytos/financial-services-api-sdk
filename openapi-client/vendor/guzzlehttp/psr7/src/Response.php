@@ -6,7 +6,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * PSR-7 response implementation.
- * @internal
  */
 class Response implements ResponseInterface
 {
@@ -22,7 +21,7 @@ class Response implements ResponseInterface
      * @param (string|string[])[]                  $headers Response headers
      * @param string|resource|StreamInterface|null $body    Response body
      * @param string                               $version Protocol version
-     * @param string $reason Reason phrase (when empty a default will be used based on the status code)
+     * @param string|null                          $reason  Reason phrase (when empty a default will be used based on the status code)
      */
     public function __construct($status = 200, array $headers = [], $body = null, $version = '1.1', $reason = null)
     {
@@ -77,7 +76,7 @@ class Response implements ResponseInterface
      */
     private function assertStatusCodeIsInteger($statusCode)
     {
-        if (\filter_var($statusCode, \FILTER_VALIDATE_INT) === \false) {
+        if (filter_var($statusCode, \FILTER_VALIDATE_INT) === \false) {
             throw new \InvalidArgumentException('Status code must be an integer value.');
         }
     }

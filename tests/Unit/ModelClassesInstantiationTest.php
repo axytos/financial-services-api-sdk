@@ -5,15 +5,20 @@ namespace Axytos\FinancialServices\Tests\Unit;
 use PHPUnit\Framework\Attributes\DataProvider;
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ModelClassesInstantiationTest extends TestCase
 {
     /**
      * @dataProvider modelClassNameProvider
+     *
      * @param string $className
+     *
      * @return void
      */
-     #[DataProvider('modelClassNameProvider')]
-    public function testModelClassesCanBeConstructed($className)
+    #[DataProvider('modelClassNameProvider')]
+    public function test_model_classes_can_be_constructed($className)
     {
         $instance = new $className();
 

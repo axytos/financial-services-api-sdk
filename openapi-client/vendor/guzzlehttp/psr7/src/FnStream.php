@@ -8,7 +8,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  *
  * Allows for easy testing and extension of a provided stream without needing
  * to create a concrete class for a simple extension point.
- * @internal
  */
 #[\AllowDynamicProperties]
 final class FnStream implements StreamInterface
@@ -37,7 +36,7 @@ final class FnStream implements StreamInterface
     public function __get($name)
     {
         $name = (string) $name;
-        throw new \BadMethodCallException(\str_replace('_fn_', '', $name) . '() is not implemented in the FnStream');
+        throw new \BadMethodCallException(str_replace('_fn_', '', $name) . '() is not implemented in the FnStream');
     }
     /**
      * The close method is called on the underlying stream only if possible.
@@ -71,7 +70,7 @@ final class FnStream implements StreamInterface
     {
         // If any of the required methods were not provided, then simply
         // proxy to the decorated stream.
-        foreach (\array_diff(self::SLOTS, \array_keys($methods)) as $diff) {
+        foreach (array_diff(self::SLOTS, array_keys($methods)) as $diff) {
             /** @var callable $callable */
             $callable = [$stream, $diff];
             $methods[$diff] = $callable;
@@ -90,13 +89,13 @@ final class FnStream implements StreamInterface
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         } catch (\Exception $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         }
     }

@@ -6,7 +6,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that can cache previously read bytes from a sequentially
  * read stream.
- * @internal
  */
 final class CachingStream implements StreamInterface
 {
@@ -23,9 +22,9 @@ final class CachingStream implements StreamInterface
      * We will treat the buffer object as the body of the stream
      *
      * @param StreamInterface $stream Stream to cache. The cursor is assumed to be at the beginning of the stream.
-     * @param StreamInterface $target Optionally specify where data is cached
+     * @param \Axytos\FinancialServices\Psr\Http\Message\StreamInterface|null $target Optionally specify where data is cached
      */
-    public function __construct(StreamInterface $stream, StreamInterface $target = null)
+    public function __construct(StreamInterface $stream, $target = null)
     {
         $this->remoteStream = $stream;
         $this->stream = $target ?: new Stream(Utils::tryFopen('php://temp', 'r+'));
@@ -39,7 +38,7 @@ final class CachingStream implements StreamInterface
         if (null === $remoteSize) {
             return null;
         }
-        return \max($this->stream->getSize(), $remoteSize);
+        return max($this->stream->getSize(), $remoteSize);
     }
     /**
      * @return void
@@ -86,7 +85,7 @@ final class CachingStream implements StreamInterface
     {
         // Perform a regular read on any previously read data from the buffer
         $data = $this->stream->read($length);
-        $remaining = $length - \strlen($data);
+        $remaining = $length - strlen($data);
         // More data was requested so read from the remote stream
         if ($remaining) {
             // If data was written to the buffer in a position that would have
@@ -95,9 +94,9 @@ final class CachingStream implements StreamInterface
             // position. This mimics the behavior of other PHP stream wrappers.
             $remoteData = $this->remoteStream->read($remaining + $this->skipReadBytes);
             if ($this->skipReadBytes) {
-                $len = \strlen($remoteData);
-                $remoteData = \substr($remoteData, $this->skipReadBytes);
-                $this->skipReadBytes = \max(0, $this->skipReadBytes - $len);
+                $len = strlen($remoteData);
+                $remoteData = substr($remoteData, $this->skipReadBytes);
+                $this->skipReadBytes = max(0, $this->skipReadBytes - $len);
             }
             $data .= $remoteData;
             $this->stream->write($remoteData);
@@ -113,7 +112,7 @@ final class CachingStream implements StreamInterface
         // to skip bytes from being read from the remote stream to emulate
         // other stream wrappers. Basically replacing bytes of data of a fixed
         // length.
-        $overflow = \strlen($string) + $this->tell() - $this->remoteStream->tell();
+        $overflow = strlen($string) + $this->tell() - $this->remoteStream->tell();
         if ($overflow > 0) {
             $this->skipReadBytes += $overflow;
         }

@@ -2,7 +2,6 @@
 
 namespace Axytos\FinancialServices\Psr\Http\Message;
 
-/** @internal */
 interface ResponseFactoryInterface
 {
     /**

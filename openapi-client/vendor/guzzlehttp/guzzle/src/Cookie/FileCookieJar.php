@@ -5,7 +5,6 @@ namespace Axytos\FinancialServices\GuzzleHttp\Cookie;
 use Axytos\FinancialServices\GuzzleHttp\Utils;
 /**
  * Persists non-session cookies using a JSON formatted file
- * @internal
  */
 class FileCookieJar extends CookieJar
 {

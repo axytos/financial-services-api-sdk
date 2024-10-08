@@ -18,7 +18,6 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * HTTP handler that uses PHP's HTTP stream wrapper.
  *
  * @final
- * @internal
  */
 class StreamHandler
 {
@@ -191,7 +190,7 @@ class StreamHandler
     private function createResource(callable $callback)
     {
         $errors = [];
-        \set_error_handler(static function ($_, $msg, $file, $line) use(&$errors) {
+        \set_error_handler(static function ($_, $msg, $file, $line) use (&$errors) {
             $errors[] = ['message' => $msg, 'file' => $file, 'line' => $line];
             return \true;
         });
@@ -256,14 +255,14 @@ class StreamHandler
             throw new \InvalidArgumentException('Microsoft NTLM authentication only supported with curl handler');
         }
         $uri = $this->resolveHost($request, $options);
-        $contextResource = $this->createResource(static function () use($context, $params) {
+        $contextResource = $this->createResource(static function () use ($context, $params) {
             return \stream_context_create($context, $params);
         });
-        return $this->createResource(function () use($uri, &$http_response_header, $contextResource, $context, $options, $request) {
+        return $this->createResource(function () use ($uri, &$http_response_header, $contextResource, $context, $options, $request) {
             $resource = @\fopen((string) $uri, 'r', \false, $contextResource);
             $this->lastHeaders = isset($http_response_header) ? $http_response_header : [];
             if (\false === $resource) {
-                throw new ConnectException(\sprintf('Connection refused for URI %s', $uri), $request, null, $context);
+                throw new ConnectException(sprintf('Connection refused for URI %s', $uri), $request, null, $context);
             }
             if (isset($options['read_timeout'])) {
                 $readTimeout = $options['read_timeout'];
@@ -425,7 +424,7 @@ class StreamHandler
      */
     private function add_progress(RequestInterface $request, array &$options, $value, array &$params)
     {
-        self::addNotification($params, static function ($code, $a, $b, $c, $transferred, $total) use($value) {
+        self::addNotification($params, static function ($code, $a, $b, $c, $transferred, $total) use ($value) {
             if ($code == \STREAM_NOTIFY_PROGRESS) {
                 // The upload progress cannot be determined. Use 0 for cURL compatibility:
                 // https://curl.se/libcurl/c/CURLOPT_PROGRESSFUNCTION.html
@@ -446,7 +445,7 @@ class StreamHandler
         static $args = ['severity', 'message', 'message_code', 'bytes_transferred', 'bytes_max'];
         $value = Utils::debugResource($value);
         $ident = $request->getMethod() . ' ' . $request->getUri()->withFragment('');
-        self::addNotification($params, static function ($code, ...$passed) use($ident, $value, $map, $args) {
+        self::addNotification($params, static function ($code, ...$passed) use ($ident, $value, $map, $args) {
             $code = (int) $code;
             \fprintf($value, '<%s> [%s] ', $ident, $map[$code]);
             foreach (\array_filter($passed) as $i => $v) {
@@ -472,7 +471,7 @@ class StreamHandler
      */
     private static function callArray(array $functions)
     {
-        return static function (...$args) use($functions) {
+        return static function (...$args) use ($functions) {
             foreach ($functions as $fn) {
                 $fn(...$args);
             }

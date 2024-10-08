@@ -6,7 +6,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * Stream that when read returns bytes for a streaming multipart or
  * multipart/form-data stream.
- * @internal
  */
 final class MultipartStream implements StreamInterface
 {
@@ -29,7 +28,7 @@ final class MultipartStream implements StreamInterface
      */
     public function __construct(array $elements = [], $boundary = null)
     {
-        $this->boundary = $boundary ?: \bin2hex(\random_bytes(20));
+        $this->boundary = $boundary ?: bin2hex(random_bytes(20));
         $this->stream = $this->createStream($elements);
     }
     /**
@@ -58,7 +57,7 @@ final class MultipartStream implements StreamInterface
         foreach ($headers as $key => $value) {
             $str .= "{$key}: {$value}\r\n";
         }
-        return "--{$this->boundary}\r\n" . \trim($str) . "\r\n\r\n";
+        return "--{$this->boundary}\r\n" . trim($str) . "\r\n\r\n";
     }
     /**
      * Create the aggregate stream that will be used to upload the POST data
@@ -69,7 +68,7 @@ final class MultipartStream implements StreamInterface
     {
         $stream = new AppendStream();
         foreach ($elements as $element) {
-            if (!\is_array($element)) {
+            if (!is_array($element)) {
                 throw new \UnexpectedValueException('An array is expected');
             }
             $this->addElement($stream, $element);
@@ -84,7 +83,7 @@ final class MultipartStream implements StreamInterface
     private function addElement(AppendStream $stream, array $element)
     {
         foreach (['contents', 'name'] as $key) {
-            if (!\array_key_exists($key, $element)) {
+            if (!array_key_exists($key, $element)) {
                 throw new \InvalidArgumentException("A '{$key}' key is required");
             }
         }
@@ -113,7 +112,7 @@ final class MultipartStream implements StreamInterface
         // Set a default content-disposition header if one was no provided
         $disposition = self::getHeader($headers, 'content-disposition');
         if (!$disposition) {
-            $headers['Content-Disposition'] = $filename === '0' || $filename ? \sprintf('form-data; name="%s"; filename="%s"', $name, \basename($filename)) : "form-data; name=\"{$name}\"";
+            $headers['Content-Disposition'] = $filename === '0' || $filename ? sprintf('form-data; name="%s"; filename="%s"', $name, basename($filename)) : "form-data; name=\"{$name}\"";
         }
         // Set a default content-length header if one was no provided
         $length = self::getHeader($headers, 'content-length');
@@ -137,9 +136,9 @@ final class MultipartStream implements StreamInterface
     private static function getHeader(array $headers, $key)
     {
         $key = (string) $key;
-        $lowercaseHeader = \strtolower($key);
+        $lowercaseHeader = strtolower($key);
         foreach ($headers as $k => $v) {
-            if (\strtolower((string) $k) === $lowercaseHeader) {
+            if (strtolower((string) $k) === $lowercaseHeader) {
                 return $v;
             }
         }

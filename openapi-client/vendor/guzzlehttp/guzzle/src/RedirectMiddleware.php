@@ -15,7 +15,6 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * {@see \Axytos\FinancialServices\GuzzleHttp\Middleware::redirect()}.
  *
  * @final
- * @internal
  */
 class RedirectMiddleware
 {
@@ -56,7 +55,7 @@ class RedirectMiddleware
         if (empty($options['allow_redirects']['max'])) {
             return $fn($request, $options);
         }
-        return $fn($request, $options)->then(function (ResponseInterface $response) use($request, $options) {
+        return $fn($request, $options)->then(function (ResponseInterface $response) use ($request, $options) {
             return $this->checkRedirect($request, $options, $response);
         });
     }
@@ -71,7 +70,7 @@ class RedirectMiddleware
         $this->guardMax($request, $response, $options);
         $nextRequest = $this->modifyRequest($request, $options, $response);
         // If authorization is handled by curl, unset it if URI is cross-origin.
-        if (Psr7\UriComparator::isCrossOrigin($request->getUri(), $nextRequest->getUri()) && \defined('\\CURLOPT_HTTPAUTH')) {
+        if (Psr7\UriComparator::isCrossOrigin($request->getUri(), $nextRequest->getUri()) && defined('\CURLOPT_HTTPAUTH')) {
             unset($options['curl'][\CURLOPT_HTTPAUTH], $options['curl'][\CURLOPT_USERPWD]);
         }
         if (isset($options['allow_redirects']['on_redirect'])) {
@@ -94,7 +93,7 @@ class RedirectMiddleware
     {
         $uri = (string) $uri;
         $statusCode = (int) $statusCode;
-        return $promise->then(static function (ResponseInterface $response) use($uri, $statusCode) {
+        return $promise->then(static function (ResponseInterface $response) use ($uri, $statusCode) {
             // Note that we are pushing to the front of the list as this
             // would be an earlier response than what is currently present
             // in the history header.
@@ -135,7 +134,7 @@ class RedirectMiddleware
         if ($statusCode == 303 || $statusCode <= 302 && !$options['allow_redirects']['strict']) {
             $safeMethods = ['GET', 'HEAD', 'OPTIONS'];
             $requestMethod = $request->getMethod();
-            $modify['method'] = \in_array($requestMethod, $safeMethods) ? $requestMethod : 'GET';
+            $modify['method'] = in_array($requestMethod, $safeMethods) ? $requestMethod : 'GET';
             $modify['body'] = '';
         }
         $uri = self::redirectUri($request, $response, $protocols);

@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsOrderBasket implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsOrderBasket implements ModelInterface, ArrayAcc
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['net_total' => 'double', 'gross_total' => 'double', 'currency' => 'string', 'positions' => '\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsOrderBasketPosition[]'];
+    protected static $openAPITypes = ['net_total' => 'double', 'gross_total' => 'double', 'currency' => 'string', 'positions' => '\Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsOrderBasketPosition[]'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -192,7 +191,7 @@ class AxytosCommonPublicAPIModelsOrderBasket implements ModelInterface, ArrayAcc
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets net_total
@@ -319,7 +318,7 @@ class AxytosCommonPublicAPIModelsOrderBasket implements ModelInterface, ArrayAcc
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -356,7 +355,7 @@ class AxytosCommonPublicAPIModelsOrderBasket implements ModelInterface, ArrayAcc
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -365,6 +364,6 @@ class AxytosCommonPublicAPIModelsOrderBasket implements ModelInterface, ArrayAcc
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }
