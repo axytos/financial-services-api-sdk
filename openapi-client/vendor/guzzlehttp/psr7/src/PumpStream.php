@@ -12,7 +12,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  * returned by the provided callable is buffered internally until drained using
  * the read() function of the PumpStream. The provided callable MUST return
  * false when there is no more data to read.
- * @internal
  */
 final class PumpStream implements StreamInterface
 {
@@ -54,13 +53,13 @@ final class PumpStream implements StreamInterface
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         } catch (\Exception $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         }
     }
@@ -146,13 +145,13 @@ final class PumpStream implements StreamInterface
     public function read($length)
     {
         $data = $this->buffer->read($length);
-        $readLen = \strlen($data);
+        $readLen = strlen($data);
         $this->tellPos += $readLen;
         $remaining = $length - $readLen;
         if ($remaining) {
             $this->pump($remaining);
             $data .= $this->buffer->read($remaining);
-            $this->tellPos += \strlen($data) - $readLen;
+            $this->tellPos += strlen($data) - $readLen;
         }
         return $data;
     }
@@ -192,7 +191,7 @@ final class PumpStream implements StreamInterface
                     return;
                 }
                 $this->buffer->write($data);
-                $length -= \strlen($data);
+                $length -= strlen($data);
             } while ($length > 0);
         }
     }

@@ -11,7 +11,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
  * invoking the provided "decider" function.
  *
  * @final
- * @internal
  */
 class RetryMiddleware
 {
@@ -71,7 +70,7 @@ class RetryMiddleware
      */
     private function onFulfilled(RequestInterface $request, array $options)
     {
-        return function ($value) use($request, $options) {
+        return function ($value) use ($request, $options) {
             if (!call_user_func($this->decider, $options['retries'], $request, $value, null)) {
                 return $value;
             }
@@ -84,7 +83,7 @@ class RetryMiddleware
      */
     private function onRejected(RequestInterface $req, array $options)
     {
-        return function ($reason) use($req, $options) {
+        return function ($reason) use ($req, $options) {
             if (!call_user_func($this->decider, $options['retries'], $req, null, $reason)) {
                 return P\Create::rejectionFor($reason);
             }

@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -198,7 +197,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets product_id
@@ -224,7 +223,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
     /**
      * Gets quantity
      *
-     * @return int
+     * @return float
      */
     public function getQuantity()
     {
@@ -382,7 +381,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -419,7 +418,7 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -428,6 +427,6 @@ class AxytosCommonPublicAPIModelsInvoiceInvoiceBasketPosition implements ModelIn
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonModelsOrderRefundBasketTaxGroup implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -191,7 +190,7 @@ class AxytosCommonModelsOrderRefundBasketTaxGroup implements ModelInterface, Arr
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets tax_percent
@@ -300,7 +299,7 @@ class AxytosCommonModelsOrderRefundBasketTaxGroup implements ModelInterface, Arr
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -337,7 +336,7 @@ class AxytosCommonModelsOrderRefundBasketTaxGroup implements ModelInterface, Arr
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -346,6 +345,6 @@ class AxytosCommonModelsOrderRefundBasketTaxGroup implements ModelInterface, Arr
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

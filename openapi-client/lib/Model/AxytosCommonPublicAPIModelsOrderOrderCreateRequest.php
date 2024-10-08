@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['custom_reference' => 'string', 'external_order_id' => 'string', 'date' => 'string', 'personal_data' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel', 'invoice_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonInvoiceAddress', 'delivery_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsCommonDeliveryAddress', 'basket' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsOrderBasket', 'order_precheck_response' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIModelsPaymentControlOrderPrecheckResponse'];
+    protected static $openAPITypes = ['custom_reference' => 'string', 'external_order_id' => 'string', 'date' => 'string', 'personal_data' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonCustomerDataRequestModel', 'invoice_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonInvoiceAddress', 'delivery_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsCommonDeliveryAddress', 'basket' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsOrderBasket', 'order_precheck_response' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIModelsPaymentControlOrderPrecheckResponse'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -193,7 +192,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets custom_reference
@@ -398,7 +397,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -435,7 +434,7 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -444,6 +443,6 @@ class AxytosCommonPublicAPIModelsOrderOrderCreateRequest implements ModelInterfa
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

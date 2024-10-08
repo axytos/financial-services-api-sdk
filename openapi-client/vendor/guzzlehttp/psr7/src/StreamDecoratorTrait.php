@@ -7,7 +7,6 @@ use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
  * Stream decorator trait
  *
  * @property StreamInterface $stream
- * @internal
  */
 trait StreamDecoratorTrait
 {
@@ -48,13 +47,13 @@ trait StreamDecoratorTrait
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         } catch (\Exception $e) {
             if (\PHP_VERSION_ID >= 70400) {
                 throw $e;
             }
-            \trigger_error(\sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
+            trigger_error(sprintf('%s::__toString exception: %s', self::class, (string) $e), \E_USER_ERROR);
             return '';
         }
     }

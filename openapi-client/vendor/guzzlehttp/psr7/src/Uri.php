@@ -10,7 +10,6 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  * @author Michael Dowling
  * @author Tobias Schultze
  * @author Matthew Weier O'Phinney
- * @internal
  */
 class Uri implements UriInterface, \JsonSerializable
 {
@@ -27,13 +26,13 @@ class Uri implements UriInterface, \JsonSerializable
      *
      * @see https://datatracker.ietf.org/doc/html/rfc3986#section-2.3
      */
-    const CHAR_UNRESERVED = 'a-zA-Z0-9_\\-\\.~';
+    const CHAR_UNRESERVED = 'a-zA-Z0-9_\-\.~';
     /**
      * Sub-delims for use in a regex.
      *
      * @see https://datatracker.ietf.org/doc/html/rfc3986#section-2.2
      */
-    const CHAR_SUB_DELIMS = '!\\$&\'\\(\\)\\*\\+,;=';
+    const CHAR_SUB_DELIMS = '!\$&\'\(\)\*\+,;=';
     const QUERY_SEPARATORS_REPLACEMENT = ['=' => '%3D', '&' => '%26'];
     /** @var string Uri scheme. */
     private $scheme = '';
@@ -86,20 +85,20 @@ class Uri implements UriInterface, \JsonSerializable
         $url = (string) $url;
         // If IPv6
         $prefix = '';
-        if (\preg_match('%^(.*://\\[[0-9:a-f]+\\])(.*?)$%', $url, $matches)) {
+        if (preg_match('%^(.*://\[[0-9:a-f]+\])(.*?)$%', $url, $matches)) {
             /** @var array{0:string, 1:string, 2:string} $matches */
             $prefix = $matches[1];
             $url = $matches[2];
         }
         /** @var string */
-        $encodedUrl = \preg_replace_callback('%[^:/@?&=#]+%usD', static function ($matches) {
-            return \urlencode($matches[0]);
+        $encodedUrl = preg_replace_callback('%[^:/@?&=#]+%usD', static function ($matches) {
+            return urlencode($matches[0]);
         }, $url);
-        $result = \parse_url($prefix . $encodedUrl);
+        $result = parse_url($prefix . $encodedUrl);
         if ($result === \false) {
             return \false;
         }
-        return \array_map('urldecode', $result);
+        return array_map('urldecode', $result);
     }
     /**
      * @return string
@@ -263,7 +262,7 @@ class Uri implements UriInterface, \JsonSerializable
     public static function withoutQueryValue($uri, $key)
     {
         $result = self::getFilteredQueryString($uri, [$key]);
-        return $uri->withQuery(\implode('&', $result));
+        return $uri->withQuery(implode('&', $result));
     }
     /**
      * Creates a new URI with a specific query string value.
@@ -283,7 +282,7 @@ class Uri implements UriInterface, \JsonSerializable
     {
         $result = self::getFilteredQueryString($uri, [$key]);
         $result[] = self::generateQueryString($key, $value);
-        return $uri->withQuery(\implode('&', $result));
+        return $uri->withQuery(implode('&', $result));
     }
     /**
      * Creates a new URI with multiple specific query string values.
@@ -296,11 +295,11 @@ class Uri implements UriInterface, \JsonSerializable
      */
     public static function withQueryValues($uri, $keyValueArray)
     {
-        $result = self::getFilteredQueryString($uri, \array_keys($keyValueArray));
+        $result = self::getFilteredQueryString($uri, array_keys($keyValueArray));
         foreach ($keyValueArray as $key => $value) {
             $result[] = self::generateQueryString((string) $key, $value !== null ? (string) $value : null);
         }
-        return $uri->withQuery(\implode('&', $result));
+        return $uri->withQuery(implode('&', $result));
     }
     /**
      * Creates a URI from a hash of `parse_url` components.
@@ -525,7 +524,7 @@ class Uri implements UriInterface, \JsonSerializable
      */
     private function filterScheme($scheme)
     {
-        if (!\is_string($scheme)) {
+        if (!is_string($scheme)) {
             throw new \InvalidArgumentException('Scheme must be a string');
         }
         return \strtr($scheme, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
@@ -538,10 +537,10 @@ class Uri implements UriInterface, \JsonSerializable
      */
     private function filterUserInfoComponent($component)
     {
-        if (!\is_string($component)) {
+        if (!is_string($component)) {
             throw new \InvalidArgumentException('User info must be a string');
         }
-        return \preg_replace_callback('/(?:[^%' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . ']+|%(?![A-Fa-f0-9]{2}))/', [$this, 'rawurlencodeMatchZero'], $component);
+        return preg_replace_callback('/(?:[^%' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . ']+|%(?![A-Fa-f0-9]{2}))/', [$this, 'rawurlencodeMatchZero'], $component);
     }
     /**
      * @param mixed $host
@@ -551,7 +550,7 @@ class Uri implements UriInterface, \JsonSerializable
      */
     private function filterHost($host)
     {
-        if (!\is_string($host)) {
+        if (!is_string($host)) {
             throw new \InvalidArgumentException('Host must be a string');
         }
         return \strtr($host, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
@@ -569,7 +568,7 @@ class Uri implements UriInterface, \JsonSerializable
         }
         $port = (int) $port;
         if (0 > $port || 0xffff < $port) {
-            throw new \InvalidArgumentException(\sprintf('Invalid port: %d. Must be between 0 and 65535', $port));
+            throw new \InvalidArgumentException(sprintf('Invalid port: %d. Must be between 0 and 65535', $port));
         }
         return $port;
     }
@@ -584,11 +583,11 @@ class Uri implements UriInterface, \JsonSerializable
         if ($current === '') {
             return [];
         }
-        $decodedKeys = \array_map(function ($k) {
-            return \rawurldecode((string) $k);
+        $decodedKeys = array_map(function ($k) {
+            return rawurldecode((string) $k);
         }, $keys);
-        return \array_filter(\explode('&', $current), function ($part) use($decodedKeys) {
-            return !\in_array(\rawurldecode(\explode('=', $part)[0]), $decodedKeys, \true);
+        return array_filter(explode('&', $current), function ($part) use ($decodedKeys) {
+            return !in_array(rawurldecode(explode('=', $part)[0]), $decodedKeys, \true);
         });
     }
     /**
@@ -602,9 +601,9 @@ class Uri implements UriInterface, \JsonSerializable
         // Query string separators ("=", "&") within the key or value need to be encoded
         // (while preventing double-encoding) before setting the query string. All other
         // chars that need percent-encoding will be encoded by withQuery().
-        $queryString = \strtr($key, self::QUERY_SEPARATORS_REPLACEMENT);
+        $queryString = strtr($key, self::QUERY_SEPARATORS_REPLACEMENT);
         if ($value !== null) {
-            $queryString .= '=' . \strtr($value, self::QUERY_SEPARATORS_REPLACEMENT);
+            $queryString .= '=' . strtr($value, self::QUERY_SEPARATORS_REPLACEMENT);
         }
         return $queryString;
     }
@@ -627,10 +626,10 @@ class Uri implements UriInterface, \JsonSerializable
      */
     private function filterPath($path)
     {
-        if (!\is_string($path)) {
+        if (!is_string($path)) {
             throw new \InvalidArgumentException('Path must be a string');
         }
-        return \preg_replace_callback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\\/]++|%(?![A-Fa-f0-9]{2}))/', [$this, 'rawurlencodeMatchZero'], $path);
+        return preg_replace_callback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\/]++|%(?![A-Fa-f0-9]{2}))/', [$this, 'rawurlencodeMatchZero'], $path);
     }
     /**
      * Filters the query string or fragment of a URI.
@@ -642,17 +641,17 @@ class Uri implements UriInterface, \JsonSerializable
      */
     private function filterQueryAndFragment($str)
     {
-        if (!\is_string($str)) {
+        if (!is_string($str)) {
             throw new \InvalidArgumentException('Query and fragment must be a string');
         }
-        return \preg_replace_callback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\\/\\?]++|%(?![A-Fa-f0-9]{2}))/', [$this, 'rawurlencodeMatchZero'], $str);
+        return preg_replace_callback('/(?:[^' . self::CHAR_UNRESERVED . self::CHAR_SUB_DELIMS . '%:@\/\?]++|%(?![A-Fa-f0-9]{2}))/', [$this, 'rawurlencodeMatchZero'], $str);
     }
     /**
      * @return string
      */
     private function rawurlencodeMatchZero(array $match)
     {
-        return \rawurlencode($match[0]);
+        return rawurlencode($match[0]);
     }
     /**
      * @return void
@@ -663,10 +662,10 @@ class Uri implements UriInterface, \JsonSerializable
             $this->host = self::HTTP_DEFAULT_HOST;
         }
         if ($this->getAuthority() === '') {
-            if (0 === \strpos($this->path, '//')) {
+            if (0 === strpos($this->path, '//')) {
                 throw new MalformedUriException('The path of a URI without an authority must not start with two slashes "//"');
             }
-            if ($this->scheme === '' && \false !== \strpos(\explode('/', $this->path, 2)[0], ':')) {
+            if ($this->scheme === '' && \false !== strpos(explode('/', $this->path, 2)[0], ':')) {
                 throw new MalformedUriException('A relative URI must not have a path beginning with a segment containing a colon');
             }
         }

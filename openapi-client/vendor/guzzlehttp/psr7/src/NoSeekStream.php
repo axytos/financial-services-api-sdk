@@ -5,7 +5,6 @@ namespace Axytos\FinancialServices\GuzzleHttp\Psr7;
 use Axytos\FinancialServices\Psr\Http\Message\StreamInterface;
 /**
  * Stream decorator that prevents a stream from being seeked.
- * @internal
  */
 final class NoSeekStream implements StreamInterface
 {

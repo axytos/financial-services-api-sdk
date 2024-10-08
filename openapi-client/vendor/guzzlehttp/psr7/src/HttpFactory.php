@@ -19,7 +19,6 @@ use Axytos\FinancialServices\Psr\Http\Message\UriInterface;
  *
  * Note: in consuming code it is recommended to require the implemented interfaces
  * and inject the instance of this class multiple times.
- * @internal
  */
 final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInterface, ServerRequestFactoryInterface, StreamFactoryInterface, UploadedFileFactoryInterface, UriFactoryInterface
 {
@@ -57,7 +56,7 @@ final class HttpFactory implements RequestFactoryInterface, ResponseFactoryInter
             $resource = Utils::tryFopen($file, $mode);
         } catch (\RuntimeException $e) {
             if ('' === $mode || \false === \in_array($mode[0], ['r', 'w', 'a', 'x', 'c'], \true)) {
-                throw new \InvalidArgumentException(\sprintf('Invalid file opening mode "%s"', $mode), 0, $e);
+                throw new \InvalidArgumentException(sprintf('Invalid file opening mode "%s"', $mode), 0, $e);
             }
             throw $e;
         }

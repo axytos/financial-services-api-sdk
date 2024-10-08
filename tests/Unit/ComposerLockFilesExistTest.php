@@ -4,6 +4,9 @@ namespace Axytos\FinancialServices\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class ComposerLockFilesExistTest extends TestCase
 {
     /**

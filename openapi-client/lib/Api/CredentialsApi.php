@@ -45,7 +45,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @internal
  */
 class CredentialsApi
 {
@@ -142,13 +141,13 @@ class CredentialsApi
             }
             $statusCode = $response->getStatusCode();
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)', $statusCode, (string) $request->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, (string) $request->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
             }
             return [null, $statusCode, $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 401:
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
             }
@@ -188,7 +187,7 @@ class CredentialsApi
         }, function ($exception) {
             $response = $exception->getResponse();
             $statusCode = $response->getStatusCode();
-            throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
+            throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
         });
     }
     /**
@@ -212,11 +211,11 @@ class CredentialsApi
             $headers = $this->headerSelector->selectHeaders(['text/plain', 'application/json', 'text/json'], []);
         }
         // for model (json/xml)
-        if (\count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = \is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
                     foreach ($formParamValueItems as $formParamValueItem) {
                         $multipartContents[] = ['name' => $formParamName, 'contents' => $formParamValueItem];
                     }
@@ -239,7 +238,7 @@ class CredentialsApi
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
-        $headers = \array_merge($defaultHeaders, $headerParams, $headers);
+        $headers = array_merge($defaultHeaders, $headerParams, $headers);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
@@ -253,7 +252,7 @@ class CredentialsApi
     {
         $options = [];
         if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = \fopen($this->config->getDebugFile(), 'a');
+            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

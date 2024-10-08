@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosCommonDebitorCustomerData implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosCommonDebitorCustomerData implements ModelInterface, ArrayAccess, \J
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['external_customer_id' => 'string', 'language' => 'string', 'date_of_birth' => 'string', 'gender' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonPublicAPIEnumsGender', 'email' => 'string', 'fix_net_phone_number' => 'string', 'mobile_phone_number' => 'string', 'company' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonDebitorCompany'];
+    protected static $openAPITypes = ['external_customer_id' => 'string', 'language' => 'string', 'date_of_birth' => 'string', 'gender' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonPublicAPIEnumsGender', 'email' => 'string', 'fix_net_phone_number' => 'string', 'mobile_phone_number' => 'string', 'company' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonDebitorCompany'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -178,7 +177,7 @@ class AxytosCommonDebitorCustomerData implements ModelInterface, ArrayAccess, \J
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets external_customer_id
@@ -383,7 +382,7 @@ class AxytosCommonDebitorCustomerData implements ModelInterface, ArrayAccess, \J
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -420,7 +419,7 @@ class AxytosCommonDebitorCustomerData implements ModelInterface, ArrayAccess, \J
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -429,6 +428,6 @@ class AxytosCommonDebitorCustomerData implements ModelInterface, ArrayAccess, \J
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

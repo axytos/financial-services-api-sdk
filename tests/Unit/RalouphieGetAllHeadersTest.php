@@ -4,6 +4,9 @@ namespace Axytos\FinancialServices\Tests\Unit;
 
 use PHPUnit\Framework\TestCase;
 
+/**
+ * @internal
+ */
 class RalouphieGetAllHeadersTest extends TestCase
 {
     /**

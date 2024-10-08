@@ -2,7 +2,6 @@
 
 namespace Axytos\FinancialServices\GuzzleHttp\Promise;
 
-/** @internal */
 interface TaskQueueInterface
 {
     /**

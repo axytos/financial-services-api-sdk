@@ -11,7 +11,6 @@ use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
 use Axytos\FinancialServices\Psr\Log\LoggerInterface;
 /**
  * Functions used to create and wrap handlers with handler middleware.
- * @internal
  */
 final class Middleware
 {
@@ -26,15 +25,15 @@ final class Middleware
     public static function cookies()
     {
         return static function (callable $handler) {
-            return static function ($request, array $options) use($handler) {
+            return static function ($request, array $options) use ($handler) {
                 if (empty($options['cookies'])) {
                     return $handler($request, $options);
                 } elseif (!$options['cookies'] instanceof CookieJarInterface) {
-                    throw new \InvalidArgumentException('cookies must be an instance of GuzzleHttp\\Cookie\\CookieJarInterface');
+                    throw new \InvalidArgumentException('cookies must be an instance of GuzzleHttp\Cookie\CookieJarInterface');
                 }
                 $cookieJar = $options['cookies'];
                 $request = $cookieJar->withCookieHeader($request);
-                return $handler($request, $options)->then(static function (ResponseInterface $response) use($cookieJar, $request) {
+                return $handler($request, $options)->then(static function (ResponseInterface $response) use ($cookieJar, $request) {
                     $cookieJar->extractCookies($request, $response);
                     return $response;
                 });
@@ -51,12 +50,12 @@ final class Middleware
      */
     public static function httpErrors(BodySummarizerInterface $bodySummarizer = null)
     {
-        return static function (callable $handler) use($bodySummarizer) {
-            return static function ($request, array $options) use($handler, $bodySummarizer) {
+        return static function (callable $handler) use ($bodySummarizer) {
+            return static function ($request, array $options) use ($handler, $bodySummarizer) {
                 if (empty($options['http_errors'])) {
                     return $handler($request, $options);
                 }
-                return $handler($request, $options)->then(static function (ResponseInterface $response) use($request, $bodySummarizer) {
+                return $handler($request, $options)->then(static function (ResponseInterface $response) use ($request, $bodySummarizer) {
                     $code = $response->getStatusCode();
                     if ($code < 400) {
                         return $response;
@@ -80,12 +79,12 @@ final class Middleware
         if (!\is_array($container) && !$container instanceof \ArrayAccess) {
             throw new \InvalidArgumentException('history container must be an array or object implementing ArrayAccess');
         }
-        return static function (callable $handler) use(&$container) {
-            return static function (RequestInterface $request, array $options) use($handler, &$container) {
-                return $handler($request, $options)->then(static function ($value) use($request, &$container, $options) {
+        return static function (callable $handler) use (&$container) {
+            return static function (RequestInterface $request, array $options) use ($handler, &$container) {
+                return $handler($request, $options)->then(static function ($value) use ($request, &$container, $options) {
                     $container[] = ['request' => $request, 'response' => $value, 'error' => null, 'options' => $options];
                     return $value;
-                }, static function ($reason) use($request, &$container, $options) {
+                }, static function ($reason) use ($request, &$container, $options) {
                     $container[] = ['request' => $request, 'response' => null, 'error' => $reason, 'options' => $options];
                     return P\Create::rejectionFor($reason);
                 });
@@ -107,8 +106,8 @@ final class Middleware
      */
     public static function tap(callable $before = null, callable $after = null)
     {
-        return static function (callable $handler) use($before, $after) {
-            return static function (RequestInterface $request, array $options) use($handler, $before, $after) {
+        return static function (callable $handler) use ($before, $after) {
+            return static function (RequestInterface $request, array $options) use ($handler, $before, $after) {
                 if ($before) {
                     $before($request, $options);
                 }
@@ -148,7 +147,7 @@ final class Middleware
      */
     public static function retry(callable $decider, callable $delay = null)
     {
-        return static function (callable $handler) use($decider, $delay) {
+        return static function (callable $handler) use ($decider, $delay) {
             return new RetryMiddleware($decider, $handler, $delay);
         };
     }
@@ -169,15 +168,15 @@ final class Middleware
         $logLevel = (string) $logLevel;
         // To be compatible with Guzzle 7.1.x we need to allow users to pass a MessageFormatter
         if (!$formatter instanceof MessageFormatter && !$formatter instanceof MessageFormatterInterface) {
-            throw new \LogicException(\sprintf('Argument 2 to %s::log() must be of type %s', self::class, MessageFormatterInterface::class));
+            throw new \LogicException(sprintf('Argument 2 to %s::log() must be of type %s', self::class, MessageFormatterInterface::class));
         }
-        return static function (callable $handler) use($logger, $formatter, $logLevel) {
-            return static function (RequestInterface $request, array $options = []) use($handler, $logger, $formatter, $logLevel) {
-                return $handler($request, $options)->then(static function ($response) use($logger, $request, $formatter, $logLevel) {
+        return static function (callable $handler) use ($logger, $formatter, $logLevel) {
+            return static function (RequestInterface $request, array $options = []) use ($handler, $logger, $formatter, $logLevel) {
+                return $handler($request, $options)->then(static function ($response) use ($logger, $request, $formatter, $logLevel) {
                     $message = $formatter->format($request, $response);
                     $logger->log($logLevel, $message);
                     return $response;
-                }, static function ($reason) use($logger, $request, $formatter) {
+                }, static function ($reason) use ($logger, $request, $formatter) {
                     $response = $reason instanceof RequestException ? $reason->getResponse() : null;
                     $message = $formatter->format($request, $response, P\Create::exceptionFor($reason));
                     $logger->error($message);
@@ -207,8 +206,8 @@ final class Middleware
      */
     public static function mapRequest(callable $fn)
     {
-        return static function (callable $handler) use($fn) {
-            return static function (RequestInterface $request, array $options) use($handler, $fn) {
+        return static function (callable $handler) use ($fn) {
+            return static function (RequestInterface $request, array $options) use ($handler, $fn) {
                 return $handler($fn($request), $options);
             };
         };
@@ -223,8 +222,8 @@ final class Middleware
      */
     public static function mapResponse(callable $fn)
     {
-        return static function (callable $handler) use($fn) {
-            return static function (RequestInterface $request, array $options) use($handler, $fn) {
+        return static function (callable $handler) use ($fn) {
+            return static function (RequestInterface $request, array $options) use ($handler, $fn) {
                 return $handler($request, $options)->then($fn);
             };
         };

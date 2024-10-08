@@ -33,7 +33,6 @@ namespace Axytos\FinancialServices\OpenAPI\Client\Model;
  *
  * @package Axytos\FinancialServices\OpenAPI\Client\Model
  * @author  OpenAPI Generator team
- * @internal
  */
 interface ModelInterface
 {

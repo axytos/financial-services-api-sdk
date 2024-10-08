@@ -38,7 +38,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
  * @implements \ArrayAccess<string, mixed>
- * @internal
  */
 class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess, \JsonSerializable
 {
@@ -54,7 +53,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      *
      * @var string[]
      */
-    protected static $openAPITypes = ['name' => 'string', 'external_customer_id' => 'string', 'language' => 'string', 'customer_type' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonEnumsCustomerType', 'payment_type' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosCommonEnumsPaymentType', 'invoice_address' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsAddressCreationModel', 'direct_debit_bank_account' => 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsBankAccountCreationModel', 'due_date_offset_days' => 'int', 'direct_debit_mandate_reference' => 'string'];
+    protected static $openAPITypes = ['name' => 'string', 'external_customer_id' => 'string', 'language' => 'string', 'customer_type' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonEnumsCustomerType', 'payment_type' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosCommonEnumsPaymentType', 'invoice_address' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsAddressCreationModel', 'direct_debit_bank_account' => 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsBankAccountCreationModel', 'due_date_offset_days' => 'int', 'direct_debit_mandate_reference' => 'string'];
     /**
      * Array of property to format mappings. Used for (de)serialization
      *
@@ -191,7 +190,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      */
     public function valid()
     {
-        return \count($this->listInvalidProperties()) === 0;
+        return count($this->listInvalidProperties()) === 0;
     }
     /**
      * Gets name
@@ -417,7 +416,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
     #[\ReturnTypeWillChange]
     public function offsetSet($offset, $value)
     {
-        if (\is_null($offset)) {
+        if (is_null($offset)) {
             $this->container[] = $value;
         } else {
             $this->container[$offset] = $value;
@@ -454,7 +453,7 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      */
     public function __toString()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this), \JSON_PRETTY_PRINT);
     }
     /**
      * Gets a header-safe presentation of the object
@@ -463,6 +462,6 @@ class AxytosApiModelsDebitorCreationModel implements ModelInterface, ArrayAccess
      */
     public function toHeaderValue()
     {
-        return \json_encode(ObjectSerializer::sanitizeForSerialization($this));
+        return json_encode(ObjectSerializer::sanitizeForSerialization($this));
     }
 }

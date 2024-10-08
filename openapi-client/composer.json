@@ -16,5 +16,8 @@
         "psr-4": {
             "Axytos\\FinancialServices\\OpenAPI\\Client\\Test\\": "test\/"
         }
+    },
+    "config": {
+        "autoloader-suffix": "969ae310edfab908b86eaecca7b301ea7e09a6e5e7e282ebc85c25e0fac417d81726127769"
     }
 }

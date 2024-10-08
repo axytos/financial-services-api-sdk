@@ -45,7 +45,6 @@ use Axytos\FinancialServices\OpenAPI\Client\ObjectSerializer;
  * @package Axytos\FinancialServices\OpenAPI\Client
  * @author   OpenAPI Generator team
  * @link     https://openapi-generator.tech
- * @internal
  */
 class PaymentApi
 {
@@ -141,96 +140,96 @@ class PaymentApi
             }
             $statusCode = $response->getStatusCode();
             if ($statusCode < 200 || $statusCode > 299) {
-                throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)', $statusCode, (string) $request->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
+                throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, (string) $request->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
             }
             switch ($statusCode) {
                 case 200:
-                    if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsPaymentResponseModel' === '\\SplFileObject') {
+                    if ('\Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsPaymentResponseModel' === '\SplFileObject') {
                         $content = $response->getBody();
                         //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsPaymentResponseModel' !== 'string') {
-                            $content = \json_decode($content);
+                        if ('\Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsPaymentResponseModel' !== 'string') {
+                            $content = json_decode($content);
                         }
                     }
-                    return [ObjectSerializer::deserialize($content, 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsPaymentResponseModel', []), $response->getStatusCode(), $response->getHeaders()];
+                    return [ObjectSerializer::deserialize($content, 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsPaymentResponseModel', []), $response->getStatusCode(), $response->getHeaders()];
                 case 400:
-                    if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' === '\\SplFileObject') {
+                    if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' === '\SplFileObject') {
                         $content = $response->getBody();
                         //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
-                            $content = \json_decode($content);
+                        if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
+                            $content = json_decode($content);
                         }
                     }
-                    return [ObjectSerializer::deserialize($content, 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
+                    return [ObjectSerializer::deserialize($content, 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
                 case 401:
-                    if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' === '\\SplFileObject') {
+                    if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' === '\SplFileObject') {
                         $content = $response->getBody();
                         //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
-                            $content = \json_decode($content);
+                        if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
+                            $content = json_decode($content);
                         }
                     }
-                    return [ObjectSerializer::deserialize($content, 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
+                    return [ObjectSerializer::deserialize($content, 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
                 case 403:
-                    if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' === '\\SplFileObject') {
+                    if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' === '\SplFileObject') {
                         $content = $response->getBody();
                         //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
-                            $content = \json_decode($content);
+                        if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
+                            $content = json_decode($content);
                         }
                     }
-                    return [ObjectSerializer::deserialize($content, 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
+                    return [ObjectSerializer::deserialize($content, 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
                 case 404:
-                    if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' === '\\SplFileObject') {
+                    if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' === '\SplFileObject') {
                         $content = $response->getBody();
                         //stream goes to serializer
                     } else {
                         $content = (string) $response->getBody();
-                        if ('\\Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
-                            $content = \json_decode($content);
+                        if ('\Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails' !== 'string') {
+                            $content = json_decode($content);
                         }
                     }
-                    return [ObjectSerializer::deserialize($content, 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
+                    return [ObjectSerializer::deserialize($content, 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', []), $response->getStatusCode(), $response->getHeaders()];
             }
-            $returnType = 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsPaymentResponseModel';
-            if ($returnType === '\\SplFileObject') {
+            $returnType = 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsPaymentResponseModel';
+            if ($returnType === '\SplFileObject') {
                 $content = $response->getBody();
                 //stream goes to serializer
             } else {
                 $content = (string) $response->getBody();
                 if ($returnType !== 'string') {
-                    $content = \json_decode($content);
+                    $content = json_decode($content);
                 }
             }
             return [ObjectSerializer::deserialize($content, $returnType, []), $response->getStatusCode(), $response->getHeaders()];
         } catch (ApiException $e) {
             switch ($e->getCode()) {
                 case 200:
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsPaymentResponseModel', $e->getResponseHeaders());
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsPaymentResponseModel', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 case 400:
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 case 401:
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 case 403:
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
                 case 404:
-                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
+                    $data = ObjectSerializer::deserialize($e->getResponseBody(), 'Axytos\FinancialServices\OpenAPI\Client\Model\MicrosoftAspNetCoreMvcProblemDetails', $e->getResponseHeaders());
                     $e->setResponseObject($data);
                     break;
             }
@@ -261,23 +260,23 @@ class PaymentApi
      */
     public function apiV1PaymentIdGetAsyncWithHttpInfo($id)
     {
-        $returnType = 'Axytos\\FinancialServices\\OpenAPI\\Client\\Model\\AxytosApiModelsPaymentResponseModel';
+        $returnType = 'Axytos\FinancialServices\OpenAPI\Client\Model\AxytosApiModelsPaymentResponseModel';
         $request = $this->apiV1PaymentIdGetRequest($id);
         return $this->client->sendAsync($request, $this->createHttpClientOption())->then(function ($response) use ($returnType) {
-            if ($returnType === '\\SplFileObject') {
+            if ($returnType === '\SplFileObject') {
                 $content = $response->getBody();
                 //stream goes to serializer
             } else {
                 $content = (string) $response->getBody();
                 if ($returnType !== 'string') {
-                    $content = \json_decode($content);
+                    $content = json_decode($content);
                 }
             }
             return [ObjectSerializer::deserialize($content, $returnType, []), $response->getStatusCode(), $response->getHeaders()];
         }, function ($exception) {
             $response = $exception->getResponse();
             $statusCode = $response->getStatusCode();
-            throw new ApiException(\sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
+            throw new ApiException(sprintf('[%d] Error connecting to the API (%s)', $statusCode, $exception->getRequest()->getUri()), $statusCode, $response->getHeaders(), (string) $response->getBody());
         });
     }
     /**
@@ -291,7 +290,7 @@ class PaymentApi
     public function apiV1PaymentIdGetRequest($id)
     {
         // verify the required parameter 'id' is set
-        if ($id === null || \is_array($id) && \count($id) === 0) {
+        if ($id === null || is_array($id) && count($id) === 0) {
             throw new \InvalidArgumentException('Missing the required parameter $id when calling apiV1PaymentIdGet');
         }
         $resourcePath = '/api/v1/Payment/{id}';
@@ -302,7 +301,7 @@ class PaymentApi
         $multipart = \false;
         // path params
         if ($id !== null) {
-            $resourcePath = \str_replace('{' . 'id' . '}', ObjectSerializer::toPathValue($id), $resourcePath);
+            $resourcePath = str_replace('{' . 'id' . '}', ObjectSerializer::toPathValue($id), $resourcePath);
         }
         if ($multipart) {
             $headers = $this->headerSelector->selectHeadersForMultipart(['text/plain', 'application/json', 'text/json']);
@@ -310,11 +309,11 @@ class PaymentApi
             $headers = $this->headerSelector->selectHeaders(['text/plain', 'application/json', 'text/json'], []);
         }
         // for model (json/xml)
-        if (\count($formParams) > 0) {
+        if (count($formParams) > 0) {
             if ($multipart) {
                 $multipartContents = [];
                 foreach ($formParams as $formParamName => $formParamValue) {
-                    $formParamValueItems = \is_array($formParamValue) ? $formParamValue : [$formParamValue];
+                    $formParamValueItems = is_array($formParamValue) ? $formParamValue : [$formParamValue];
                     foreach ($formParamValueItems as $formParamValueItem) {
                         $multipartContents[] = ['name' => $formParamName, 'contents' => $formParamValueItem];
                     }
@@ -337,7 +336,7 @@ class PaymentApi
         if ($this->config->getUserAgent()) {
             $defaultHeaders['User-Agent'] = $this->config->getUserAgent();
         }
-        $headers = \array_merge($defaultHeaders, $headerParams, $headers);
+        $headers = array_merge($defaultHeaders, $headerParams, $headers);
         $query = ObjectSerializer::buildQuery($queryParams);
         return new Request('GET', $this->config->getHost() . $resourcePath . ($query ? "?{$query}" : ''), $headers, $httpBody);
     }
@@ -351,7 +350,7 @@ class PaymentApi
     {
         $options = [];
         if ($this->config->getDebug()) {
-            $options[RequestOptions::DEBUG] = \fopen($this->config->getDebugFile(), 'a');
+            $options[RequestOptions::DEBUG] = fopen($this->config->getDebugFile(), 'a');
             if (!$options[RequestOptions::DEBUG]) {
                 throw new \RuntimeException('Failed to open the debug file: ' . $this->config->getDebugFile());
             }

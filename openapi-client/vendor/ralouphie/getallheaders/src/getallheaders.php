@@ -2,12 +2,11 @@
 
 namespace Axytos\FinancialServices;
 
-if (!\function_exists('\Axytos\FinancialServices\getallheaders')) {
+if (!\function_exists('\Axytos\FinancialServices\getallheaders') && !\function_exists('Axytos\FinancialServices\getallheaders')) {
     /**
      * Get all HTTP header key/values as an associative array for the current request.
      *
      * @return string[string] The HTTP header key/value pairs.
-     * @internal
      */
     function getallheaders()
     {

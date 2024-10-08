@@ -4,7 +4,6 @@ namespace Axytos\FinancialServices\Psr\Http\Client;
 
 use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
 use Axytos\FinancialServices\Psr\Http\Message\ResponseInterface;
-/** @internal */
 interface ClientInterface
 {
     /**

@@ -10,7 +10,7 @@ namespace Axytos\FinancialServices;
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
-if (!\function_exists('Axytos\\FinancialServices\\trigger_deprecation')) {
+if (!\function_exists('Axytos\FinancialServices\trigger_deprecation')) {
     /**
      * Triggers a silenced deprecation notice.
      *
@@ -20,7 +20,6 @@ if (!\function_exists('Axytos\\FinancialServices\\trigger_deprecation')) {
      * @param mixed  ...$args Values to insert in the message using printf() formatting
      *
      * @author Nicolas Grekas <p@tchwork.com>
-     * @internal
      * @return void
      */
     function trigger_deprecation($package, $version, $message, ...$args)

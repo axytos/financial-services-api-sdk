@@ -17,7 +17,6 @@ use Axytos\FinancialServices\Psr\Http\Message\RequestInterface;
  * @property resource|\CurlMultiHandle $_mh Internal use only. Lazy loaded multi-handle.
  *
  * @final
- * @internal
  */
 #[\AllowDynamicProperties]
 class CurlMultiHandler
@@ -65,7 +64,7 @@ class CurlMultiHandler
         if (isset($options['select_timeout'])) {
             $this->selectTimeout = $options['select_timeout'];
         } elseif ($selectTimeout = Utils::getenv('GUZZLE_CURL_SELECT_TIMEOUT')) {
-            @\trigger_error('Since guzzlehttp/guzzle 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
+            @trigger_error('Since guzzlehttp/guzzle 7.2.0: Using environment variable GUZZLE_CURL_SELECT_TIMEOUT is deprecated. Use option "select_timeout" instead.', \E_USER_DEPRECATED);
             $this->selectTimeout = (int) $selectTimeout;
         } else {
             $this->selectTimeout = 1;
@@ -92,7 +91,7 @@ class CurlMultiHandler
         $this->_mh = $multiHandle;
         foreach ($this->options as $option => $value) {
             // A warning is raised in case of a wrong option.
-            \curl_multi_setopt($this->_mh, $option, $value);
+            curl_multi_setopt($this->_mh, $option, $value);
         }
         return $this->_mh;
     }
@@ -110,7 +109,7 @@ class CurlMultiHandler
     {
         $easy = $this->factory->create($request, $options);
         $id = (int) $easy->handle;
-        $promise = new Promise([$this, 'execute'], function () use($id) {
+        $promise = new Promise([$this, 'execute'], function () use ($id) {
             return $this->cancel($id);
         });
         $this->addRequest(['easy' => $easy, 'deferred' => $promise]);
@@ -181,7 +180,7 @@ class CurlMultiHandler
      */
     private function cancel($id)
     {
-        if (!\is_int($id)) {
+        if (!is_int($id)) {
             trigger_deprecation('guzzlehttp/guzzle', '7.4', 'Not passing an integer to %s::%s() is deprecated and will cause an error in 8.0.', __CLASS__, __FUNCTION__);
         }
         // Cannot cancel if it has been processed.
